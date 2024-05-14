@@ -1,1 +1,1 @@
-# radar_chart_demo
+# 仪表盘插件——Ranking
