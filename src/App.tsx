@@ -252,6 +252,8 @@ export default function App() {
         form.setValue('unit', currencyCode);
 
         // setCurrencyCode(currencyCode);
+      } else {
+        form.setValue('unit', '');
       }
     }
 
@@ -267,6 +269,8 @@ export default function App() {
 
         form.setValue('unit', currencyCode);
         // setCurrencyCode(currencyCode);
+      } else {
+        form.setValue('unit', '');
       }
     }
 
