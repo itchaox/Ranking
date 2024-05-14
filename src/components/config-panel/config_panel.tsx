@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-14 16:37
+ * @LastTime   : 2024-05-14 23:33
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -157,19 +157,20 @@ export const ConfigPanel: FC<any> = ({
                   <Form.InputGroup
                     label={{ text: <span>单位</span> }}
                     labelPosition='top'
+                    style={{ width: '100%' }}
                   >
                     <Form.Input
                       // initValue={currencyCode ? currencyCode : ''}
                       initValue=''
                       disabled={!isNumberFiled(formState.values)}
-                      style={{ width: 100 }}
+                      // style={{ width: 100 }}
                       field='unit'
                       showClear
                     />
 
                     <Form.RadioGroup
                       field='unitPosition'
-                      style={{ width: 100 }}
+                      // style={{ width: 100 }}
                       type='button'
                       initValue={'LEFT'}
                       options={[

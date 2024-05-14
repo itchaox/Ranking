@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-14 22:39
+ * @LastTime   : 2024-05-14 23:15
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -42,28 +42,283 @@ export function RadarChart({ dataSet, formState }: RadarChartProps) {
         className='img-right'
         src={RightImage}
       />
-      <div className='content'>
-        {_data.map((item, index) => (
-          <div
-            className='line'
-            key={item[0]}
-          >
-            {index <= 2 ? (
-              <div className='index'>{getIndexImage(index)}</div>
-            ) : (
-              <div className='index'>{index + 1}</div>
-            )}
-            <div className='info'>
-              <div className='name'>{item[0]}</div>
 
-              <div className={`number ${index <= 2 ? 'special' : ''}`}>
-                {formState?.unitPosition === 'LEFT'
-                  ? `${formState?.unit || ''} ${item[1]}`
-                  : `${item[1]} ${formState?.unit || ''}`}
+      <div className='scroll'>
+        <div className='content'>
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}{' '}
+          {_data.map((item, index) => (
+            <div
+              className='line'
+              key={item[0]}
+            >
+              {index <= 2 ? (
+                <div className='index'>{getIndexImage(index)}</div>
+              ) : (
+                <div className='index'>{index + 1}</div>
+              )}
+              <div className='info'>
+                <div className='name'>{item[0]}</div>
+
+                <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                  {formState?.unitPosition === 'LEFT'
+                    ? `${formState?.unit || ''} ${item[1]}`
+                    : `${item[1]} ${formState?.unit || ''}`}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </AppWrapper>
   );
