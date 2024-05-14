@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 00:45
+ * @LastTime   : 2024-05-15 01:12
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -11,6 +11,8 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { IDataRange, SourceType, ICategory } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
 import { Button, Form, Divider } from '@douyinfe/semi-ui';
+
+import { People, ViewList } from '@icon-park/react';
 
 export const ConfigPanel: FC<any> = ({
   initFormValue,
@@ -60,6 +62,14 @@ export const ConfigPanel: FC<any> = ({
                   {/* 数据源 */}
                   <Form.Select
                     field='table'
+                    prefix={
+                      <ViewList
+                        theme='outline'
+                        size='14'
+                        fill='#646A73'
+                        style={{ margin: '0 5px' }}
+                      />
+                    }
                     label={{ text: '数据源' }}
                     style={{ width: '100%' }}
                     optionList={tableSource.map((item) => ({
@@ -71,6 +81,14 @@ export const ConfigPanel: FC<any> = ({
                   {/* 数据范围 */}
                   <Form.Select
                     field='dataRange'
+                    prefix={
+                      <ViewList
+                        theme='outline'
+                        size='14'
+                        fill='#646A73'
+                        style={{ margin: '0 5px' }}
+                      />
+                    }
                     label={{ text: '数据范围', required: true }}
                     style={{ width: '100%' }}
                     optionList={dataRange.map((range) => {
@@ -108,6 +126,14 @@ export const ConfigPanel: FC<any> = ({
                   <Form.Select
                     field='category'
                     label={{ text: '人员' }}
+                    prefix={
+                      <People
+                        theme='outline'
+                        size='14'
+                        fill='#646A73'
+                        style={{ margin: '0 5px' }}
+                      />
+                    }
                     style={{ width: '100%' }}
                     optionList={categories
                       .filter((item) => [11, 1003, 1004].includes(item.fieldType))

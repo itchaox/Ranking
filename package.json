@@ -24,6 +24,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
     "@douyinfe/semi-ui": "^2.58.0",
+    "@icon-park/react": "^1.4.2",
     "@lark-base-open/js-sdk": "https://lf3-static.bytednsdoc.com/obj/eden-cn/jjjpceh7nulojvhj/@lark-base-open-js-sdk-0.4.0-alpha.12.tgz",
     "@types/lodash-es": "^4.17.12",
     "antd": "^5.7.3",
