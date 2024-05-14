@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-14 08:23
+ * @LastTime   : 2024-05-14 16:37
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -48,6 +48,7 @@ export const ConfigPanel: FC<any> = ({
       {initFormValue && tableSource.length && categories.length ? (
         <>
           <Form
+            className='form'
             initValues={initFormValue}
             getFormApi={(formApi) => (api.current = formApi)}
             onValueChange={(values, changedValue) => handleConfigChange(changedValue, values, api.current)}
@@ -58,7 +59,7 @@ export const ConfigPanel: FC<any> = ({
                 <Form.Select
                   field='table'
                   label={{ text: '数据源' }}
-                  style={{ width: 176 }}
+                  style={{ width: '100%' }}
                   optionList={tableSource.map((item) => ({
                     value: item.tableId,
                     label: item.tableName,
@@ -69,7 +70,7 @@ export const ConfigPanel: FC<any> = ({
                 <Form.Select
                   field='dataRange'
                   label={{ text: '数据范围', required: true }}
-                  style={{ width: 176 }}
+                  style={{ width: '100%' }}
                   optionList={dataRange.map((range) => {
                     const { type } = range;
                     if (type === SourceType.ALL) {
@@ -87,7 +88,8 @@ export const ConfigPanel: FC<any> = ({
                 />
 
                 {/* 样式 */}
-                <Form.RadioGroup
+                {/* FIXME 暂时不需要样式切换，等有头像再做 */}
+                {/* <Form.RadioGroup
                   field='style'
                   label={{ text: '样式' }}
                   style={{ width: 176 }}
@@ -96,13 +98,13 @@ export const ConfigPanel: FC<any> = ({
                     { value: 1, label: '列表' },
                     { value: 2, label: '卡片和列表' },
                   ]}
-                />
+                /> */}
 
                 {/* 人员 */}
                 <Form.Select
                   field='category'
                   label={{ text: '人员' }}
-                  style={{ width: 176 }}
+                  style={{ width: '100%' }}
                   optionList={categories
                     .filter((item) => [11, 1003, 1004].includes(item.fieldType))
                     .map((category) => {
@@ -118,7 +120,7 @@ export const ConfigPanel: FC<any> = ({
                 <Form.Select
                   field='statistics'
                   label={{ text: '指标' }}
-                  style={{ width: 176 }}
+                  style={{ width: '100%' }}
                   optionList={[
                     { value: 'COUNTA', label: '统计记录总数' },
                     { value: 'VALUE', label: '统计字段数值' },
@@ -136,7 +138,7 @@ export const ConfigPanel: FC<any> = ({
                     suffix='后缀'
                     field='selectFiled'
                     label={{ text: '选择字段' }}
-                    style={{ width: 176 }}
+                    style={{ width: '100%' }}
                     optionList={categories
                       .filter((item) => [2, 99003].includes(item.fieldType))
                       .map((category) => {
@@ -180,21 +182,24 @@ export const ConfigPanel: FC<any> = ({
 
                 {/* 自定义数量 */}
                 <Form.InputGroup
+                  style={{ width: '100%' }}
+                  className='amountSwitch'
                   label={{ text: <span>自定义数量</span> }}
-                  labelPosition='top'
+                  labelPosition='left'
                 >
                   <Form.Switch field='amountSwitch' />
-
-                  {formState.values.amountSwitch && (
-                    <Form.InputNumber
-                      initValue={10}
-                      max={dataSet.length - 1}
-                      min={0}
-                      style={{ width: 100 }}
-                      field='amountNumber'
-                    />
-                  )}
                 </Form.InputGroup>
+
+                {formState.values.amountSwitch && (
+                  <Form.InputNumber
+                    noLabel={true}
+                    initValue={10}
+                    max={dataSet.length - 1}
+                    min={0}
+                    style={{ width: '100%' }}
+                    field='amountNumber'
+                  />
+                )}
 
                 <Button
                   onClick={() => {
