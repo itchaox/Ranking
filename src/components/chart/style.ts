@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-14 23:47
+ * @LastTime   : 2024-05-15 22:34
  * @desc       :
  */
 
@@ -59,9 +59,12 @@ export const AppWrapper = styled.div`
     font-size: 14px;
     font-style: italic;
     font-weight: 700;
-    text-align: center;
     width: 24px;
     margin-right: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .info {
