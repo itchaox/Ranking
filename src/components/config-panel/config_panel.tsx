@@ -3,17 +3,20 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 14:17
+ * @LastTime   : 2024-05-16 00:38
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
 // import { Form, Select, FormInstance, Radio } from 'antd';
 import { IDataRange, SourceType, ICategory } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
-import { Button, Form, Divider, Input } from '@douyinfe/semi-ui';
+import { Button, Form, Divider, Input, Highlight } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 import { People, ViewList } from '@icon-park/react';
+
+import NumberIcon from '../../assets/icons/Number.svg';
+import CurrencyIcon from '../../assets/icons/Currency.svg';
 
 export const ConfigPanel: FC<any> = ({
   initFormValue,
@@ -45,6 +48,79 @@ export const ConfigPanel: FC<any> = ({
 
     return categories.find((item) => item.fieldId === values.selectFiled)?.fieldType === 2 || isCOUNTA;
   };
+
+  const [inputValue, setInputValue] = useState('');
+
+  const renderOptionItem = (renderProps) => {
+    const {
+      disabled,
+      selected,
+      label,
+      value,
+      focused,
+      className,
+      style,
+      onMouseEnter,
+      onClick,
+      empty,
+      emptyContent,
+      ...rest
+    } = renderProps;
+
+    const type = categories.find((item) => item.fieldId === value)?.fieldType;
+
+    const searchWords = [inputValue];
+
+    console.log('🚀  inputValue:', inputValue);
+
+    // Notice：
+    // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
+    // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
+    // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
+
+    return (
+      <div
+        className='custom-option-render'
+        style={style}
+        onClick={() => onClick()}
+        onMouseEnter={(e) => onMouseEnter()}
+      >
+        <img src={type === 2 ? NumberIcon : CurrencyIcon} />
+        {label}
+      </div>
+    );
+  };
+
+  const [customOptionList, setCustomOptionList] = useState([]);
+
+  useEffect(() => {
+    setCustomOptionList(
+      categories
+        .filter((item) => [2, 99003].includes(item.fieldType))
+        .map((category) => ({
+          value: category.fieldId,
+          label: category.fieldName,
+        })),
+    );
+  }, []);
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    let _list = categories
+      .filter((item) => [2, 99003].includes(item.fieldType) && item.fieldName.includes(inputValue))
+      .map((category) => ({
+        value: category.fieldId,
+        label: category.fieldName,
+      }));
+
+    setCustomOptionList(_list);
+  }, [inputValue]);
 
   return (
     <AppWrapper>
@@ -171,20 +247,14 @@ export const ConfigPanel: FC<any> = ({
                       style={{ width: '100%' }}
                       outerTopSlot={
                         <Input
+                          onChange={(value) => setInputValue(value)}
                           prefix={<IconSearch />}
                           showClear
                           placeholder='搜索字段'
                         ></Input>
                       }
-                      optionList={categories
-                        .filter((item) => [2, 99003].includes(item.fieldType))
-                        .map((category) => {
-                          const { fieldName } = category;
-                          return {
-                            value: category.fieldId,
-                            label: fieldName,
-                          };
-                        })}
+                      optionList={customOptionList}
+                      renderOptionItem={renderOptionItem}
                     />
                   )}
 

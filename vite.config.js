@@ -8,7 +8,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5050,
     proxy: {
-      '/api': 'https://api.apiusb.com/api/app?service=App.NumbersFormula.RandomNumberGenerator&num=8&min=7&max=15'
-    }
-  }
-})
+      '/api': 'https://api.apiusb.com/api/app?service=App.NumbersFormula.RandomNumberGenerator&num=8&min=7&max=15',
+    },
+  },
+});

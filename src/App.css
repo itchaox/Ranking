@@ -14,3 +14,31 @@ body {
   display: flex;
   flex-direction: row;
 }
+
+.semi-popover-wrapper {
+  line-height: 32px !important;
+  background-color: #fff;
+
+  .semi-input-wrapper {
+    border-bottom: 0.5px solid #1f232925;
+    background-color: #fff;
+    &:hover {
+      border-bottom: 0.5px solid #1f232925;
+      background-color: #fff;
+    }
+  }
+
+  .custom-option-render {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    margin: 0 5px;
+  }
+
+  .custom-option-render:hover {
+    background-color: #edeeee;
+    cursor: pointer;
+  }
+}
