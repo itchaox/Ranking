@@ -60,11 +60,9 @@ export default function App() {
           setRenderData(res.data);
         });
 
-        // dashboard.onConfigChange(async (res) => {
-        //   console.log('🚀  re22222222s:', res);
-        //   setFormState(res.data.customConfig);
-        //   // setRenderData(res.data);
-        // });
+        dashboard.onConfigChange(async (res) => {
+          setFormState(res?.data?.customConfig);
+        });
       }
     }
 
@@ -104,8 +102,13 @@ export default function App() {
             dataRange: JSON.stringify(tableRanges[0]),
             category: filterCategories(categories, 'user')[0]?.fieldId,
             selectFiled: filterCategories(categories, 'number')[0]?.fieldId,
-            style: 1,
             statistics: 'COUNTA',
+            unit: '',
+            unitPosition: 'LEFT',
+            amountSwitch: true,
+            amountNumber: 10,
+
+            // style: 1,
           };
 
           previewConfig = {
@@ -131,7 +134,7 @@ export default function App() {
           const { dataConditions, customConfig } = await dashboard.getConfig();
 
           let { tableId, dataRange, groups, series } = dataConditions[0];
-          let { style } = customConfig;
+          let { unit, unitPosition, amountSwitch, amountNumber } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
           setDataRange(tableRanges);
@@ -145,7 +148,12 @@ export default function App() {
             dataRange: JSON.stringify(dataRange),
             category: groups?.[0]?.fieldId ?? '',
             selectFiled: groups?.[1]?.fieldId ?? '',
-            style,
+            unit,
+            unitPosition,
+            amountSwitch,
+            amountNumber,
+
+            // style,
             // indicators: statistics === 'VALUE' ? (series as ISeries[]).map((seri) => seri.fieldId) : undefined,
             statistics,
           };
@@ -156,8 +164,9 @@ export default function App() {
             dataRange,
             series,
           };
+
           if (customConfig) {
-            setFormState(customConfig?.allValues);
+            setFormState(customConfig);
           }
         }
 
@@ -171,7 +180,7 @@ export default function App() {
     }
   }, [getTableList, getTableRange, getCategories]);
 
-  const [currencyCode, setCurrencyCode] = useState();
+  // const [currencyCode, setCurrencyCode] = useState();
 
   function getCurrency(currencyCode) {
     const currencySymbols = {
@@ -206,7 +215,7 @@ export default function App() {
   }
 
   const handleConfigChange = async (changedVal, allValues: IFormValues, form) => {
-    let { category, dataRange, table, statistics, indicators, selectFiled } = allValues;
+    let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
     // 监听表单变化
 
@@ -274,6 +283,10 @@ export default function App() {
       }
     }
 
+    if (changedVal.amountSwitch) {
+      form.setValue('amountNumber', 10);
+    }
+
     const dataRangeObj = JSON.parse(dataRange);
 
     const groups = [
@@ -314,38 +327,6 @@ export default function App() {
     setRenderData(data);
   };
 
-  // FIXME 保存配置至展示状态
-
-  // const updateConfig = (res: any) => {
-  //   const { customConfig } = res;
-  //   if (customConfig) {
-  //     // setConfig(customConfig as any);
-  //     setTimeout(() => {
-  //       // 预留3s给浏览器进行渲染，3s后告知服务端可以进行截图了
-  //       dashboard.setRendered();
-  //     }, 3000);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // isCreate
-  //   if (dashboard.state === DashboardState.Create) {
-  //     return;
-  //   }
-  //   // 初始化获取配置
-  //   dashboard.getConfig().then(updateConfig);
-  // }, []);
-
-  // useEffect(() => {
-  //   const offConfigChange = dashboard.onConfigChange((r) => {
-  //     // 监听配置变化，协同修改配置
-  //     updateConfig(r.data);
-  //   });
-  //   return () => {
-  //     offConfigChange();
-  //   };
-  // }, []);
-
   const saveConfig = (allValues) => {
     const { category, dataRange, table, style, selectFiled } = allValues;
 
@@ -377,8 +358,7 @@ export default function App() {
     dashboard.saveConfig({
       dataConditions: dataCondition,
       customConfig: {
-        style,
-        allValues,
+        ...allValues,
       },
     });
   };
@@ -405,7 +385,6 @@ export default function App() {
           onSaveConfig={saveConfig}
           initFormValue={initFormValue}
           dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
-          currencyCode={currencyCode}
         />
       ) : null}
     </div>

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 08:08
+ * @LastTime   : 2024-05-15 13:49
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -22,7 +22,6 @@ export const ConfigPanel: FC<any> = ({
   handleConfigChange,
   onSaveConfig,
   dataSet,
-  currencyCode,
 }) => {
   // const [form] = Form.useForm();
 
@@ -191,7 +190,6 @@ export const ConfigPanel: FC<any> = ({
                     >
                       <Form.Input
                         className='unit'
-                        initValue=''
                         disabled={!isNumberFiled(formState.values)}
                         field='unit'
                         showClear
@@ -200,7 +198,6 @@ export const ConfigPanel: FC<any> = ({
                       <Form.RadioGroup
                         field='unitPosition'
                         type='button'
-                        initValue={'LEFT'}
                         options={[
                           { value: 'LEFT', label: '左' },
                           { value: 'RIGHT', label: '右' },
@@ -219,13 +216,11 @@ export const ConfigPanel: FC<any> = ({
                   >
                     <Form.Switch field='amountSwitch' />
                   </Form.InputGroup>
-
                   {formState.values.amountSwitch && (
                     <Form.InputNumber
                       className='amountNumber'
                       noLabel={true}
-                      initValue={10}
-                      max={dataSet.length - 1}
+                      max={50000}
                       min={0}
                       style={{ width: '100%', marginTop: '-12px' }}
                       field='amountNumber'
