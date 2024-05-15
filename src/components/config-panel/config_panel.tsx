@@ -3,14 +3,15 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 13:49
+ * @LastTime   : 2024-05-15 14:17
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
 // import { Form, Select, FormInstance, Radio } from 'antd';
 import { IDataRange, SourceType, ICategory } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
-import { Button, Form, Divider } from '@douyinfe/semi-ui';
+import { Button, Form, Divider, Input } from '@douyinfe/semi-ui';
+import { IconSearch } from '@douyinfe/semi-icons';
 
 import { People, ViewList } from '@icon-park/react';
 
@@ -168,6 +169,13 @@ export const ConfigPanel: FC<any> = ({
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
+                      outerTopSlot={
+                        <Input
+                          prefix={<IconSearch />}
+                          showClear
+                          placeholder='搜索字段'
+                        ></Input>
+                      }
                       optionList={categories
                         .filter((item) => [2, 99003].includes(item.fieldType))
                         .map((category) => {
