@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 22:34
+ * @LastTime   : 2024-05-15 22:36
  * @desc       :
  */
 
@@ -32,10 +32,7 @@ export const AppWrapper = styled.div`
   .scroll {
     height: 100%;
     position: relative;
-
-    overflow-y: auto; /* 当内容超出时，垂直方向出现滚动条 */
-
-    /* 当内容超出时，垂直方向出现滚动条 */
+    overflow-y: auto;
   }
 
   .content {
