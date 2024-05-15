@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 01:12
+ * @LastTime   : 2024-05-15 08:08
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -237,6 +237,7 @@ export const ConfigPanel: FC<any> = ({
                   onClick={() => {
                     onSaveConfig(formState.values);
                   }}
+                  className='confirm'
                   style={{ position: 'fixed', bottom: 20, right: 30 }}
                 >
                   确定

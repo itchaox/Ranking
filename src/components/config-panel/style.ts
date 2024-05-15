@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 00:52
+ * @LastTime   : 2024-05-15 08:12
  * @desc       :
  */
 
@@ -40,6 +40,19 @@ export const AppWrapper = styled.div`
 
   .amountNumber {
     padding-top: -12px;
+  }
+
+  .confirm {
+    width: 78px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #2955e7;
+    color: #fff;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: #2955e790;
+    }
   }
 
   /* FIXME 修改 ui 组件样式 */
