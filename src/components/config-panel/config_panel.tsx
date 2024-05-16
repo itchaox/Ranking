@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 09:18
+ * @LastTime   : 2024-05-16 09:20
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -263,7 +263,8 @@ export const ConfigPanel: FC<any> = ({
 
                       // prefix={getPrefix(formState.values.selectField)}
                       showArrow={false}
-                      suffix='后缀'
+                      // suffix={<div>测试一下</div>}
+                      // suffix='测试'
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
