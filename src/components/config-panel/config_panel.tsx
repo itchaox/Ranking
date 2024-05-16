@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 00:38
+ * @LastTime   : 2024-05-16 09:18
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -51,6 +51,19 @@ export const ConfigPanel: FC<any> = ({
 
   const [inputValue, setInputValue] = useState('');
 
+  const renderSelectedItem = (optionNode) => {
+    const type = categories.find((item) => item.fieldId === optionNode.value)?.fieldType;
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img
+          src={type === 2 ? NumberIcon : CurrencyIcon}
+          style={{ marginRight: '5px' }}
+        />
+        <div>{optionNode.label} </div>
+      </div>
+    );
+  };
+
   const renderOptionItem = (renderProps) => {
     const {
       disabled,
@@ -94,14 +107,14 @@ export const ConfigPanel: FC<any> = ({
   const [customOptionList, setCustomOptionList] = useState([]);
 
   useEffect(() => {
-    setCustomOptionList(
-      categories
-        .filter((item) => [2, 99003].includes(item.fieldType))
-        .map((category) => ({
-          value: category.fieldId,
-          label: category.fieldName,
-        })),
-    );
+    // setCustomOptionList(
+    //   categories
+    //     .filter((item) => [2, 99003].includes(item.fieldType))
+    //     .map((category) => ({
+    //       value: category.fieldId,
+    //       label: category.fieldName,
+    //     })),
+    // );
   }, []);
 
   const isFirstRender = useRef(true);
@@ -121,6 +134,12 @@ export const ConfigPanel: FC<any> = ({
 
     setCustomOptionList(_list);
   }, [inputValue]);
+
+  const getPrefix = (data) => {
+    console.log(data);
+
+    return '?';
+  };
 
   return (
     <AppWrapper>
@@ -236,15 +255,19 @@ export const ConfigPanel: FC<any> = ({
                   {/* 选择字段 */}
                   {formState.values.statistics === 'VALUE' && (
                     <Form.Select
-                      prefix={
-                        categories.find((item) => item.fieldId === formState.values.selectField)?.fieldType === 2
-                          ? '#'
-                          : '¥'
-                      }
+                      // prefix={
+                      //   categories.find((item) => item.fieldId === formState.values.selectField)?.fieldType === 2
+                      //     ? '#'
+                      //     : '¥'
+                      // }
+
+                      // prefix={getPrefix(formState.values.selectField)}
+                      showArrow={false}
                       suffix='后缀'
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
+                      renderSelectedItem={renderSelectedItem}
                       outerTopSlot={
                         <Input
                           onChange={(value) => setInputValue(value)}
@@ -253,7 +276,14 @@ export const ConfigPanel: FC<any> = ({
                           placeholder='搜索字段'
                         ></Input>
                       }
-                      optionList={customOptionList}
+                      // optionList={customOptionList}
+
+                      optionList={categories
+                        .filter((item) => [2, 99003].includes(item.fieldType) && item.fieldName.includes(inputValue))
+                        .map((category) => ({
+                          value: category.fieldId,
+                          label: category.fieldName,
+                        }))}
                       renderOptionItem={renderOptionItem}
                     />
                   )}
