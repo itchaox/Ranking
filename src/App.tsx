@@ -214,6 +214,59 @@ export default function App() {
     return currencySymbols[currencyCode] || '';
   }
 
+  const dropChange = async (value, allValues) => {
+    let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
+
+    let _obj = {
+      最大值: Rollup.MAX,
+      最小值: Rollup.MIN,
+      求和: Rollup.SUM,
+      平均值: Rollup.AVERAGE,
+    };
+
+    // 监听表单变化
+
+    const dataRangeObj = JSON.parse(dataRange);
+
+    const groups = [
+      {
+        fieldId: category,
+        mode: GroupMode.INTEGRATED,
+        sort: {
+          order: ORDER.ASCENDING,
+          sortType: DATA_SOURCE_SORT_TYPE.VIEW,
+        },
+      },
+    ];
+
+    let series: 'COUNTA' | ISeries[];
+
+    if (statistics === 'COUNTA') {
+      // 统计记录总数
+      series = 'COUNTA';
+    } else {
+      series = [
+        {
+          fieldId: selectFiled,
+          // rollup: Rollup.MAX,
+          rollup: _obj[value],
+        },
+      ];
+    }
+
+    const data = await dashboard.getPreviewData({
+      tableId: table,
+      dataRange: dataRangeObj,
+      groups,
+      series,
+    });
+
+    // FIXME 这里根据表单的数据去修改左侧的图表
+
+    setFormState(allValues);
+    setRenderData(data);
+  };
+
   const handleConfigChange = async (changedVal, allValues: IFormValues, form) => {
     let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
@@ -379,6 +432,7 @@ export default function App() {
       {isCreateOrConfig ? (
         <ConfigPanel
           handleConfigChange={handleConfigChange}
+          dropChange={dropChange}
           tableSource={tableSource}
           dataRange={dataRange}
           categories={categories}

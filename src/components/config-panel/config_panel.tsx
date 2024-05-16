@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 12:30
+ * @LastTime   : 2024-05-16 13:06
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -25,6 +25,7 @@ export const ConfigPanel: FC<any> = ({
   categories,
   handleConfigChange,
   onSaveConfig,
+  dropChange,
   dataSet,
 }) => {
   // const [form] = Form.useForm();
@@ -84,8 +85,6 @@ export const ConfigPanel: FC<any> = ({
 
     const searchWords = [inputValue];
 
-    console.log('🚀  inputValue:', inputValue);
-
     // Notice：
     // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
     // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
@@ -137,9 +136,10 @@ export const ConfigPanel: FC<any> = ({
 
   const [dropTitle, setDropTitle] = useState('求和');
 
-  const dropItemClick = (e) => {
+  const dropItemClick = (e, formState) => {
     let data = e.target.textContent;
     setDropTitle(data);
+    dropChange(data, formState.values);
   };
 
   return (
@@ -266,10 +266,13 @@ export const ConfigPanel: FC<any> = ({
                           clickToHide={true}
                           render={
                             <Dropdown.Menu>
-                              <Dropdown.Item onClick={dropItemClick}>求和</Dropdown.Item>
-                              <Dropdown.Item onClick={dropItemClick}>最大值</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>求和</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最大值</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最小值</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>平均值</Dropdown.Item>
+                              {/* <Dropdown.Item onClick={dropItemClick}>最大值</Dropdown.Item>
                               <Dropdown.Item onClick={dropItemClick}>最小值</Dropdown.Item>
-                              <Dropdown.Item onClick={dropItemClick}>平均值</Dropdown.Item>
+                              <Dropdown.Item onClick={dropItemClick}>平均值</Dropdown.Item> */}
                             </Dropdown.Menu>
                           }
                         >
