@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 10:46
+ * @LastTime   : 2024-05-16 12:30
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -135,10 +135,11 @@ export const ConfigPanel: FC<any> = ({
     setCustomOptionList(_list);
   }, [inputValue]);
 
-  const getPrefix = (data) => {
-    console.log(data);
+  const [dropTitle, setDropTitle] = useState('求和');
 
-    return '?';
+  const dropItemClick = (e) => {
+    let data = e.target.textContent;
+    setDropTitle(data);
   };
 
   return (
@@ -262,12 +263,13 @@ export const ConfigPanel: FC<any> = ({
                           position='bottomRight'
                           trigger={'click'}
                           stopPropagation={true}
+                          clickToHide={true}
                           render={
                             <Dropdown.Menu>
-                              <Dropdown.Item>求和</Dropdown.Item>
-                              <Dropdown.Item>最大值</Dropdown.Item>
-                              <Dropdown.Item>最小值</Dropdown.Item>
-                              <Dropdown.Item>平均值</Dropdown.Item>
+                              <Dropdown.Item onClick={dropItemClick}>求和</Dropdown.Item>
+                              <Dropdown.Item onClick={dropItemClick}>最大值</Dropdown.Item>
+                              <Dropdown.Item onClick={dropItemClick}>最小值</Dropdown.Item>
+                              <Dropdown.Item onClick={dropItemClick}>平均值</Dropdown.Item>
                             </Dropdown.Menu>
                           }
                         >
@@ -276,7 +278,7 @@ export const ConfigPanel: FC<any> = ({
                               e.stopPropagation();
                             }}
                           >
-                            求和
+                            {dropTitle}
                           </div>
                         </Dropdown>
                       }
