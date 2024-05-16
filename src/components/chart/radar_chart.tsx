@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 21:56
+ * @LastTime   : 2024-05-16 23:43
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -32,6 +32,7 @@ export function RadarChart({ dataSet, formState }: RadarChartProps) {
   };
 
   let _data = !formState?.amountSwitch ? dataSet.slice(1) : dataSet.slice(1, formState?.amountNumber + 1);
+
   return (
     <AppWrapper>
       <img

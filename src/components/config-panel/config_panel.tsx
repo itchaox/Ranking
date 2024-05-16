@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 13:06
+ * @LastTime   : 2024-05-17 00:59
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -27,6 +27,7 @@ export const ConfigPanel: FC<any> = ({
   onSaveConfig,
   dropChange,
   dataSet,
+  operation,
 }) => {
   // const [form] = Form.useForm();
 
@@ -134,11 +135,8 @@ export const ConfigPanel: FC<any> = ({
     setCustomOptionList(_list);
   }, [inputValue]);
 
-  const [dropTitle, setDropTitle] = useState('求和');
-
   const dropItemClick = (e, formState) => {
     let data = e.target.textContent;
-    setDropTitle(data);
     dropChange(data, formState.values);
   };
 
@@ -270,9 +268,6 @@ export const ConfigPanel: FC<any> = ({
                               <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最大值</Dropdown.Item>
                               <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最小值</Dropdown.Item>
                               <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>平均值</Dropdown.Item>
-                              {/* <Dropdown.Item onClick={dropItemClick}>最大值</Dropdown.Item>
-                              <Dropdown.Item onClick={dropItemClick}>最小值</Dropdown.Item>
-                              <Dropdown.Item onClick={dropItemClick}>平均值</Dropdown.Item> */}
                             </Dropdown.Menu>
                           }
                         >
@@ -281,7 +276,8 @@ export const ConfigPanel: FC<any> = ({
                               e.stopPropagation();
                             }}
                           >
-                            {dropTitle}
+                            {/* {dropTitle} */}
+                            {operation}
                           </div>
                         </Dropdown>
                       }

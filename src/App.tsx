@@ -27,6 +27,7 @@ export default function App() {
   const [initFormValue, setInitFormValue] = useState<IFormValues>();
   const [renderData, setRenderData] = useState<IData>([]);
   const [formState, setFormState] = useState({});
+  const [operation, setOperation] = useState('求和');
 
   const getTableList = useCallback(async () => {
     const tables = await bitable.base.getTableList();
@@ -52,7 +53,8 @@ export default function App() {
   // 展示态
   useEffect(() => {
     async function fetchData() {
-      if (dashboard.state === DashboardState.View || dashboard.state === DashboardState.FullScreen) {
+      // if (dashboard.state === DashboardState.View || dashboard.state === DashboardState.FullScreen) {
+      if (dashboard.state === DashboardState.View) {
         const res = await dashboard.getData();
         setRenderData(res);
 
@@ -62,6 +64,7 @@ export default function App() {
 
         dashboard.onConfigChange(async (res) => {
           setFormState(res?.data?.customConfig);
+          setOperation(res?.data?.customConfig?.operation);
         });
       }
     }
@@ -133,28 +136,49 @@ export default function App() {
           // 调用后端接口 getConfig 获取刚刚配置的数据，来进行返显操作
           const { dataConditions, customConfig } = await dashboard.getConfig();
 
-          let { tableId, dataRange, groups, series } = dataConditions[0];
-          let { unit, unitPosition, amountSwitch, amountNumber } = customConfig;
+          let { tableId, dataRange, groups } = dataConditions[0];
+
+          let {
+            unit,
+            unitPosition,
+            amountSwitch,
+            amountNumber,
+            statistics,
+            selectFiled,
+            operation: _operation,
+          } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
           setDataRange(tableRanges);
-
           setCategories(categories);
+          setOperation(_operation);
 
-          const statistics = series === 'COUNTA' ? 'COUNTA' : 'VALUE';
+          // FIXME 这里会导致下拉框无法正确返显
+          // const statistics = series === 'COUNTA' ? 'COUNTA' : 'VALUE';
+
+          let series: 'COUNTA' | ISeries[];
+
+          if (statistics === 'COUNTA') {
+            // 统计记录总数
+            series = 'COUNTA';
+          } else {
+            series = [
+              {
+                fieldId: selectFiled,
+                rollup: operationMap[_operation],
+              },
+            ];
+          }
 
           formInitValue = {
             table: tableId,
             dataRange: JSON.stringify(dataRange),
             category: groups?.[0]?.fieldId ?? '',
-            selectFiled: groups?.[1]?.fieldId ?? '',
+            selectFiled,
             unit,
             unitPosition,
             amountSwitch,
             amountNumber,
-
-            // style,
-            // indicators: statistics === 'VALUE' ? (series as ISeries[]).map((seri) => seri.fieldId) : undefined,
             statistics,
           };
 
@@ -214,15 +238,17 @@ export default function App() {
     return currencySymbols[currencyCode] || '';
   }
 
-  const dropChange = async (value, allValues) => {
-    let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
+  let operationMap = {
+    最大值: Rollup.MAX,
+    最小值: Rollup.MIN,
+    求和: Rollup.SUM,
+    平均值: Rollup.AVERAGE,
+  };
 
-    let _obj = {
-      最大值: Rollup.MAX,
-      最小值: Rollup.MIN,
-      求和: Rollup.SUM,
-      平均值: Rollup.AVERAGE,
-    };
+  const dropChange = async (value, allValues) => {
+    setOperation(value);
+
+    let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
     // 监听表单变化
 
@@ -248,8 +274,7 @@ export default function App() {
       series = [
         {
           fieldId: selectFiled,
-          // rollup: Rollup.MAX,
-          rollup: _obj[value],
+          rollup: operationMap[value],
         },
       ];
     }
@@ -299,7 +324,7 @@ export default function App() {
     }
 
     // 切换至『统计字段数值』默认选中第一个数字或货币字段
-    if (changedVal.statistics) {
+    if (changedVal.statistics === 'VALUE') {
       let _data = filterCategories(categories, 'number')[0];
 
       form.setValue('selectFiled', _data?.fieldId);
@@ -312,8 +337,6 @@ export default function App() {
         const currencyCode = getCurrency(res);
 
         form.setValue('unit', currencyCode);
-
-        // setCurrencyCode(currencyCode);
       } else {
         form.setValue('unit', '');
       }
@@ -362,7 +385,7 @@ export default function App() {
       series = [
         {
           fieldId: selectFiled,
-          rollup: Rollup.MAX,
+          rollup: operationMap[operation],
         },
       ];
     }
@@ -381,13 +404,28 @@ export default function App() {
   };
 
   const saveConfig = (allValues) => {
-    const { category, dataRange, table, style, selectFiled } = allValues;
+    const { category, dataRange, table, style, selectFiled, statistics } = allValues;
+
+    let series;
+
+    if (statistics === 'COUNTA') {
+      // 统计记录总数
+      series = 'COUNTA';
+    } else {
+      series = [
+        {
+          fieldId: selectFiled,
+          rollup: operationMap[operation],
+        },
+      ];
+    }
 
     const dataRangeObj = dataRange && JSON.parse(dataRange);
 
     const groups = [
       {
-        fieldId: category,
+        // fieldId: category,
+        fieldId: filterCategories(categories, 'user')[0]?.fieldId,
         mode: GroupMode.INTEGRATED,
         sort: {
           order: ORDER.ASCENDING,
@@ -400,6 +438,7 @@ export default function App() {
       tableId: table,
       dataRange: dataRangeObj,
       groups,
+      series,
     };
 
     setFormState(allValues);
@@ -412,6 +451,7 @@ export default function App() {
       dataConditions: dataCondition,
       customConfig: {
         ...allValues,
+        operation,
       },
     });
   };
@@ -438,6 +478,7 @@ export default function App() {
           categories={categories}
           onSaveConfig={saveConfig}
           initFormValue={initFormValue}
+          operation={operation}
           dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
         />
       ) : null}
