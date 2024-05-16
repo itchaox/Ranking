@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 23:33
+ * @LastTime   : 2024-05-16 10:46
  * @desc       :
  */
 
@@ -57,6 +57,17 @@ export const AppWrapper = styled.div`
 
   /* FIXME 修改 ui 组件样式 */
 
+  .semi-select-suffix {
+    margin: 3px 20px 3px 0;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 9;
+
+    &:hover {
+      background-color: #f2f3f5;
+    }
+  }
+
   .semi-input-wrapper {
     border-radius: 6px;
     border: 1px solid #d0d3d6;
@@ -67,6 +78,7 @@ export const AppWrapper = styled.div`
     border-radius: 6px;
     border: 1px solid #d0d3d6;
     background-color: #fff;
+    z-index: 0;
   }
 
   .semi-radioGroup {

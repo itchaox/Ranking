@@ -3,14 +3,14 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-16 09:20
+ * @LastTime   : 2024-05-16 10:46
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
 // import { Form, Select, FormInstance, Radio } from 'antd';
 import { IDataRange, SourceType, ICategory } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
-import { Button, Form, Divider, Input, Highlight } from '@douyinfe/semi-ui';
+import { Button, Form, Divider, Input, Dropdown } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 import { People, ViewList } from '@icon-park/react';
@@ -255,16 +255,31 @@ export const ConfigPanel: FC<any> = ({
                   {/* 选择字段 */}
                   {formState.values.statistics === 'VALUE' && (
                     <Form.Select
-                      // prefix={
-                      //   categories.find((item) => item.fieldId === formState.values.selectField)?.fieldType === 2
-                      //     ? '#'
-                      //     : '¥'
-                      // }
-
-                      // prefix={getPrefix(formState.values.selectField)}
                       showArrow={false}
-                      // suffix={<div>测试一下</div>}
-                      // suffix='测试'
+                      suffix={
+                        <Dropdown
+                          className='select-suffix'
+                          position='bottomRight'
+                          trigger={'click'}
+                          stopPropagation={true}
+                          render={
+                            <Dropdown.Menu>
+                              <Dropdown.Item>求和</Dropdown.Item>
+                              <Dropdown.Item>最大值</Dropdown.Item>
+                              <Dropdown.Item>最小值</Dropdown.Item>
+                              <Dropdown.Item>平均值</Dropdown.Item>
+                            </Dropdown.Menu>
+                          }
+                        >
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            求和
+                          </div>
+                        </Dropdown>
+                      }
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
