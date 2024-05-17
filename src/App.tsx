@@ -114,7 +114,7 @@ export default function App() {
             statistics: 'COUNTA',
             unit: '',
             unitPosition: 'LEFT',
-            amountSwitch: false,
+            amountSwitch: true,
             amountNumber: 10,
 
             // style: 1,
