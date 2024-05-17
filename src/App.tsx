@@ -54,6 +54,13 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       if (dashboard.state === DashboardState.View || dashboard.state === DashboardState.FullScreen) {
+        // FIXME 加载插件
+
+        // 获取配置
+        const res2 = await dashboard.getConfig();
+        setFormState(res2.customConfig);
+
+        // 获取数据
         const res = await dashboard.getData();
         setRenderData(res);
 
