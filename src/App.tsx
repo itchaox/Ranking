@@ -129,10 +129,10 @@ export default function App() {
             groups: [
               {
                 fieldId: filterCategories(categories, 'user')[0]?.fieldId,
-                mode: GroupMode.INTEGRATED,
+                mode: GroupMode.ENUMERATED,
                 sort: {
-                  order: ORDER.ASCENDING,
-                  sortType: DATA_SOURCE_SORT_TYPE.VIEW,
+                  order: ORDER.DESCENDING,
+                  sortType: DATA_SOURCE_SORT_TYPE.VALUE,
                 },
               },
             ],
@@ -263,17 +263,19 @@ export default function App() {
     // 监听表单变化
 
     const dataRangeObj = JSON.parse(dataRange);
+    console.log('🚀  dataRangeObj:', dataRangeObj);
 
     const groups = [
       {
         fieldId: category,
-        mode: GroupMode.INTEGRATED,
+        mode: GroupMode.ENUMERATED,
         sort: {
-          order: ORDER.ASCENDING,
-          sortType: DATA_SOURCE_SORT_TYPE.VIEW,
+          order: ORDER.DESCENDING,
+          sortType: DATA_SOURCE_SORT_TYPE.VALUE,
         },
       },
     ];
+    console.log('🚀  groups:', groups);
 
     let series: 'COUNTA' | ISeries[];
 
@@ -288,6 +290,8 @@ export default function App() {
         },
       ];
     }
+
+    console.log('🚀  series:', series);
 
     const data = await dashboard.getPreviewData({
       tableId: table,
@@ -410,10 +414,11 @@ export default function App() {
     const groups = [
       {
         fieldId: category,
-        mode: GroupMode.INTEGRATED,
+        // fieldId: statistics === 'COUNTA' ? category : selectFiled,
+        mode: GroupMode.ENUMERATED,
         sort: {
-          order: ORDER.ASCENDING,
-          sortType: DATA_SOURCE_SORT_TYPE.VIEW,
+          order: ORDER.DESCENDING,
+          sortType: DATA_SOURCE_SORT_TYPE.VALUE,
         },
       },
     ];
@@ -474,12 +479,11 @@ export default function App() {
 
     const groups = [
       {
-        // fieldId: category,
-        fieldId: filterCategories(categories, 'user')[0]?.fieldId,
-        mode: GroupMode.INTEGRATED,
+        fieldId: category,
+        mode: GroupMode.ENUMERATED,
         sort: {
-          order: ORDER.ASCENDING,
-          sortType: DATA_SOURCE_SORT_TYPE.VIEW,
+          order: ORDER.DESCENDING,
+          sortType: DATA_SOURCE_SORT_TYPE.VALUE,
         },
       },
     ];

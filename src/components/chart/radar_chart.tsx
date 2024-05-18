@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 09:10
+ * @LastTime   : 2024-05-18 09:51
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -21,6 +21,8 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
+  console.log('🚀  dataSet:', dataSet);
+
   const getIndexImage = (index) => {
     const images = [image1, image2, image3];
     return (
