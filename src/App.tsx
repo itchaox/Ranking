@@ -118,7 +118,8 @@ export default function App() {
             unitPosition: 'LEFT',
             amountSwitch: true,
             amountNumber: 10,
-
+            decimalNumber: 0,
+            displayFormat: 1,
             // style: 1,
           };
 

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 08:49
+ * @LastTime   : 2024-05-18 13:42
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -301,8 +301,38 @@ export const ConfigPanel: FC<any> = ({
                     />
                   )}
 
+                  {/* 小数位与格式 */}
+                  {
+                    <Form.InputGroup
+                      label={{ text: <span>小数位与格式</span> }}
+                      labelPosition='top'
+                      className='decimal-number-line'
+                    >
+                      <Form.InputNumber
+                        placeholder='请输入小数位数'
+                        className='decimalNumber'
+                        field='decimalNumber'
+                        formatter={(value) => `${value}`.replace(/\D/g, '')}
+                        min={0}
+                        max={1000}
+                        showClear
+                      />
+
+                      <Form.Select
+                        className='displayFormat'
+                        field='displayFormat'
+                        placeholder='请选择展示格式'
+                        optionList={[
+                          { value: 1, label: '整数' },
+                          { value: 2, label: '千分位' },
+                          // { value: 3, label: '百分比' },
+                          // { value: 4, label: '千分比' },
+                        ]}
+                      />
+                    </Form.InputGroup>
+                  }
+
                   {/* 单位 */}
-                  {/* {isShowUnit(formState.values) && ( */}
                   {!isPercent && (
                     <Form.InputGroup
                       label={{ text: <span>单位</span> }}

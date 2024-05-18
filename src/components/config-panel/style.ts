@@ -1,9 +1,10 @@
+import { People } from '@icon-park/react';
 /*
  * @Version    : v1.00
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 08:54
+ * @LastTime   : 2024-05-18 13:26
  * @desc       :
  */
 
@@ -16,7 +17,6 @@ export const AppWrapper = styled.div`
   border-left: 1px solid #ccc;
 
   .form {
-    /* position: relative; */
     width: 100%;
   }
 
@@ -31,6 +31,20 @@ export const AppWrapper = styled.div`
       width: 50%;
       margin-right: 10px;
     }
+  }
+
+  .decimal-number-line {
+    width: 100%;
+    display: flex;
+
+    .decimalNumber {
+      width: 50%;
+    }
+
+    .displayFormat {
+      flex: 1;
+    }
+    /* white-space: nowrap; */
   }
 
   .amountSwitch {
@@ -72,6 +86,27 @@ export const AppWrapper = styled.div`
     border-radius: 6px;
     border: 1px solid #d0d3d6;
     background-color: #fff;
+  }
+
+  .semi-input-number-suffix-btns {
+    margin-left: 0;
+    width: 40px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .semi-input-number-button {
+      width: 100%;
+
+      border-bottom: 1px solid #d0d3d6;
+      border-right: 1px solid #d0d3d6;
+
+      &:nth-child(1) {
+        border-top: 1px solid #d0d3d6;
+      }
+    }
   }
 
   .semi-select {
