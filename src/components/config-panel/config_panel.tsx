@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 13:42
+ * @LastTime   : 2024-05-18 14:24
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -53,7 +53,8 @@ export const ConfigPanel: FC<any> = ({
   const renderSelectedItem = (optionNode) => {
     const type = categories.find((item) => item.fieldId === optionNode.value)?.fieldType;
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      // <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <img
           src={type === 2 ? NumberIcon : CurrencyIcon}
           style={{ marginRight: '5px' }}
@@ -277,18 +278,19 @@ export const ConfigPanel: FC<any> = ({
                           </div>
                         </Dropdown>
                       }
+                      filter
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
                       renderSelectedItem={renderSelectedItem}
-                      outerTopSlot={
-                        <Input
-                          onChange={(value) => setInputValue(value)}
-                          prefix={<IconSearch />}
-                          showClear
-                          placeholder='搜索字段'
-                        ></Input>
-                      }
+                      // outerTopSlot={
+                      //   <Input
+                      //     onChange={(value) => setInputValue(value)}
+                      //     prefix={<IconSearch />}
+                      //     showClear
+                      //     placeholder='搜索字段'
+                      //   ></Input>
+                      // }
                       // optionList={customOptionList}
 
                       optionList={categories
