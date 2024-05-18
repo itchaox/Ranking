@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 09:51
+ * @LastTime   : 2024-05-18 11:32
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -21,8 +21,6 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
-  console.log('🚀  dataSet:', dataSet);
-
   const getIndexImage = (index) => {
     const images = [image1, image2, image3];
     return (
@@ -34,7 +32,10 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     );
   };
 
-  let _data = !formState?.amountSwitch ? dataSet.slice(1) : dataSet.slice(1, formState?.amountNumber + 1);
+  let _temdata = !formState?.amountSwitch ? [...dataSet.slice(1)] : [...dataSet.slice(1, formState?.amountNumber + 1)];
+
+  // 降序排序
+  let _data = _temdata.sort((a: any, b: any) => b[1] - a[1]);
 
   return (
     <AppWrapper>
