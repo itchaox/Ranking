@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-17 22:34
+ * @LastTime   : 2024-05-18 09:10
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -17,9 +17,10 @@ import RightImage from '../../assets/right.png';
 interface RadarChartProps {
   dataSet: Array<(string | number)[]>;
   formState: any;
+  isPercent: boolean;
 }
 
-export function RadarChart({ dataSet, formState }: RadarChartProps) {
+export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   const getIndexImage = (index) => {
     const images = [image1, image2, image3];
     return (
@@ -61,9 +62,20 @@ export function RadarChart({ dataSet, formState }: RadarChartProps) {
                   <div className='name'>{item[0]}</div>
 
                   <div className={`number ${index <= 2 ? 'special' : ''}`}>
-                    {formState?.unitPosition === 'LEFT'
-                      ? `${formState?.unit || ''} ${item[1]}`
-                      : `${item[1]} ${formState?.unit || ''}`}
+                    {/* <div>
+                      {formState?.unitPosition === 'LEFT'
+                        ? `${formState?.unit || ''} ${item[1]}`
+                        : `${item[1]} ${formState?.unit || ''}`}
+                    </div> */}
+                    {isPercent ? (
+                      <div>{`${+item[1] * 100}%`}</div>
+                    ) : (
+                      <div>
+                        {formState?.unitPosition === 'LEFT'
+                          ? `${formState?.unit || ''} ${item[1]}`
+                          : `${item[1]} ${formState?.unit || ''}`}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

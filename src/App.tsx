@@ -59,6 +59,7 @@ export default function App() {
         // 获取配置
         const res2 = await dashboard.getConfig();
         setFormState(res2.customConfig);
+        setIsPercent(res2?.customConfig?.isPercent);
 
         // 获取数据
         const res = await dashboard.getData();
@@ -71,6 +72,7 @@ export default function App() {
         dashboard.onConfigChange(async (res) => {
           setFormState(res?.data?.customConfig);
           setOperation(res?.data?.customConfig?.operation);
+          setIsPercent(res?.data?.customConfig?.isPercent);
         });
       }
     }
@@ -152,12 +154,14 @@ export default function App() {
             statistics,
             selectFiled,
             operation: _operation,
+            isPercent: _isPercent,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
           setDataRange(tableRanges);
           setCategories(categories);
           setOperation(_operation);
+          setIsPercent(_isPercent);
 
           // FIXME 这里会导致下拉框无法正确返显
           // const statistics = series === 'COUNTA' ? 'COUNTA' : 'VALUE';
@@ -298,6 +302,8 @@ export default function App() {
     setRenderData(data);
   };
 
+  const [isPercent, setIsPercent] = useState(false);
+
   const handleConfigChange = async (changedVal, allValues: IFormValues, form) => {
     let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
@@ -330,7 +336,10 @@ export default function App() {
     }
 
     // 切换至『统计字段数值』默认选中第一个数字或货币字段
+
     if (changedVal.statistics === 'VALUE') {
+      setIsPercent(false);
+
       let _data = filterCategories(categories, 'number')[0];
 
       form.setValue('selectFiled', _data?.fieldId);
@@ -343,23 +352,50 @@ export default function App() {
         const currencyCode = getCurrency(res);
 
         form.setValue('unit', currencyCode);
+      } else if (_data?.fieldType === 2) {
+        const _table = await bitable.base.getTable(table);
+        const numberField = await _table.getField(_data.fieldId);
+        const NumberFormatter = await numberField.getFormatter();
+
+        // 百分比
+        if (NumberFormatter === '0%' || NumberFormatter === '0.00%') {
+          setIsPercent(true);
+        } else {
+          // 其他单位
+          form.setValue('unit', '');
+        }
       } else {
         form.setValue('unit', '');
       }
     }
 
+    if (changedVal.statistics === 'COUNTA') {
+      setIsPercent(false);
+    }
+
+    let _isPercent = false;
     if (changedVal.selectFiled) {
-      let isCurrency =
-        filterCategories(categories, 'number').find((item) => item.fieldId === selectFiled)?.fieldType === 99003;
+      let _data = filterCategories(categories, 'number').find((item) => item.fieldId === selectFiled);
+      let isCurrency = _data?.fieldType === 99003;
 
       if (isCurrency) {
         const _table = await bitable.base.getTable(table);
         const currencyField = await _table.getField(selectFiled);
         const res = await currencyField.getCurrencyCode();
         const currencyCode = getCurrency(res);
-
         form.setValue('unit', currencyCode);
-        // setCurrencyCode(currencyCode);
+      } else if (_data?.fieldType === 2) {
+        const _table = await bitable.base.getTable(table);
+        const numberField = await _table.getField(_data.fieldId);
+        const NumberFormatter = await numberField.getFormatter();
+
+        // 百分比
+        if (NumberFormatter === '0%' || NumberFormatter === '0.00%') {
+          _isPercent = true;
+        } else {
+          // 其他单位
+          form.setValue('unit', '');
+        }
       } else {
         form.setValue('unit', '');
       }
@@ -407,6 +443,14 @@ export default function App() {
 
     setFormState(allValues);
     setRenderData(data);
+
+    if (changedVal.selectFiled) {
+      setIsPercent(false);
+
+      if (_isPercent) {
+        setIsPercent(true);
+      }
+    }
   };
 
   const saveConfig = (allValues) => {
@@ -458,6 +502,7 @@ export default function App() {
       customConfig: {
         ...allValues,
         operation,
+        isPercent,
       },
     });
   };
@@ -473,6 +518,7 @@ export default function App() {
       <RadarChart
         dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
         formState={formState}
+        isPercent={isPercent}
       />
 
       {isCreateOrConfig ? (
@@ -486,6 +532,7 @@ export default function App() {
           initFormValue={initFormValue}
           operation={operation}
           dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
+          isPercent={isPercent}
         />
       ) : null}
     </div>

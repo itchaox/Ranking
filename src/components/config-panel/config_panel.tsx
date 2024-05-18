@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-17 00:59
+ * @LastTime   : 2024-05-18 08:49
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -28,11 +28,8 @@ export const ConfigPanel: FC<any> = ({
   dropChange,
   dataSet,
   operation,
+  isPercent,
 }) => {
-  // const [form] = Form.useForm();
-
-  // window.__form__ = form;
-
   const api: any = useRef();
 
   const isNumberFiled = (values) => {
@@ -276,7 +273,6 @@ export const ConfigPanel: FC<any> = ({
                               e.stopPropagation();
                             }}
                           >
-                            {/* {dropTitle} */}
                             {operation}
                           </div>
                         </Dropdown>
@@ -307,7 +303,7 @@ export const ConfigPanel: FC<any> = ({
 
                   {/* 单位 */}
                   {/* {isShowUnit(formState.values) && ( */}
-                  {
+                  {!isPercent && (
                     <Form.InputGroup
                       label={{ text: <span>单位</span> }}
                       labelPosition='top'
@@ -329,7 +325,7 @@ export const ConfigPanel: FC<any> = ({
                         ]}
                       />
                     </Form.InputGroup>
-                  }
+                  )}
 
                   <Divider margin='4px' />
 
