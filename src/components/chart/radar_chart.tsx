@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 10:25
+ * @LastTime   : 2024-05-19 10:41
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -38,6 +38,8 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
       bitable.bridge.onThemeChange((event) => {
         if (event.data.theme === 'DARK') {
           setIsDarkMode(true);
+        } else {
+          setIsDarkMode(false);
         }
       });
     }

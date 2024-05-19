@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 09:05
+ * @LastTime   : 2024-05-19 10:43
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -46,6 +46,8 @@ export const ConfigPanel: FC<any> = ({
         console.log('theme change', event.data.theme);
         if (event.data.theme === 'DARK') {
           setIsDarkMode(true);
+        } else {
+          setIsDarkMode(false);
         }
       });
     }
