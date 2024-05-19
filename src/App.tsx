@@ -29,6 +29,33 @@ export default function App() {
   const [formState, setFormState] = useState({});
   const [operation, setOperation] = useState('求和');
 
+  useEffect(() => {
+    async function fn() {
+      const body = document.body;
+      const theme = await bitable.bridge.getTheme();
+
+      if (theme === 'DARK') {
+        if (body.hasAttribute('theme-mode')) {
+          body.removeAttribute('theme-mode');
+        } else {
+          body.setAttribute('theme-mode', 'dark');
+        }
+      }
+
+      bitable.bridge.onThemeChange((event) => {
+        if (event.data.theme === 'DARK') {
+          if (body.hasAttribute('theme-mode')) {
+            body.removeAttribute('theme-mode');
+          } else {
+            body.setAttribute('theme-mode', 'dark');
+          }
+        }
+      });
+    }
+
+    fn();
+  }, []);
+
   const getTableList = useCallback(async () => {
     const tables = await bitable.base.getTableList();
     return await Promise.all(

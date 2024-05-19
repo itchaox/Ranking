@@ -3,12 +3,12 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 14:24
+ * @LastTime   : 2024-05-19 09:05
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
 // import { Form, Select, FormInstance, Radio } from 'antd';
-import { IDataRange, SourceType, ICategory } from '@lark-base-open/js-sdk';
+import { IDataRange, SourceType, ICategory, bitable } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
 import { Button, Form, Divider, Input, Dropdown } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
@@ -17,6 +17,8 @@ import { People, ViewList } from '@icon-park/react';
 
 import NumberIcon from '../../assets/icons/Number.svg';
 import CurrencyIcon from '../../assets/icons/Currency.svg';
+
+import { lightTheme, darkTheme } from '../../utils/theme';
 
 export const ConfigPanel: FC<any> = ({
   initFormValue,
@@ -30,6 +32,27 @@ export const ConfigPanel: FC<any> = ({
   operation,
   isPercent,
 }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    async function fn() {
+      const theme = await bitable.bridge.getTheme();
+
+      if (theme === 'DARK') {
+        setIsDarkMode(true);
+      }
+
+      bitable.bridge.onThemeChange((event) => {
+        console.log('theme change', event.data.theme);
+        if (event.data.theme === 'DARK') {
+          setIsDarkMode(true);
+        }
+      });
+    }
+
+    fn();
+  }, []);
+
   const api: any = useRef();
 
   const isNumberFiled = (values) => {
@@ -139,7 +162,7 @@ export const ConfigPanel: FC<any> = ({
   };
 
   return (
-    <AppWrapper>
+    <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
       {initFormValue && tableSource.length && categories.length ? (
         <>
           <Form

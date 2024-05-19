@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-15 22:36
+ * @LastTime   : 2024-05-19 10:25
  * @desc       :
  */
 
@@ -14,8 +14,12 @@ export const AppWrapper = styled.div`
   flex: 1;
   padding: 24px;
   padding-bottom: 0;
+
   background: linear-gradient(to bottom, rgba(219, 250, 255, 0.7), rgba(255, 247, 231, 0.7));
+  /* background-color: ${(props) => `${props.theme.backgroundColor}`}; */
+
   height: 100%;
+  color: ${(props) => `${props.theme.textColor}`};
 
   .img-left {
     position: absolute;
@@ -36,7 +40,8 @@ export const AppWrapper = styled.div`
   }
 
   .content {
-    background-color: #fff;
+    background-color: ${(props) => `${props.theme.contentBackgroundColor}`};
+
     padding: 24px;
     border-radius: 6px;
   }
@@ -72,7 +77,6 @@ export const AppWrapper = styled.div`
 
   .name {
     font-size: 14px;
-    color: #1f2329;
   }
 
   .number {

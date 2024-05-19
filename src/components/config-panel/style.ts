@@ -1,10 +1,9 @@
-import { People } from '@icon-park/react';
 /*
  * @Version    : v1.00
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 13:26
+ * @LastTime   : 2024-05-19 09:00
  * @desc       :
  */
 
@@ -14,7 +13,7 @@ export const AppWrapper = styled.div`
   width: 340px;
   display: flex;
   padding: 20px;
-  border-left: 1px solid #ccc;
+  border-left: 0.5px solid ${(props) => props.theme.borderColor};
 
   .form {
     width: 100%;
@@ -44,7 +43,6 @@ export const AppWrapper = styled.div`
     .displayFormat {
       flex: 1;
     }
-    /* white-space: nowrap; */
   }
 
   .amountSwitch {
@@ -78,14 +76,14 @@ export const AppWrapper = styled.div`
     z-index: 9;
 
     &:hover {
-      background-color: #f2f3f5;
+      background-color: ${(props) => props.theme.hoverBackgroundColor};
     }
   }
 
   .semi-input-wrapper {
     border-radius: 6px;
-    border: 1px solid #d0d3d6;
-    background-color: #fff;
+    border: 1px solid ${(props) => props.theme.borderColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 
   .semi-input-number-suffix-btns {
@@ -100,26 +98,26 @@ export const AppWrapper = styled.div`
     .semi-input-number-button {
       width: 100%;
 
-      border-bottom: 1px solid #d0d3d6;
-      border-right: 1px solid #d0d3d6;
+      border-bottom: 1px solid ${(props) => props.theme.borderColor};
+      border-right: 1px solid ${(props) => props.theme.borderColor};
 
       &:nth-child(1) {
-        border-top: 1px solid #d0d3d6;
+        border-top: 1px solid ${(props) => props.theme.borderColor};
       }
     }
   }
 
   .semi-select {
     border-radius: 6px;
-    border: 1px solid #d0d3d6;
-    background-color: #fff;
+    border: 1px solid ${(props) => props.theme.borderColor};
+    background-color: ${(props) => props.theme.backgroundColor};
     z-index: 0;
   }
 
   .semi-radioGroup {
     width: 45%;
-    background-color: #fff;
-    border: 1px solid rgba(222, 224, 227, 1);
+    background-color: ${(props) => props.theme.backgroundColor};
+    border: 1px solid ${(props) => props.theme.borderColor};
     border-radius: 6px;
 
     .semi-radio {

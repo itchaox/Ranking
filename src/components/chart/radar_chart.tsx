@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-18 13:57
+ * @LastTime   : 2024-05-19 10:25
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -14,6 +14,10 @@ import image3 from '../../assets/3.png';
 import LeftImage from '../../assets/left.png';
 import RightImage from '../../assets/right.png';
 
+import { useState, useEffect } from 'react';
+import { bitable } from '@lark-base-open/js-sdk';
+import { lightTheme, darkTheme } from '../../utils/theme';
+
 interface RadarChartProps {
   dataSet: Array<(string | number)[]>;
   formState: any;
@@ -21,7 +25,25 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
-  console.log('🚀  formState:', formState);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    async function fn() {
+      const theme = await bitable.bridge.getTheme();
+
+      if (theme === 'DARK') {
+        setIsDarkMode(true);
+      }
+
+      bitable.bridge.onThemeChange((event) => {
+        if (event.data.theme === 'DARK') {
+          setIsDarkMode(true);
+        }
+      });
+    }
+
+    fn();
+  }, []);
 
   const getIndexImage = (index) => {
     const images = [image1, image2, image3];
@@ -82,7 +104,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   };
 
   return (
-    <AppWrapper>
+    <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
       <img
         className='img-left'
         src={LeftImage}
