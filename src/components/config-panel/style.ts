@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 09:00
+ * @LastTime   : 2024-05-21 00:20
  * @desc       :
  */
 
@@ -69,7 +69,7 @@ export const AppWrapper = styled.div`
 
   /* FIXME 修改 ui 组件样式 */
 
-  .semi-select-suffix {
+  /* .semi-select-suffix {
     margin: 3px 20px 3px 0;
     padding: 5px;
     border-radius: 6px;
@@ -142,5 +142,5 @@ export const AppWrapper = styled.div`
 
   .semi-switch-checked {
     background-color: #1456f0;
-  }
+  } */
 `;
