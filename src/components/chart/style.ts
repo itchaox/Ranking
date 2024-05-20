@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 10:25
+ * @LastTime   : 2024-05-20 10:42
  * @desc       :
  */
 
@@ -15,8 +15,8 @@ export const AppWrapper = styled.div`
   padding: 24px;
   padding-bottom: 0;
 
-  background: linear-gradient(to bottom, rgba(219, 250, 255, 0.7), rgba(255, 247, 231, 0.7));
-  /* background-color: ${(props) => `${props.theme.backgroundColor}`}; */
+  /* background: linear-gradient(to bottom, rgba(219, 250, 255, 0.7), rgba(255, 247, 231, 0.7)); */
+  background: ${(props) => `${props.theme.background}`};
 
   height: 100%;
   color: ${(props) => `${props.theme.textColor}`};
