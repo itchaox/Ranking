@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 10:41
+ * @LastTime   : 2024-05-21 13:36
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -15,7 +15,7 @@ import LeftImage from '../../assets/left.png';
 import RightImage from '../../assets/right.png';
 
 import { useState, useEffect } from 'react';
-import { bitable } from '@lark-base-open/js-sdk';
+import { bitable, dashboard } from '@lark-base-open/js-sdk';
 import { lightTheme, darkTheme } from '../../utils/theme';
 
 interface RadarChartProps {
@@ -26,6 +26,12 @@ interface RadarChartProps {
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    async function fn() {
+      await dashboard.setRendered();
+    }
+  }, [dataSet, formState, isPercent]);
 
   useEffect(() => {
     async function fn() {
