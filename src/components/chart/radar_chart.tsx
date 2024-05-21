@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-21 13:36
+ * @LastTime   : 2024-05-21 13:40
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -31,6 +31,8 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     async function fn() {
       await dashboard.setRendered();
     }
+
+    fn();
   }, [dataSet, formState, isPercent]);
 
   useEffect(() => {
