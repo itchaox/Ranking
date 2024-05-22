@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-21 00:20
+ * @LastTime   : 2024-05-22 22:34
  * @desc       :
  */
 
@@ -69,8 +69,12 @@ export const AppWrapper = styled.div`
 
   /* FIXME 修改 ui 组件样式 */
 
-  /* .semi-select-suffix {
-    margin: 3px 20px 3px 0;
+  /* .select-suffix {
+  } */
+
+  .semi-select-suffix {
+    margin: 3px 14px 3px 0;
+    font-size: 12px;
     padding: 5px;
     border-radius: 6px;
     z-index: 9;
@@ -79,6 +83,8 @@ export const AppWrapper = styled.div`
       background-color: ${(props) => props.theme.hoverBackgroundColor};
     }
   }
+
+  /* 
 
   .semi-input-wrapper {
     border-radius: 6px;
