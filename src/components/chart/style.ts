@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-20 10:42
+ * @LastTime   : 2024-05-22 22:40
  * @desc       :
  */
 
@@ -80,8 +80,9 @@ export const AppWrapper = styled.div`
   }
 
   .number {
-    font-weight: 14px;
+    font-size: 14px;
     font-weight: 500;
+    color: '#1F2329';
   }
 
   .number.special {
