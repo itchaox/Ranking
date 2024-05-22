@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-21 13:40
+ * @LastTime   : 2024-05-22 23:41
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -66,10 +66,11 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     );
   };
 
-  let _temdata = !formState?.amountSwitch ? [...dataSet.slice(1)] : [...dataSet.slice(1, formState?.amountNumber + 1)];
-
+  // 先排序再 slice，否则可能出现排序在前面的数据消失了
   // 降序排序
-  let _data = _temdata.sort((a: any, b: any) => b[1] - a[1]);
+  let temData = dataSet.sort((a: any, b: any) => b[1] - a[1]);
+
+  let _data = !formState?.amountSwitch ? [...temData.slice(1)] : [...temData.slice(1, formState?.amountNumber + 1)];
 
   const formatDecimal = (number) => {
     let decimalPlaces = formState.decimalNumber;
