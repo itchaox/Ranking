@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:41
+ * @LastTime   : 2024-05-23 00:01
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -148,7 +148,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                         : `${item[1]} ${formState?.unit || ''}`}
                     </div> */}
                     {isPercent ? (
-                      <div>{`${formatDecimal(+item[1]) * 100}%`}</div>
+                      <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
                     ) : (
                       <div>
                         {formState?.unitPosition === 'LEFT'
