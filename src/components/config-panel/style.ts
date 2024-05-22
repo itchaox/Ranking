@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:36
+ * @LastTime   : 2024-05-22 23:51
  * @desc       :
  */
 
@@ -94,14 +94,20 @@ export const AppWrapper = styled.div`
     margin-top: -16px;
   }
 
-  /* 
-
   .semi-input-wrapper {
-    border-radius: 6px;
+    border-radius: 6px !important;
     border: 1px solid ${(props) => props.theme.borderColor};
     background-color: ${(props) => props.theme.backgroundColor};
   }
 
+  .semi-select {
+    border-radius: 6px !important;
+    border: 1px solid ${(props) => props.theme.borderColor};
+    background-color: ${(props) => props.theme.backgroundColor};
+    z-index: 0;
+  }
+
+  /* 
   .semi-input-number-suffix-btns {
     margin-left: 0;
     width: 40px;
@@ -123,12 +129,7 @@ export const AppWrapper = styled.div`
     }
   }
 
-  .semi-select {
-    border-radius: 6px;
-    border: 1px solid ${(props) => props.theme.borderColor};
-    background-color: ${(props) => props.theme.backgroundColor};
-    z-index: 0;
-  }
+ 
 
   .semi-radioGroup {
     width: 45%;
