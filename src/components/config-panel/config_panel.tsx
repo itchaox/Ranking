@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:29
+ * @LastTime   : 2024-05-22 23:33
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -398,7 +398,7 @@ export const ConfigPanel: FC<any> = ({
                       noLabel={true}
                       max={50000}
                       min={0}
-                      style={{ width: '100%', marginTop: '-12px' }}
+                      style={{ width: '100%', marginBottom: '0px' }}
                       field='amountNumber'
                     />
                   )}
