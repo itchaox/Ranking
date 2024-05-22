@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-19 10:43
+ * @LastTime   : 2024-05-22 23:25
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -329,7 +329,7 @@ export const ConfigPanel: FC<any> = ({
                   )}
 
                   {/* 小数位与格式 */}
-                  {
+                  {formState.values.statistics === 'VALUE' && (
                     <Form.InputGroup
                       label={{ text: <span>小数位与格式</span> }}
                       labelPosition='top'
@@ -352,12 +352,10 @@ export const ConfigPanel: FC<any> = ({
                         optionList={[
                           { value: 1, label: '整数' },
                           { value: 2, label: '千分位' },
-                          // { value: 3, label: '百分比' },
-                          // { value: 4, label: '千分比' },
                         ]}
                       />
                     </Form.InputGroup>
-                  }
+                  )}
 
                   {/* 单位 */}
                   {!isPercent && (
