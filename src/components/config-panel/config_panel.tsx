@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:25
+ * @LastTime   : 2024-05-22 23:29
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -237,7 +237,7 @@ export const ConfigPanel: FC<any> = ({
                   ]}
                 /> */}
 
-                  <Divider margin='4px' />
+                  {/* <Divider margin='4x' /> */}
 
                   {/* 人员 */}
                   <Form.Select
