@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:18
+ * @LastTime   : 2024-05-22 23:27
  * @desc       :
  */
 
@@ -84,6 +84,10 @@ export const AppWrapper = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.hoverBackgroundColor};
     }
+  }
+
+  .semi-form-field-label {
+    font-weight: 400;
   }
 
   /* 
