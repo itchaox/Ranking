@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 00:32
+ * @LastTime   : 2024-05-24 00:43
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -179,6 +179,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 数据源 */}
                   <Form.Select
                     field='table'
+                    filter
                     prefix={
                       <ViewList
                         theme='outline'
@@ -197,6 +198,7 @@ export const ConfigPanel: FC<any> = ({
 
                   {/* 数据范围 */}
                   <Form.Select
+                    filter
                     field='dataRange'
                     prefix={
                       <ViewList
@@ -241,6 +243,7 @@ export const ConfigPanel: FC<any> = ({
 
                   {/* 人员 */}
                   <Form.Select
+                    filter
                     field='category'
                     label={{ text: '名称' }}
                     prefix={
@@ -277,6 +280,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 选择字段 */}
                   {formState.values.statistics === 'VALUE' && (
                     <Form.Select
+                      filter
                       showArrow={false}
                       suffix={
                         <Dropdown
@@ -303,7 +307,6 @@ export const ConfigPanel: FC<any> = ({
                           </div>
                         </Dropdown>
                       }
-                      filter
                       field='selectFiled'
                       label={{ text: '选择字段' }}
                       style={{ width: '100%' }}
