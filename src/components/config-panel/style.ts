@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:53
+ * @LastTime   : 2024-05-23 23:41
  * @desc       :
  */
 
@@ -48,8 +48,9 @@ export const AppWrapper = styled.div`
   .amountSwitch {
     height: 32px;
     line-height: 32px;
-    position: fixed;
-    right: 20px;
+
+    /* position: absolute;
+    right: 20px; */
   }
 
   .amountNumber {

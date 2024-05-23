@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-22 23:33
+ * @LastTime   : 2024-05-24 00:32
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -242,7 +242,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 人员 */}
                   <Form.Select
                     field='category'
-                    label={{ text: '人员' }}
+                    label={{ text: '名称' }}
                     prefix={
                       <People
                         theme='outline'
@@ -253,7 +253,7 @@ export const ConfigPanel: FC<any> = ({
                     }
                     style={{ width: '100%' }}
                     optionList={categories
-                      .filter((item) => [11, 1003, 1004].includes(item.fieldType))
+                      // .filter((item) => [11, 1003, 1004].includes(item.fieldType))
                       .map((category) => {
                         const { fieldName } = category;
                         return {
@@ -319,7 +319,11 @@ export const ConfigPanel: FC<any> = ({
                       // optionList={customOptionList}
 
                       optionList={categories
-                        .filter((item) => [2, 99003].includes(item.fieldType) && item.fieldName.includes(inputValue))
+                        .filter(
+                          (item) =>
+                            [2, 99003, 20, 19, 99002, 99004].includes(item.fieldType) &&
+                            item.fieldName.includes(inputValue),
+                        )
                         .map((category) => ({
                           value: category.fieldId,
                           label: category.fieldName,
