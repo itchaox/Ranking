@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 00:43
+ * @LastTime   : 2024-05-24 01:23
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -15,8 +15,10 @@ import { IconSearch } from '@douyinfe/semi-icons';
 
 import { People, ViewList } from '@icon-park/react';
 
-import NumberIcon from '../../assets/icons/Number.svg';
-import CurrencyIcon from '../../assets/icons/Currency.svg';
+// import _2Icon from '../../assets/icons/2.svg';
+// import _99003Icon from '../../assets/icons/99003.svg';
+
+import IconComponent from '../FiledIcon';
 
 import { lightTheme, darkTheme } from '../../utils/theme';
 
@@ -78,13 +80,9 @@ export const ConfigPanel: FC<any> = ({
   const renderSelectedItem = (optionNode) => {
     const type = categories.find((item) => item.fieldId === optionNode.value)?.fieldType;
     return (
-      // <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img
-          src={type === 2 ? NumberIcon : CurrencyIcon}
-          style={{ marginRight: '5px' }}
-        />
-        <div>{optionNode.label} </div>
+        <IconComponent index={type} />
+        <div style={{ marginLeft: '5px' }}>{optionNode.label} </div>
       </div>
     );
   };
@@ -121,7 +119,7 @@ export const ConfigPanel: FC<any> = ({
         onClick={() => onClick()}
         onMouseEnter={(e) => onMouseEnter()}
       >
-        <img src={type === 2 ? NumberIcon : CurrencyIcon} />
+        <IconComponent index={type} />
         {label}
       </div>
     );
@@ -246,15 +244,9 @@ export const ConfigPanel: FC<any> = ({
                     filter
                     field='category'
                     label={{ text: '名称' }}
-                    prefix={
-                      <People
-                        theme='outline'
-                        size='14'
-                        fill='#646A73'
-                        style={{ margin: '0 5px' }}
-                      />
-                    }
                     style={{ width: '100%' }}
+                    renderSelectedItem={renderSelectedItem}
+                    renderOptionItem={renderOptionItem}
                     optionList={categories
                       // .filter((item) => [11, 1003, 1004].includes(item.fieldType))
                       .map((category) => {
