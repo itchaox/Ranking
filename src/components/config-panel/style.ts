@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-23 23:41
+ * @LastTime   : 2024-05-24 00:45
  * @desc       :
  */
 
@@ -129,7 +129,6 @@ export const AppWrapper = styled.div`
     }
   }
 
-  /* 
   .semi-radioGroup {
     width: 45%;
     background-color: ${(props) => props.theme.backgroundColor};
@@ -158,5 +157,5 @@ export const AppWrapper = styled.div`
 
   .semi-switch-checked {
     background-color: #1456f0;
-  } */
+  }
 `;
