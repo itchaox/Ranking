@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 00:45
+ * @LastTime   : 2024-05-24 01:34
  * @desc       :
  */
 
@@ -21,6 +21,7 @@ export const AppWrapper = styled.div`
 
   .form-content {
     height: calc(100% - 50px);
+    padding-right: 10px;
     overflow: auto;
   }
 
@@ -68,6 +69,26 @@ export const AppWrapper = styled.div`
     &:hover {
       background-color: #2955e790;
     }
+  }
+
+  *::-webkit-scrollbar  {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    /* 滑块颜色 */
+    background: #cccccc90;
+
+    /* 滑块圆角 */
+    border-radius: 10px;
+  }
+
+  /* 兼容Firefox、IE */
+  * {
+    scrollbar-width: 10px;
+    scrollbar-base-color: green;
+    scrollbar-track-color: red;
+    scrollbar-arrow-color: blue;
   }
 
   /* FIXME 修改 ui 组件样式 */
