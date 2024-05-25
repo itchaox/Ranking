@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-25 22:52
+ * @LastTime   : 2024-05-26 07:40
  * @desc       :
  */
 
@@ -156,7 +156,8 @@ export const AppWrapper = styled.div`
   }
 
   .semi-radioGroup {
-    width: 45%;
+    flex: 1;
+    /* width: 45%; */
     background-color: ${(props) => props.theme.backgroundColor};
     border: 1px solid ${(props) => props.theme.borderColor};
     border-radius: 6px;
