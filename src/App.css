@@ -3,13 +3,14 @@ html,
 body {
   width: 100%;
   height: 100%;
-  /* border-top: 1px solid rgb(221, 222, 223); */
   background: transparent !important;
   background-image: none !important;
+  overflow: hidden;
 }
 
 .chart-app {
   height: 100%;
+  border-top: 0.5px solid #1f232915;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -20,10 +21,10 @@ body {
   background-color: #fff;
 
   .semi-input-wrapper {
-    border-bottom: 0.5px solid #1f232925;
+    border-bottom: 0.5px solid #1f232915;
     background-color: #fff;
     &:hover {
-      border-bottom: 0.5px solid #1f232925;
+      border-bottom: 0.5px solid #1f232915;
       background-color: #fff;
     }
   }

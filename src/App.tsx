@@ -20,6 +20,8 @@ import {
 import { RadarChart } from './components/chart/radar_chart';
 import { ConfigPanel, IFormValues, ITableSource } from './components/config-panel/config_panel';
 
+import { lightTheme, darkTheme } from './utils/theme';
+
 export default function App() {
   const [tableSource, setTableSource] = useState<ITableSource[]>([]);
   const [dataRange, setDataRange] = useState<IDataRange[]>([{ type: SourceType.ALL }]);
@@ -28,6 +30,27 @@ export default function App() {
   const [renderData, setRenderData] = useState<IData>([]);
   const [formState, setFormState] = useState({});
   const [operation, setOperation] = useState('求和');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    async function fn() {
+      const theme = await bitable.bridge.getTheme();
+
+      if (theme === 'DARK') {
+        setIsDarkMode(true);
+      }
+
+      bitable.bridge.onThemeChange((event) => {
+        if (event.data.theme === 'DARK') {
+          setIsDarkMode(true);
+        } else {
+          setIsDarkMode(false);
+        }
+      });
+    }
+
+    fn();
+  }, []);
 
   useEffect(() => {
     async function fn() {
@@ -564,7 +587,10 @@ export default function App() {
   const isCreateOrConfig = dashboard.state === DashboardState.Create || dashboard.state === DashboardState.Config;
 
   return (
-    <div className='chart-app'>
+    <div
+      className='chart-app'
+      style={isDarkMode ? { borderTop: '.5px solid #cfcfcf15' } : { borderTop: '.5px solid #1f232915' }}
+    >
       {/* 所有状态都显示图表界面 */}
       <RadarChart
         dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
