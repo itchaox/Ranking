@@ -115,6 +115,8 @@ export default function App() {
     return _data.filter((item) => _list.includes(item.fieldType));
   }
 
+  const [temPreviewConfig, setTemPreviewConfig] = useState<IDataCondition>();
+
   // 配置态
   useEffect(() => {
     if (dashboard.state === DashboardState.Config || dashboard.state === DashboardState.Create) {
@@ -234,6 +236,8 @@ export default function App() {
 
         setInitFormValue(formInitValue);
 
+        setTemPreviewConfig(previewConfig);
+
         const data = await dashboard.getPreviewData(previewConfig);
 
         setRenderData(data);
@@ -243,6 +247,21 @@ export default function App() {
   }, [getTableList, getTableRange, getCategories]);
 
   // const [currencyCode, setCurrencyCode] = useState();
+
+  const getNewData = async (filterInfo) => {
+    let updatedPreviewConfig = {
+      ...temPreviewConfig,
+      dataRange: {
+        ...temPreviewConfig.dataRange,
+        filterInfo,
+      },
+    };
+
+    const data = await dashboard.getPreviewData(updatedPreviewConfig);
+    console.log('🚀  data:', data);
+
+    setRenderData(data);
+  };
 
   function getCurrency(currencyCode) {
     const currencySymbols = {
@@ -565,6 +584,7 @@ export default function App() {
           operation={operation}
           dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
           isPercent={isPercent}
+          getNewData={getNewData}
         />
       ) : null}
     </div>

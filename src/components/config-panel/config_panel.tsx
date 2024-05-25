@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 01:23
+ * @LastTime   : 2024-05-25 14:55
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -14,6 +14,8 @@ import { Button, Form, Divider, Input, Dropdown } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 import { People, ViewList } from '@icon-park/react';
+
+import { useFilterView } from '../FilterView';
 
 // import _2Icon from '../../assets/icons/2.svg';
 // import _99003Icon from '../../assets/icons/99003.svg';
@@ -33,8 +35,22 @@ export const ConfigPanel: FC<any> = ({
   dataSet,
   operation,
   isPercent,
+  getNewData,
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const [aNumber, setANumber] = useState(1);
+
+  const { openFilterView } = useFilterView({
+    successCallback: ({ filterNumber, filterInfo }) => {
+      // FIXME 到这个地方，就结束了，其他的就是用户自己操作给的数据
+
+      getNewData(filterInfo);
+
+      setANumber(filterNumber);
+      // 再次请求数据
+    },
+  });
 
   useEffect(() => {
     async function fn() {
@@ -160,6 +176,8 @@ export const ConfigPanel: FC<any> = ({
     let data = e.target.textContent;
     dropChange(data, formState.values);
   };
+
+  const [visible, setVisible] = useState(false);
 
   return (
     <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
@@ -412,6 +430,20 @@ export const ConfigPanel: FC<any> = ({
                 >
                   确定
                 </Button>
+
+                {/* FIXME 弹窗功能暂时关闭 */}
+                {/* 
+                <Button
+                  type='danger'
+                  onClick={() => openFilterView({ tableId: formState.values.table })}
+                >
+                  切换弹窗 {aNumber}
+                </Button> */}
+
+                {/* <FilterView
+                  visible={visible}
+                  tableId={formState.values.table}
+                /> */}
               </>
             )}
           </Form>

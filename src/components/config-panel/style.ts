@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 01:34
+ * @LastTime   : 2024-05-25 10:21
  * @desc       :
  */
 
@@ -65,6 +65,7 @@ export const AppWrapper = styled.div`
     background-color: #2955e7;
     color: #fff;
     border-radius: 6px;
+    border: none !important;
 
     &:hover {
       background-color: #2955e790;
