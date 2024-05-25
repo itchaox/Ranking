@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-25 23:08
+ * @LastTime   : 2024-05-26 07:33
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -88,7 +88,7 @@ export const ConfigPanel: FC<any> = ({
     // return isCOUNTA || (isVALUE && isUnit);
     // return isCOUNTA || isVALUE;
 
-    return categories.find((item) => item.fieldId === values.selectFiled)?.fieldType === 2 || isCOUNTA;
+    return categories.find((item) => item.fieldId === values.selectFiled)?.fieldType !== 99003 || isCOUNTA;
   };
 
   const [inputValue, setInputValue] = useState('');
