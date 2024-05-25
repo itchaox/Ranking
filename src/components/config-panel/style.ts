@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-25 22:39
+ * @LastTime   : 2024-05-25 22:52
  * @desc       :
  */
 
@@ -50,12 +50,11 @@ export const AppWrapper = styled.div`
     height: 32px;
     line-height: 32px;
 
-    /* position: absolute;
-    right: 20px; */
+    position: absolute;
+    right: 0;
   }
 
   .amountNumber {
-    padding-top: -12px;
   }
 
   .confirm {
@@ -96,6 +95,10 @@ export const AppWrapper = styled.div`
 
   /* .select-suffix {
   } */
+
+  .semi-form-field-group {
+    position: relative;
+  }
 
   .semi-select-suffix {
     margin: 3px 14px 3px 0;
