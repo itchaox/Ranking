@@ -208,6 +208,8 @@ export default function App() {
             selectFiled,
             operation: _operation,
             isPercent: _isPercent,
+            decimalNumber,
+            displayFormat,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
@@ -243,6 +245,8 @@ export default function App() {
             amountSwitch,
             amountNumber,
             statistics,
+            decimalNumber,
+            displayFormat,
           };
 
           previewConfig = {
