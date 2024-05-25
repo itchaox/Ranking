@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-25 22:38
+ * @LastTime   : 2024-05-25 23:08
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -17,7 +17,7 @@ import { People, ViewList } from '@icon-park/react';
 
 import { useFilterView } from '../FilterView';
 
-// import _2Icon from '../../assets/icons/2.svg';
+import TableIcon from '../../assets/icons/Table.svg';
 // import _99003Icon from '../../assets/icons/99003.svg';
 
 import IconComponent from '../FiledIcon';
@@ -197,11 +197,10 @@ export const ConfigPanel: FC<any> = ({
                     field='table'
                     filter
                     prefix={
-                      <ViewList
-                        theme='outline'
-                        size='14'
-                        fill='#646A73'
-                        style={{ margin: '0 5px' }}
+                      <img
+                        src={TableIcon}
+                        alt=''
+                        style={{ margin: '0 8px 0 10px' }}
                       />
                     }
                     label={{ text: '数据源' }}
@@ -217,11 +216,10 @@ export const ConfigPanel: FC<any> = ({
                     filter
                     field='dataRange'
                     prefix={
-                      <ViewList
-                        theme='outline'
-                        size='14'
-                        fill='#646A73'
-                        style={{ margin: '0 5px' }}
+                      <img
+                        src={TableIcon}
+                        alt=''
+                        style={{ margin: '0 8px 0 10px' }}
                       />
                     }
                     label={{ text: '数据范围', required: true }}
