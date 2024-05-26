@@ -1,5 +1,5 @@
 import './App.css';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   DashboardState,
   IDataRange,
@@ -200,6 +200,10 @@ export default function App() {
 
           let { tableId, dataRange, groups } = dataConditions[0];
 
+          let _dataRange = { ...dataRange };
+
+          delete _dataRange.filterInfo;
+
           let {
             unit,
             unitPosition,
@@ -239,7 +243,8 @@ export default function App() {
 
           formInitValue = {
             table: tableId,
-            dataRange: JSON.stringify(dataRange),
+            // dataRange: JSON.stringify(dataRange),
+            dataRange: JSON.stringify(_dataRange),
             category: groups?.[0]?.fieldId ?? '',
             selectFiled,
             unit,
@@ -278,6 +283,8 @@ export default function App() {
 
   // const [currencyCode, setCurrencyCode] = useState();
 
+  const [filterInfo, setFilterInfo] = useState();
+
   const getNewData = async (filterInfo) => {
     let updatedPreviewConfig = {
       ...temPreviewConfig,
@@ -288,9 +295,9 @@ export default function App() {
     };
 
     const data = await dashboard.getPreviewData(updatedPreviewConfig);
-    console.log('🚀  data:', data);
 
     setRenderData(data);
+    setFilterInfo(filterInfo);
   };
 
   function getCurrency(currencyCode) {
@@ -567,7 +574,7 @@ export default function App() {
 
     const dataCondition = {
       tableId: table,
-      dataRange: dataRangeObj,
+      dataRange: { ...dataRangeObj, filterInfo },
       groups,
       series,
     };

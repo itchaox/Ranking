@@ -43,3 +43,12 @@ body {
     cursor: pointer;
   }
 }
+
+.semi-select-option-list-wrapper {
+  .optionItem {
+    &:hover {
+      cursor: pointer;
+      background-color: #ededee;
+    }
+  }
+}

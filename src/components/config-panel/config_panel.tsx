@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 09:45
+ * @LastTime   : 2024-05-26 16:51
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -18,6 +18,7 @@ import { People, ViewList } from '@icon-park/react';
 import { useFilterView } from '../FilterView';
 
 import TableIcon from '../../assets/icons/Table.svg';
+import FilterIcon from '../../assets/icons/filter.svg';
 
 import IconComponent from '../FiledIcon';
 
@@ -38,10 +39,10 @@ export const ConfigPanel: FC<any> = ({
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const [aNumber, setANumber] = useState(1);
+  const [aNumber, setANumber] = useState(0);
 
   const { openFilterView } = useFilterView({
-    successCallback: ({ filterNumber, filterInfo }) => {
+    saveCallback: ({ filterNumber, filterInfo }) => {
       // FIXME 到这个地方，就结束了，其他的就是用户自己操作给的数据
 
       getNewData(filterInfo);
@@ -236,6 +237,23 @@ export const ConfigPanel: FC<any> = ({
                       }
                     })}
                   />
+
+                  {
+                    <div className='filter'>
+                      <div
+                        className='main'
+                        onClick={() => openFilterView({ tableId: formState.values.table })}
+                      >
+                        <img
+                          src={FilterIcon}
+                          style={{ marginRight: '2px' }}
+                        />
+                        筛选数据
+                      </div>
+
+                      {aNumber > 0 && <div className='selected'>已选：{aNumber} 个条件</div>}
+                    </div>
+                  }
 
                   {/* 样式 */}
                   {/* FIXME 暂时不需要样式切换，等有头像再做 */}
@@ -485,8 +503,8 @@ export const ConfigPanel: FC<any> = ({
                 </Button>
 
                 {/* FIXME 弹窗功能暂时关闭 */}
-                {/* 
-                <Button
+
+                {/* <Button
                   type='danger'
                   onClick={() => openFilterView({ tableId: formState.values.table })}
                 >

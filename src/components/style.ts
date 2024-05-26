@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-25 13:24
+ * @LastTime   : 2024-05-26 17:03
  * @desc       :
  */
 
@@ -33,10 +33,30 @@ export const AppWrapper = styled.div`
     .value {
       flex: 1;
       margin: 0 5px;
+      display: flex;
     }
 
     .delete {
       cursor: pointer;
+
+      svg {
+        padding: 2px;
+        border-radius: 6px;
+        &:hover {
+          background-color: #ededee;
+        }
+      }
+    }
+  }
+
+  .add {
+    display: inline-block;
+    padding: 4px;
+    border-radius: 6px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ededee;
     }
   }
 `;

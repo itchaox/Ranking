@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Button, Modal, Select, Input } from '@douyinfe/semi-ui';
+import { Button, Modal, Select, Input, DatePicker, Divider } from '@douyinfe/semi-ui';
 
 import type { IFieldMeta, IFilterInfo } from '@lark-base-open/js-sdk';
 import { bitable } from '@lark-base-open/js-sdk';
@@ -8,12 +8,11 @@ import { bitable } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
 
 type modalPropsType = {
-  infoTxt?: string;
-  successCallback?: (values?: any) => void;
+  saveCallback?: (values?: any) => void;
 };
 
 export const useFilterView = (props: modalPropsType = {}) => {
-  const { infoTxt = '这是一段提示', successCallback = () => {} } = props;
+  const { saveCallback = () => {} } = props;
 
   const [show, setShow] = useState<boolean>(false);
 
@@ -31,6 +30,17 @@ export const useFilterView = (props: modalPropsType = {}) => {
   // 筛选列表
   const [filterList, setFilterList] = useState<any>([]);
 
+  const [selectOptColorInfo, setSelectOptColorInfo] = useState();
+
+  useEffect(() => {
+    async function fn() {
+      const res = await bitable.ui.getSelectOptionColorInfoList();
+      setSelectOptColorInfo(res);
+    }
+
+    fn();
+  }, []);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const rootRef = useRef<ReturnType<typeof ReactDOM.createRoot> | null>(null);
@@ -38,8 +48,10 @@ export const useFilterView = (props: modalPropsType = {}) => {
   const getOperatorOptionList = (filedType: number) => {
     const _arr1 = [1, 3, 4, 13, 15, 22, 99001, 99005];
     const _arr2 = [2, 1005, 99002, 99003, 99004];
-    const _arr3 = [11, 17, 18, 19, 20, 21, 23, 1003, 1004];
+    // const _arr3 = [11, 17, 18, 19, 20, 21, 23, 1003, 1004];
+    const _arr3 = [11, 17, 23, 1003, 1004];
     const _arr4 = [5, 1001, 1002];
+    const _arr5 = [18, 19, 20, 21];
 
     let type = 1;
 
@@ -51,28 +63,30 @@ export const useFilterView = (props: modalPropsType = {}) => {
       type = 3;
     } else if (_arr4.includes(filedType)) {
       type = 4;
+    } else if (_arr5.includes(filedType)) {
+      type = 5;
     }
 
     const list = [
       {
         value: 'is',
         label: '等于',
-        type: [1, 2, 4],
+        type: [1, 2, 4, 5],
       },
       {
         value: 'isNot',
         label: '不等于',
-        type: [1, 2],
+        type: [1, 2, 5],
       },
       {
         value: 'contains',
         label: '包含',
-        type: [1],
+        type: [1, 5],
       },
       {
         value: 'doesNotContain',
         label: '不包含',
-        type: [1],
+        type: [1, 5],
       },
       {
         value: 'isGreater',
@@ -87,32 +101,32 @@ export const useFilterView = (props: modalPropsType = {}) => {
       {
         value: 'isEmpty',
         label: '为空',
-        type: [1, 2, 3, 4],
+        type: [1, 2, 3, 4, 5],
       },
       {
         value: 'isNotEmpty',
         label: '不为空',
-        type: [1, 2, 3, 4],
+        type: [1, 2, 3, 4, 5],
       },
       {
         value: 'isGreater',
         label: '大于',
-        type: [2],
+        type: [2, 5],
       },
       {
         value: 'isGreaterEqual',
         label: '大于或等于',
-        type: [2],
+        type: [2, 5],
       },
       {
         value: 'isLess',
         label: '小于',
-        type: [2],
+        type: [2, 5],
       },
       {
         value: 'isLessEqual',
         label: '小于或等于',
-        type: [2],
+        type: [2, 5],
       },
     ];
 
@@ -165,51 +179,35 @@ export const useFilterView = (props: modalPropsType = {}) => {
   }, []);
 
   // 确定按钮
-  const success = useCallback(
-    (values: any) => {
-      console.log('filterList', filterList);
+  const success = useCallback(() => {
+    console.log('filterList', filterList);
 
-      // interface IFilterInfo {
-      //   conjunction: FilterConjunction;
-      //   conditions: FilterInfoCondition[];
-      // }
+    // interface IFilterInfo {
+    //   conjunction: FilterConjunction;
+    //   conditions: FilterInfoCondition[];
+    // }
 
-      // FilterConjunction 过滤条件的生效条件
-      // FilterNumber 过滤条件数量
+    // FilterConjunction 过滤条件的生效条件
+    // FilterNumber 过滤条件数量
 
-      // FIXME 把这些东西抛出去
+    // FIXME 把这些东西抛出去
 
-      successCallback({
-        filterNumber: filterList.length,
-        filterInfo: {
-          conjunction: 'and',
-          conditions: filterList.map((item) => ({
-            fieldId: item.id, // field 唯一标识
-            // conditionId?: string; // condition 唯一标识，新增时可不传入
-            value: item.value, // 字段匹配值
-            operator: item.operator, // 匹配操作符
-          })),
-        },
-      });
+    saveCallback({
+      filterNumber: filterList.length,
+      filterInfo: {
+        conjunction: 'and',
+        conditions: filterList.map((item) => ({
+          fieldId: item.id, // field 唯一标识
+          // conditionId?: string; // condition 唯一标识，新增时可不传入
+          value: item.value, // 字段匹配值
+          operator: item.operator, // 匹配操作符
+        })),
+      },
+    });
 
-      // externalParams.getNewData({
-      //   filterNumber: filterList.length,
-      //   filterInfo: {
-      //     conjunction: 'and',
-      //     conditions: filterList.map((item) => ({
-      //       fieldId: item.id, // field 唯一标识
-      //       // conditionId?: string; // condition 唯一标识，新增时可不传入
-      //       value: item.value, // 字段匹配值
-      //       operator: item.operator, // 匹配操作符
-      //     })),
-      //   },
-      // });
-
-      setShow(false);
-      unMounted();
-    },
-    [unMounted, successCallback],
-  );
+    setShow(false);
+    unMounted();
+  }, [unMounted, saveCallback]);
 
   // 取消按钮
   const cancel = useCallback(() => {
@@ -217,19 +215,22 @@ export const useFilterView = (props: modalPropsType = {}) => {
     unMounted();
   }, [unMounted]);
 
+  let [table, setTable] = useState();
+
   useEffect(() => {
     async function fn() {
       if (!show) return;
 
       // 弹窗打开时
-      const table = await bitable.base.getTable(externalParams?.tableId);
+      const _table = await bitable.base.getTable(externalParams?.tableId);
 
-      const viewList = await table.getViewList();
+      const viewList = await _table.getViewList();
 
-      const view = await table.getViewById(viewList[0]?.id);
+      const view = await _table.getViewById(viewList[0]?.id);
 
       const fieldMetaList = await view.getFieldMetaList();
 
+      setTable(_table);
       // FIXME 哪些字段不需要处理（按钮没有，但是按钮和流程的 type 都为 0，这个如何判断呢） 流程 和按钮字段在 js sdk 中找不到
       setFilterFieldList(fieldMetaList.filter((item) => item.type !== 0));
     }
@@ -237,11 +238,11 @@ export const useFilterView = (props: modalPropsType = {}) => {
     fn();
   }, [show]);
 
-  const filterFiledChange = (value, index) => {
+  const filterFiledChange = async (value, index) => {
     let _activeItem = filterFieldList.find((i) => i.id === value);
     let _arr = [...filterList];
 
-    // 字段名
+    // 文本项\数字类,不需要再掉数据
     _arr[index] = {
       id: _activeItem.id,
       name: _activeItem.name,
@@ -252,6 +253,31 @@ export const useFilterView = (props: modalPropsType = {}) => {
       value: '',
     };
 
+    // 单选/多选
+    if (_activeItem?.type === 3 || _activeItem?.type === 4) {
+      const selectField = await table.getField(value);
+      let options = await selectField.getOptions();
+
+      // 获取颜色
+      options = options.map((item) => {
+        const obj = selectOptColorInfo.find((i) => item.color === i.id);
+        return {
+          ...obj,
+          ...item,
+        };
+      });
+
+      // 更新选项
+      _arr[index] = {
+        options,
+        name: _activeItem.name,
+        type: _activeItem.type,
+        id: _activeItem.id,
+        operator: 'is',
+        value: '',
+      };
+    }
+
     setFilterList(_arr);
   };
 
@@ -261,7 +287,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
         <Modal
           onCancel={cancel}
           visible={show}
-          onOk={() => success(null)}
+          onOk={() => success()}
           title={'设置筛选条件'}
           destroyOnClose
           width='45%'
@@ -277,7 +303,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
             <Button
               key='success'
               theme='solid'
-              onClick={() => success(null)}
+              onClick={() => success()}
             >
               保存
             </Button>,
@@ -290,7 +316,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
                 key={item.id + index}
                 className='line'
               >
-                {/* 字段名 */}
+                {/* FIXME 字段名 */}
                 <div className='left'>
                   <Select
                     filter
@@ -304,7 +330,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
                 </div>
 
                 <div className='right'>
-                  {/* 条件 */}
+                  {/* FIXME  条件 */}
                   <div className='operator'>
                     <Select
                       filter
@@ -323,17 +349,115 @@ export const useFilterView = (props: modalPropsType = {}) => {
                     />
                   </div>
 
-                  {/* 字段值 */}
+                  {/* FIXME 字段值 */}
                   <div className='value'>
-                    <Input
-                      value={item.value}
-                      onChange={(value) => {
-                        let _arr = [...filterList];
-                        _arr[index].value = value;
-                        setFilterList(_arr);
-                      }}
-                      placeholder='请输入'
-                    />
+                    {/* 输入框 */}
+                    {[1, 2, 13, 15, 18, 19, 20, 21, 22, 1005, 99001, 99002, 99003, 99004, 99005].includes(
+                      item.type,
+                    ) && (
+                      <Input
+                        value={item.value}
+                        onChange={(value) => {
+                          let _arr = [...filterList];
+                          _arr[index].value = value;
+                          setFilterList(_arr);
+                        }}
+                        placeholder='请输入'
+                      />
+                    )}
+
+                    {/* 下拉框 */}
+                    {[3, 4].includes(item.type) && (
+                      <Select
+                        multiple={item.type === 4}
+                        maxTagCount={2}
+                        placeholder='请选择'
+                        style={{ width: '100%' }}
+                        filter
+                        value={item.value}
+                        onChange={(value) => {
+                          let _arr = [...filterList];
+                          _arr[index].value = value;
+                          setFilterList(_arr);
+                        }}
+                        optionList={item.options.map((i) => ({
+                          value: i.id,
+                          label: i.name,
+                          ...i,
+                        }))}
+                        // FIXME 选项的自定义渲染
+                        renderOptionItem={(renderProps) => (
+                          <div
+                            className='optionItem'
+                            onClick={() => renderProps?.onClick()}
+                          >
+                            <span
+                              style={{
+                                backgroundColor: renderProps.bgColor,
+                                color: renderProps.textColor,
+                                padding: '2px 4px',
+                                marginLeft: '10px',
+                                borderRadius: '30%',
+                              }}
+                            >
+                              {renderProps.label}
+                            </span>
+                          </div>
+                        )}
+                      />
+                    )}
+
+                    {/* 日期 */}
+
+                    {[5, 1001, 1002].includes(item.type) && (
+                      <>
+                        <Select
+                          filter
+                          value={item.value || 'definite'}
+                          onChange={(value) => {
+                            let _arr = [...filterList];
+                            _arr[index].value = value;
+                            setFilterList(_arr);
+                          }}
+                          optionList={[
+                            // { value: 'definite', label: '具体日期' },
+                            { value: 'Today', label: '今天' },
+                            { value: 'Tomorrow', label: '明天' },
+                            { value: 'Yesterday', label: '昨天' },
+                            { value: 'CurrentWeek', label: '本周' },
+                            { value: 'LastWeek', label: '上周' },
+                            { value: 'CurrentMonth', label: '本月' },
+                            { value: 'LastMonth', label: '上月' },
+                            { value: 'TheLastWeek', label: '过去 7 天内' },
+                            { value: 'TheNextWeek', label: '未来 7 天内' },
+                            { value: 'TheLastMonth', label: '过去 30 天内' },
+                            { value: 'TheNextMonth', label: '未来 30 天内' },
+                          ]}
+                        />
+
+                        {/* FIXME 具体日期 */}
+
+                        {/* {item.value === 'definite' && (
+                          <DatePicker
+                            format='yyyy/MM/dd'
+                            onChange={(date, dateString) => {
+                              const dateObject = new Date(date);
+                              const timestamp = dateObject.getTime(); // 获取时间戳
+                              let _arr = [...filterList];
+                              _arr[index].value = timestamp;
+                              setFilterList(_arr);
+                            }}
+                          />
+                        )} */}
+                      </>
+                    )}
+
+                    {/* 复选框 */}
+                    {item.type === 7 && (
+                      <>
+                        <div>复选框</div>
+                      </>
+                    )}
                   </div>
                   <div
                     className='delete'
@@ -343,17 +467,35 @@ export const useFilterView = (props: modalPropsType = {}) => {
                       setFilterList(_arr);
                     }}
                   >
-                    ❎
+                    <svg
+                      width='1.2em'
+                      height='1.2em'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'
+                      data-icon='CloseSmallOutlined'
+                    >
+                      <path
+                        d='M5.636 5.636a1 1 0 0 0 0 1.414l4.95 4.95-4.95 4.95a1 1 0 1 0 1.414 1.414l4.95-4.95 4.95 4.95a1 1 0 0 0 1.414-1.414L13.414 12l4.95-4.95a1 1 0 0 0-1.415-1.414L12 10.586l-4.95-4.95a1 1 0 0 0-1.413 0Z'
+                        fill='currentColor'
+                      ></path>
+                    </svg>
                   </div>
                 </div>
               </div>
             ))}
+
+            <div
+              onClick={addFilter}
+              className='add'
+            >
+              + 添加条件
+            </div>
           </AppWrapper>
-          <Button onClick={addFilter}>+ 添加条件</Button>
         </Modal>,
       );
     }
-  }, [show, cancel, containerRef, infoTxt, success, externalParams]);
+  }, [show, cancel, containerRef, success, externalParams]);
 
   const openFilterView = (params: any) => {
     createContainer();

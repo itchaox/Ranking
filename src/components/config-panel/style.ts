@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 09:06
+ * @LastTime   : 2024-05-26 15:12
  * @desc       :
  */
 
@@ -55,6 +55,25 @@ export const AppWrapper = styled.div`
   }
 
   .amountNumber {
+  }
+
+  .filter {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+
+    .main {
+      color: #1456f0;
+      margin-right: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .selected {
+      color: #94969f;
+    }
   }
 
   .confirm {
