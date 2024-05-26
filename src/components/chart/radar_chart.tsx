@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 00:35
+ * @LastTime   : 2024-05-26 09:10
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -68,7 +68,9 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
 
   // 先排序再 slice，否则可能出现排序在前面的数据消失了
   // 降序排序
-  let temData = dataSet.sort((a: any, b: any) => b[1] - a[1]).filter((item) => item[0] !== '');
+  let temData = dataSet
+    .sort((a: any, b: any) => (formState.sort === 1 ? b[1] - a[1] : a[1] - b[1]))
+    .filter((item) => item[0] !== '');
 
   let _data = !formState?.amountSwitch ? [...temData.slice(1)] : [...temData.slice(1, formState?.amountNumber + 1)];
 
@@ -142,11 +144,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                   <div className='name'>{item[0]}</div>
 
                   <div className={`number ${index <= 2 ? 'special' : ''}`}>
-                    {/* <div>
-                      {formState?.unitPosition === 'LEFT'
-                        ? `${formState?.unit || ''} ${item[1]}`
-                        : `${item[1]} ${formState?.unit || ''}`}
-                    </div> */}
                     {isPercent ? (
                       <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
                     ) : (

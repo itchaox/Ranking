@@ -172,6 +172,7 @@ export default function App() {
             amountNumber: 10,
             decimalNumber: 0,
             displayFormat: 1,
+            sort: 1,
             // style: 1,
           };
 
@@ -210,6 +211,7 @@ export default function App() {
             isPercent: _isPercent,
             decimalNumber,
             displayFormat,
+            sort,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
@@ -247,6 +249,7 @@ export default function App() {
             statistics,
             decimalNumber,
             displayFormat,
+            sort,
           };
 
           previewConfig = {

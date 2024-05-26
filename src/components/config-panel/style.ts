@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 07:40
+ * @LastTime   : 2024-05-26 09:06
  * @desc       :
  */
 
@@ -157,7 +157,7 @@ export const AppWrapper = styled.div`
 
   .semi-radioGroup {
     flex: 1;
-    /* width: 45%; */
+    /* width: 100%; */
     background-color: ${(props) => props.theme.backgroundColor};
     border: 1px solid ${(props) => props.theme.borderColor};
     border-radius: 6px;
@@ -176,6 +176,8 @@ export const AppWrapper = styled.div`
     }
 
     .semi-radio-addon-buttonRadio {
+      height: 100%;
+      line-height: 100%;
       &:hover {
         background-color: rgba(20, 86, 240, 0.1);
       }

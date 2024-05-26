@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 08:02
+ * @LastTime   : 2024-05-26 09:08
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -18,7 +18,8 @@ import { People, ViewList } from '@icon-park/react';
 import { useFilterView } from '../FilterView';
 
 import TableIcon from '../../assets/icons/Table.svg';
-// import _99003Icon from '../../assets/icons/99003.svg';
+import AscIcon from '../../assets/icons/asc.svg';
+import DescIcon from '../../assets/icons/desc.svg';
 
 import IconComponent from '../FiledIcon';
 
@@ -176,8 +177,6 @@ export const ConfigPanel: FC<any> = ({
     let data = e.target.textContent;
     dropChange(data, formState.values);
   };
-
-  const [visible, setVisible] = useState(false);
 
   return (
     <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
@@ -397,6 +396,46 @@ export const ConfigPanel: FC<any> = ({
                     </Form.InputGroup>
                   )}
 
+                  {/* 排序 */}
+                  <Form.RadioGroup
+                    style={{ width: '99.5%' }}
+                    label={{ text: '排序' }}
+                    field='sort'
+                    type='button'
+                    options={[
+                      {
+                        value: 1,
+                        label: (
+                          <div
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img
+                              src={DescIcon}
+                              style={{ marginRight: '2px' }}
+                            />
+                            降序
+                          </div>
+                        ),
+                      },
+                      {
+                        value: 2,
+                        label: (
+                          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img
+                              src={AscIcon}
+                              style={{ marginRight: '2px' }}
+                            />
+                            升序
+                          </div>
+                        ),
+                      },
+                    ]}
+                  />
+
                   <Divider />
 
                   {/* 自定义数量 */}
@@ -437,11 +476,6 @@ export const ConfigPanel: FC<any> = ({
                 >
                   切换弹窗 {aNumber}
                 </Button> */}
-
-                {/* <FilterView
-                  visible={visible}
-                  tableId={formState.values.table}
-                /> */}
               </>
             )}
           </Form>
