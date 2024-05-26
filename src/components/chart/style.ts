@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-24 01:28
+ * @LastTime   : 2024-05-26 10:17
  * @desc       :
  */
 
@@ -41,6 +41,7 @@ export const AppWrapper = styled.div`
 
   .content {
     background-color: ${(props) => `${props.theme.contentBackgroundColor}`};
+    position: relative;
 
     padding: 24px;
     border-radius: 6px;

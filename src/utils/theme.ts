@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-19 08:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-20 10:51
+ * @LastTime   : 2024-05-26 10:00
  * @desc       : 明暗主题
  */
 
@@ -23,7 +23,6 @@ export const darkTheme = {
   textColor: '#fff',
   backgroundColor: '#1a1a1a',
   hoverBackgroundColor: '#edeeee',
-  contentBackgroundColor: '#ffffff10',
-  // contentBackgroundColor: '#00000035',
+  contentBackgroundColor: '#2c3837',
   background: 'linear-gradient(to bottom, rgba(27, 35, 32), rgba(29, 32, 27))',
 };
