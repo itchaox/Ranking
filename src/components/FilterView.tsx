@@ -178,6 +178,8 @@ export const useFilterView = (props: modalPropsType = {}) => {
     }
   }, []);
 
+  const [conjunction, setConjunction] = useState('and');
+
   // 确定按钮
   const success = useCallback(() => {
     console.log('filterList', filterList);
@@ -195,7 +197,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
     saveCallback({
       filterNumber: filterList.length,
       filterInfo: {
-        conjunction: 'and',
+        conjunction,
         conditions: filterList.map((item) => ({
           fieldId: item.id, // field 唯一标识
           // conditionId?: string; // condition 唯一标识，新增时可不传入
@@ -311,6 +313,29 @@ export const useFilterView = (props: modalPropsType = {}) => {
           getContainer={() => containerRef.current!}
         >
           <AppWrapper>
+            {filterList.length > 1 && (
+              <div className='filterConjunction'>
+                <span>符合以下</span>
+                <Select
+                  className='conjunctionSelect'
+                  size='small'
+                  value={conjunction}
+                  onChange={(value) => setConjunction(value)}
+                  optionList={[
+                    {
+                      value: 'and',
+                      label: '所有',
+                    },
+                    {
+                      value: 'or',
+                      label: '任一',
+                    },
+                  ]}
+                />
+                <span>条件</span>
+              </div>
+            )}
+
             {filterList.map((item, index) => (
               <div
                 key={item.id + index}
