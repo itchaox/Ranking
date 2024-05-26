@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 07:33
+ * @LastTime   : 2024-05-26 08:02
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -397,7 +397,7 @@ export const ConfigPanel: FC<any> = ({
                     </Form.InputGroup>
                   )}
 
-                  <Divider margin='4px' />
+                  <Divider />
 
                   {/* 自定义数量 */}
                   <Form.InputGroup
