@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 10:18
+ * @LastTime   : 2024-05-26 11:32
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -60,7 +60,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     return (
       <img
         className='index-img'
-        src={images[index]}
+        src={images[index - 1]}
         alt={`Image ${index}`}
       />
     );
@@ -73,8 +73,9 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     .filter((item) => item[0] !== '');
 
   let _data = !formState?.amountSwitch ? [...temData.slice(1)] : [...temData.slice(1, formState?.amountNumber + 1)];
+  console.log('🚀  _data:', _data);
 
-  const formatDecimal = (number) => {
+  const formatDecimal = (number, onlyDot = false) => {
     let decimalPlaces = formState.decimalNumber;
     let formatOption = formState.displayFormat;
     // 将数字转换为字符串
@@ -90,7 +91,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     let decimalPart = dotIndex === -1 ? '' : numberString.slice(dotIndex + 1);
 
     // 判断是否需要添加千分位分隔符
-    if (formatOption === 2) {
+    if (formatOption === 2 && !onlyDot) {
       // 将整数部分按千分位分隔
       integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
@@ -116,6 +117,27 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     return integerPart + '.' + decimalPart;
   };
 
+  const getNewData = (data) => {
+    let sortedData = [...data];
+
+    let rank = 1;
+    let prevScore = formatDecimal(sortedData[0][1], true);
+
+    // FIXME 小数点更新后，更新排名
+
+    sortedData.forEach((data, index) => {
+      const currentScore = formatDecimal(data[1], true);
+
+      if (formState.sort === 1 ? currentScore < prevScore : currentScore > prevScore) {
+        rank = index + 1;
+      }
+      data.push(rank);
+      prevScore = currentScore;
+    });
+
+    return sortedData;
+  };
+
   return (
     <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
       <img
@@ -127,7 +149,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
         src={RightImage}
       />
 
-      <div className='scroll'>
+      {/* <div className='scroll'>
         {_data.length > 0 && (
           <div className='content'>
             {_data.map((item, index) => (
@@ -140,10 +162,46 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                 ) : (
                   <div className='index'>{index + 1}</div>
                 )}
+
                 <div className='info'>
                   <div className='name'>{item[0]}</div>
 
                   <div className={`number ${index <= 2 ? 'special' : ''}`}>
+                    {isPercent ? (
+                      <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
+                    ) : (
+                      <div>
+                        {formState?.unitPosition === 'LEFT'
+                          ? `${formState?.unit || ''} ${formatDecimal(+item[1])}`
+                          : `${formatDecimal(+item[1])} ${formState?.unit || ''}`}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div> */}
+
+      <div className='scroll'>
+        {_data.length > 0 && (
+          <div className='content'>
+            {getNewData(_data).map((item, index) => (
+              <div
+                className='line'
+                key={item[0]}
+              >
+                {item[item.length - 1] <= 2 ? (
+                  <div className='index'>{getIndexImage(item[item.length - 1])}</div>
+                ) : (
+                  <div className='index'>{item[item.length - 1]}</div>
+                )}
+
+                <div className='info'>
+                  <div className='name'>{item[0]}</div>
+
+                  <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
                     {isPercent ? (
                       <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
                     ) : (
