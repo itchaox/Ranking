@@ -200,6 +200,8 @@ export default function App() {
 
           let { tableId, dataRange, groups } = dataConditions[0];
 
+          setFilterInfo(dataRange?.filterInfo);
+
           let _dataRange = { ...dataRange };
 
           delete _dataRange.filterInfo;
@@ -625,6 +627,7 @@ export default function App() {
           dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
           isPercent={isPercent}
           getNewData={getNewData}
+          filterInfo={filterInfo}
         />
       ) : null}
     </div>

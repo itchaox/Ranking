@@ -203,6 +203,8 @@ export const useFilterView = (props: modalPropsType = {}) => {
           // conditionId?: string; // condition 唯一标识，新增时可不传入
           value: item.value, // 字段匹配值
           operator: item.operator, // 匹配操作符
+          type: item.type,
+          name: item.name,
         })),
       },
     });
@@ -222,6 +224,49 @@ export const useFilterView = (props: modalPropsType = {}) => {
   useEffect(() => {
     async function fn() {
       if (!show) return;
+
+      console.log('externalParams.filterInfo', externalParams.filterInfo);
+
+      if (externalParams?.filterInfo?.conditions) {
+        let _arr = externalParams?.filterInfo?.conditions?.map((item) => {
+          return {
+            ...item,
+            id: item.fieldId,
+          };
+        });
+
+        _arr = await Promise.all(
+          _arr.map(async (item, index) => {
+            // 单选/多选
+            if (item?.type === 3 || item?.type === 4) {
+              const selectField = await table.getField(item.id);
+              let options = await selectField.getOptions();
+
+              // 获取颜色
+              options = options.map((item) => {
+                const obj = selectOptColorInfo.find((i) => item.color === i.id);
+                return {
+                  ...obj,
+                  ...item,
+                };
+              });
+
+              // 更新选项
+              _arr[index] = {
+                options,
+                ..._arr[index],
+              };
+            }
+
+            return _arr[index];
+          }),
+        );
+
+        console.log('ttt', _arr);
+
+        // console.log('arr',_arr)
+        setFilterList(_arr);
+      }
 
       // 弹窗打开时
       const _table = await bitable.base.getTable(externalParams?.tableId);

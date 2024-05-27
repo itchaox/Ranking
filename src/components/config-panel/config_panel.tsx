@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 16:51
+ * @LastTime   : 2024-05-26 23:18
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -36,10 +36,12 @@ export const ConfigPanel: FC<any> = ({
   operation,
   isPercent,
   getNewData,
+  filterInfo,
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [aNumber, setANumber] = useState(0);
+  // const [filterInfo, setFilterInfo] = useState();
 
   const { openFilterView } = useFilterView({
     saveCallback: ({ filterNumber, filterInfo }) => {
@@ -242,7 +244,7 @@ export const ConfigPanel: FC<any> = ({
                     <div className='filter'>
                       <div
                         className='main'
-                        onClick={() => openFilterView({ tableId: formState.values.table })}
+                        onClick={() => openFilterView({ tableId: formState.values.table, filterInfo })}
                       >
                         <img
                           src={FilterIcon}
@@ -501,15 +503,6 @@ export const ConfigPanel: FC<any> = ({
                 >
                   确定
                 </Button>
-
-                {/* FIXME 弹窗功能暂时关闭 */}
-
-                {/* <Button
-                  type='danger'
-                  onClick={() => openFilterView({ tableId: formState.values.table })}
-                >
-                  切换弹窗 {aNumber}
-                </Button> */}
               </>
             )}
           </Form>
