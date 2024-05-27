@@ -201,11 +201,11 @@ export default function App() {
           let { tableId, dataRange, groups } = dataConditions[0];
 
           // FIXME 筛选暂时注释
-          // setFilterInfo(dataRange?.filterInfo);
+          setFilterInfo(dataRange?.filterInfo);
 
-          // let _dataRange = { ...dataRange };
+          let _dataRange = { ...dataRange };
 
-          // delete _dataRange.filterInfo;
+          delete _dataRange.filterInfo;
 
           let {
             unit,
@@ -577,8 +577,8 @@ export default function App() {
 
     const dataCondition = {
       tableId: table,
-      // dataRange: { ...dataRangeObj, filterInfo },
-      dataRange: dataRangeObj,
+      dataRange: { ...dataRangeObj, filterInfo },
+      // dataRange: dataRangeObj,
       groups,
       series,
     };
