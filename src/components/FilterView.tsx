@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Button, Modal, Select, Input, DatePicker, Divider } from '@douyinfe/semi-ui';
+import { Button, Modal, Select, Input, DatePicker, Divider, Checkbox } from '@douyinfe/semi-ui';
 
 import type { IFieldMeta, IFilterInfo } from '@lark-base-open/js-sdk';
 import { bitable } from '@lark-base-open/js-sdk';
@@ -325,6 +325,8 @@ export const useFilterView = (props: modalPropsType = {}) => {
       };
     }
 
+    _activeItem.type === 7 && (_arr[index].operator = 'is');
+
     setFilterList(_arr);
   };
 
@@ -402,21 +404,20 @@ export const useFilterView = (props: modalPropsType = {}) => {
                 <div className='right'>
                   {/* FIXME  条件 */}
                   <div className='operator'>
-                    <Select
-                      filter
-                      value={item.operator}
-                      onChange={(value) => {
-                        let _arr = [...filterList];
-                        _arr[index].operator = value;
-                        setFilterList(_arr);
-                      }}
-                      optionList={getOperatorOptionList(item.type)}
-                      // optionList={[
-                      //   { value: 'is', label: '等于', type: 2 },
-                      //   { value: 'isNot', label: '不等于' },
-                      //   { value: 'contains', label: '包含' },
-                      // ]}
-                    />
+                    {item.type === 7 ? (
+                      <div>等于</div>
+                    ) : (
+                      <Select
+                        filter
+                        value={item.operator}
+                        onChange={(value) => {
+                          let _arr = [...filterList];
+                          _arr[index].operator = value;
+                          setFilterList(_arr);
+                        }}
+                        optionList={getOperatorOptionList(item.type)}
+                      />
+                    )}
                   </div>
 
                   {/* FIXME 字段值 */}
@@ -525,7 +526,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
                     {/* 复选框 */}
                     {item.type === 7 && (
                       <>
-                        <div>复选框</div>
+                        <Checkbox onChange={(e) => (item.value = e.target.checked)} />
                       </>
                     )}
                   </div>
