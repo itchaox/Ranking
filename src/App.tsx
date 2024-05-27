@@ -200,11 +200,12 @@ export default function App() {
 
           let { tableId, dataRange, groups } = dataConditions[0];
 
-          setFilterInfo(dataRange?.filterInfo);
+          // FIXME 筛选暂时注释
+          // setFilterInfo(dataRange?.filterInfo);
 
-          let _dataRange = { ...dataRange };
+          // let _dataRange = { ...dataRange };
 
-          delete _dataRange.filterInfo;
+          // delete _dataRange.filterInfo;
 
           let {
             unit,
@@ -245,8 +246,8 @@ export default function App() {
 
           formInitValue = {
             table: tableId,
-            // dataRange: JSON.stringify(dataRange),
-            dataRange: JSON.stringify(_dataRange),
+            dataRange: JSON.stringify(dataRange),
+            // dataRange: JSON.stringify(_dataRange),
             category: groups?.[0]?.fieldId ?? '',
             selectFiled,
             unit,
@@ -576,7 +577,8 @@ export default function App() {
 
     const dataCondition = {
       tableId: table,
-      dataRange: { ...dataRangeObj, filterInfo },
+      // dataRange: { ...dataRangeObj, filterInfo },
+      dataRange: dataRangeObj,
       groups,
       series,
     };

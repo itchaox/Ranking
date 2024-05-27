@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 11:32
+ * @LastTime   : 2024-05-27 11:10
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -73,7 +73,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     .filter((item) => item[0] !== '');
 
   let _data = !formState?.amountSwitch ? [...temData.slice(1)] : [...temData.slice(1, formState?.amountNumber + 1)];
-  console.log('🚀  _data:', _data);
 
   const formatDecimal = (number, onlyDot = false) => {
     let decimalPlaces = formState.decimalNumber;
@@ -103,17 +102,21 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
 
     // 如果小数部分的位数已经等于要保留的位数,直接返回格式化后的数字
     if (decimalPart.length === decimalPlaces) {
+      console.log('ttt2');
       return integerPart + '.' + decimalPart;
     }
 
     // 如果小数部分的位数多于要保留的位数,截取指定位数的小数
     if (decimalPart.length > decimalPlaces) {
       decimalPart = decimalPart.slice(0, decimalPlaces);
+      console.log('ttt3');
       return integerPart + '.' + decimalPart;
     }
 
     // 如果小数部分的位数少于要保留的位数,在小数后面补足0
     decimalPart = decimalPart.padEnd(decimalPlaces, '0');
+
+    console.log('ttt4', integerPart, decimalPart);
     return integerPart + '.' + decimalPart;
   };
 
@@ -121,14 +124,18 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     let sortedData = [...data];
 
     let rank = 1;
-    let prevScore = formatDecimal(sortedData[0][1], true);
+    let prevScore = formatDecimal(isPercent ? sortedData[0][1] * 100 : sortedData[0][1], true);
 
     // FIXME 小数点更新后，更新排名
 
     sortedData.forEach((data, index) => {
-      const currentScore = formatDecimal(data[1], true);
+      const currentScore = formatDecimal(isPercent ? data[1] * 100 : data[1], true);
 
-      if (formState.sort === 1 ? currentScore < prevScore : currentScore > prevScore) {
+      if (
+        formState.sort === 1
+          ? parseFloat(currentScore) < parseFloat(prevScore)
+          : parseFloat(currentScore) > parseFloat(prevScore)
+      ) {
         rank = index + 1;
       }
       data.push(rank);
