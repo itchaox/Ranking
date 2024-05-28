@@ -297,6 +297,8 @@ export default function App() {
       },
     };
 
+    console.log('🚀  updatedPreviewConfig:', updatedPreviewConfig);
+
     const data = await dashboard.getPreviewData(updatedPreviewConfig);
 
     setRenderData(data);

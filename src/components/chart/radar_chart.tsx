@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-27 11:10
+ * @LastTime   : 2024-05-28 22:22
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -25,6 +25,7 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
+  console.log('🚀  dataSet:', dataSet);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   }, []);
 
   const getIndexImage = (index) => {
+    console.log('🚀  index:', index);
     const images = [image1, image2, image3];
     return (
       <img
@@ -199,7 +201,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                 className='line'
                 key={item[0]}
               >
-                {item[item.length - 1] <= 2 ? (
+                {item[item.length - 1] <= 3 ? (
                   <div className='index'>{getIndexImage(item[item.length - 1])}</div>
                 ) : (
                   <div className='index'>{item[item.length - 1]}</div>

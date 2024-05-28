@@ -325,6 +325,18 @@ export const useFilterView = (props: modalPropsType = {}) => {
       };
     }
 
+    if ([5, 1001, 1002].includes(_activeItem?.type)) {
+      _arr[index] = {
+        id: _activeItem.id,
+        name: _activeItem.name,
+        type: _activeItem.type,
+        // 重新初始化条件下拉框
+        operator: 'is',
+        duration: 'definite',
+        value: '',
+      };
+    }
+
     // 复选框
     if (_activeItem?.type === 7) {
       _arr[index].operator = 'is';
@@ -488,14 +500,19 @@ export const useFilterView = (props: modalPropsType = {}) => {
                       <>
                         <Select
                           filter
-                          value={item.value || 'definite'}
+                          value={item.duration || 'definite'}
                           onChange={(value) => {
                             let _arr = [...filterList];
-                            _arr[index].value = value;
+
+                            _arr[index].duration = value;
+
+                            if (item.duration !== 'definite') {
+                              _arr[index].value = value;
+                            }
                             setFilterList(_arr);
                           }}
                           optionList={[
-                            // { value: 'definite', label: '具体日期' },
+                            { value: 'definite', label: '具体日期' },
                             { value: 'Today', label: '今天' },
                             { value: 'Tomorrow', label: '明天' },
                             { value: 'Yesterday', label: '昨天' },
@@ -512,7 +529,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
                         {/* FIXME 具体日期 */}
 
-                        {/* {item.value === 'definite' && (
+                        {item.duration === 'definite' && (
                           <DatePicker
                             format='yyyy/MM/dd'
                             onChange={(date, dateString) => {
@@ -523,7 +540,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
                               setFilterList(_arr);
                             }}
                           />
-                        )} */}
+                        )}
                       </>
                     )}
 
