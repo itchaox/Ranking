@@ -7,6 +7,8 @@ import { bitable } from '@lark-base-open/js-sdk';
 
 import { AppWrapper } from './style';
 
+import IconComponent from './FiledIcon';
+
 type modalPropsType = {
   saveCallback?: (values?: any) => void;
 };
@@ -263,6 +265,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
       // 外部未传数据则初始化
       if (!externalParams?.filterInfo?.conjunction) {
         setFilterList([]);
+        setConjunction('and');
       }
 
       // 弹窗打开时
@@ -281,13 +284,6 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
     fn();
   }, [show]);
-
-  useEffect(() => {
-    if (filterList.length <= 1) {
-      // 默认始终为 and
-      setConjunction('and');
-    }
-  }, [filterList]);
 
   const filterFiledChange = async (value, index) => {
     let _activeItem = filterFieldList.find((i) => i.id === value);
@@ -348,6 +344,37 @@ export const useFilterView = (props: modalPropsType = {}) => {
     }
 
     setFilterList(_arr);
+  };
+
+  const renderOptionItem = (renderProps) => {
+    const {
+      disabled,
+      selected,
+      label,
+      value,
+      focused,
+      className,
+      style,
+      onMouseEnter,
+      onClick,
+      empty,
+      emptyContent,
+      ...rest
+    } = renderProps;
+
+    const type = filterFieldList.find((item) => item.id === value)?.type;
+
+    return (
+      <div
+        className='custom-option-render'
+        style={style}
+        onClick={() => onClick()}
+        onMouseEnter={(e) => onMouseEnter()}
+      >
+        <IconComponent index={type} />
+        {label}
+      </div>
+    );
   };
 
   useEffect(() => {
@@ -414,6 +441,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
                     filter
                     value={item.id}
                     onChange={(value) => filterFiledChange(value, index)}
+                    renderOptionItem={renderOptionItem}
                     optionList={filterFieldList.map((i) => ({
                       value: i.id,
                       label: i.name,
