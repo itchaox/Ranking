@@ -17,12 +17,14 @@ export const useFilterView = (props: modalPropsType = {}) => {
   const [show, setShow] = useState<boolean>(false);
 
   interface IExternalParams {
+    // 表格 id
     tableId: string;
+
+    // 过滤条件数据
     filterInfo?: IFilterInfo;
   }
 
-  const [externalParams, setExternalParams] = useState<any>();
-  // externalParams， tableId, filterInfo
+  const [externalParams, setExternalParams] = useState<IExternalParams>();
 
   // 筛选的字段列表
   const [filterFieldList, setFilterFieldList] = useState<IFieldMeta[]>([]);
@@ -32,6 +34,12 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
   const [selectOptColorInfo, setSelectOptColorInfo] = useState();
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const rootRef = useRef<ReturnType<typeof ReactDOM.createRoot> | null>(null);
+
+  const [conjunction, setConjunction] = useState('and');
+
   useEffect(() => {
     async function fn() {
       const res = await bitable.ui.getSelectOptionColorInfoList();
@@ -40,10 +48,6 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
     fn();
   }, []);
-
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const rootRef = useRef<ReturnType<typeof ReactDOM.createRoot> | null>(null);
 
   const getOperatorOptionList = (filedType: number) => {
     const _arr1 = [1, 3, 4, 13, 15, 22, 99001, 99005];
@@ -178,8 +182,6 @@ export const useFilterView = (props: modalPropsType = {}) => {
     }
   }, []);
 
-  const [conjunction, setConjunction] = useState('and');
-
   // 确定按钮
   const success = useCallback(() => {
     console.log('filterList', filterList);
@@ -224,6 +226,8 @@ export const useFilterView = (props: modalPropsType = {}) => {
   useEffect(() => {
     async function fn() {
       if (!show) return;
+
+      // 条件复显
 
       console.log('externalParams.filterInfo', externalParams.filterInfo);
 
@@ -284,6 +288,13 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
     fn();
   }, [show]);
+
+  useEffect(() => {
+    if (filterList.length <= 1) {
+      // 默认始终为 and
+      setConjunction('and');
+    }
+  }, [filterList]);
 
   const filterFiledChange = async (value, index) => {
     let _activeItem = filterFieldList.find((i) => i.id === value);
