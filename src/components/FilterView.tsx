@@ -325,7 +325,11 @@ export const useFilterView = (props: modalPropsType = {}) => {
       };
     }
 
-    _activeItem.type === 7 && (_arr[index].operator = 'is');
+    // 复选框
+    if (_activeItem?.type === 7) {
+      _arr[index].operator = 'is';
+      _arr[index].value = true;
+    }
 
     setFilterList(_arr);
   };
@@ -526,7 +530,10 @@ export const useFilterView = (props: modalPropsType = {}) => {
                     {/* 复选框 */}
                     {item.type === 7 && (
                       <>
-                        <Checkbox onChange={(e) => (item.value = e.target.checked)} />
+                        <Checkbox
+                          defaultChecked={item.value}
+                          onChange={(e) => (item.value = e.target.checked)}
+                        />
                       </>
                     )}
                   </div>
