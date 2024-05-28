@@ -40,6 +40,7 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
   const [conjunction, setConjunction] = useState('and');
 
+  // 获取颜色列表
   useEffect(() => {
     async function fn() {
       const res = await bitable.ui.getSelectOptionColorInfoList();
@@ -184,27 +185,19 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
   // 确定按钮
   const success = useCallback(() => {
-    console.log('filterList', filterList);
-
-    // interface IFilterInfo {
-    //   conjunction: FilterConjunction;
-    //   conditions: FilterInfoCondition[];
-    // }
-
-    // FilterConjunction 过滤条件的生效条件
-    // FilterNumber 过滤条件数量
-
     // FIXME 把这些东西抛出去
 
     saveCallback({
+      // 过滤条件数量
       filterNumber: filterList.length,
+
+      // 过滤条件的生效条件
       filterInfo: {
         conjunction,
         conditions: filterList.map((item) => ({
-          fieldId: item.id, // field 唯一标识
-          // conditionId?: string; // condition 唯一标识，新增时可不传入
-          value: item.value, // 字段匹配值
-          operator: item.operator, // 匹配操作符
+          fieldId: item.id,
+          value: item.value,
+          operator: item.operator,
           type: item.type,
           name: item.name,
         })),
@@ -223,14 +216,12 @@ export const useFilterView = (props: modalPropsType = {}) => {
 
   let [table, setTable] = useState();
 
+  // FIXME 打开弹窗初始化效果
   useEffect(() => {
     async function fn() {
       if (!show) return;
 
       // 条件复显
-
-      console.log('externalParams.filterInfo', externalParams.filterInfo);
-
       if (externalParams?.filterInfo?.conditions) {
         let _arr = externalParams?.filterInfo?.conditions?.map((item) => {
           return {
@@ -266,10 +257,12 @@ export const useFilterView = (props: modalPropsType = {}) => {
           }),
         );
 
-        console.log('ttt', _arr);
-
-        // console.log('arr',_arr)
         setFilterList(_arr);
+      }
+
+      // 外部未传数据则初始化
+      if (!externalParams?.filterInfo?.conjunction) {
+        setFilterList([]);
       }
 
       // 弹窗打开时
