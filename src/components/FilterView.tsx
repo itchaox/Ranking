@@ -475,123 +475,131 @@ export const useFilterView = (props: modalPropsType) => {
                   </div>
 
                   {/* FIXME 字段值 */}
-                  <div className='value'>
-                    {/* 输入框 */}
-                    {[1, 2, 13, 15, 18, 19, 20, 21, 22, 1005, 99001, 99002, 99003, 99004, 99005].includes(
-                      item.type,
-                    ) && (
-                      <Input
-                        value={item.value}
-                        onChange={(value) => {
-                          let _arr = [...filterList];
-                          _arr[index].value = value;
-                          setFilterList(_arr);
-                        }}
-                        placeholder='请输入'
-                      />
-                    )}
 
-                    {/* 下拉框 */}
-                    {[3, 4].includes(item.type) && (
-                      <Select
-                        multiple={item.type === 4}
-                        maxTagCount={2}
-                        placeholder='请选择'
-                        style={{ width: '100%' }}
-                        filter
-                        value={item.value}
-                        onChange={(value) => {
-                          let _arr = [...filterList];
-                          _arr[index].value = value;
-                          setFilterList(_arr);
-                        }}
-                        optionList={item.options.map((i) => ({
-                          value: i.id,
-                          label: i.name,
-                          ...i,
-                        }))}
-                        // FIXME 选项的自定义渲染
-                        renderOptionItem={(renderProps) => (
-                          <div
-                            className='optionItem'
-                            onClick={() => renderProps?.onClick()}
-                          >
-                            <span
-                              style={{
-                                backgroundColor: renderProps.bgColor,
-                                color: renderProps.textColor,
-                                padding: '2px 4px',
-                                marginLeft: '10px',
-                                borderRadius: '30%',
+                  {
+                    <div className='value'>
+                      {item.operator !== 'isEmpty' && item.operator !== 'isNotEmpty' && (
+                        <div>
+                          {/* 输入框 */}
+                          {[1, 2, 13, 15, 18, 19, 20, 21, 22, 1005, 99001, 99002, 99003, 99004, 99005].includes(
+                            item.type,
+                          ) && (
+                            <Input
+                              value={item.value}
+                              onChange={(value) => {
+                                let _arr = [...filterList];
+                                _arr[index].value = value;
+                                setFilterList(_arr);
                               }}
-                            >
-                              {renderProps.label}
-                            </span>
-                          </div>
-                        )}
-                      />
-                    )}
+                              placeholder='请输入'
+                            />
+                          )}
 
-                    {/* 日期 */}
+                          {/* 下拉框 */}
+                          {[3, 4].includes(item.type) && (
+                            <Select
+                              multiple={item.type === 4}
+                              maxTagCount={2}
+                              placeholder='请选择'
+                              style={{ width: '100%' }}
+                              filter
+                              value={item.value}
+                              onChange={(value) => {
+                                let _arr = [...filterList];
+                                _arr[index].value = value;
+                                setFilterList(_arr);
+                              }}
+                              optionList={item.options.map((i) => ({
+                                value: i.id,
+                                label: i.name,
+                                ...i,
+                              }))}
+                              // FIXME 选项的自定义渲染
+                              renderOptionItem={(renderProps) => (
+                                <div
+                                  className='optionItem'
+                                  onClick={() => renderProps?.onClick()}
+                                >
+                                  <span
+                                    style={{
+                                      backgroundColor: renderProps.bgColor,
+                                      color: renderProps.textColor,
+                                      padding: '2px 4px',
+                                      marginLeft: '10px',
+                                      borderRadius: '30%',
+                                    }}
+                                  >
+                                    {renderProps.label}
+                                  </span>
+                                </div>
+                              )}
+                            />
+                          )}
 
-                    {[5, 1001, 1002].includes(item.type) && (
-                      <>
-                        <Select
-                          filter
-                          value={item.duration || 'definite'}
-                          onChange={(value) => {
-                            let _arr = [...filterList];
+                          {/* 日期 */}
 
-                            _arr[index].duration = value;
+                          {[5, 1001, 1002].includes(item.type) && (
+                            <>
+                              <Select
+                                filter
+                                value={item.duration || 'definite'}
+                                onChange={(value) => {
+                                  let _arr = [...filterList];
 
-                            if (item.duration !== 'definite') {
-                              _arr[index].value = value;
-                            }
-                            setFilterList(_arr);
-                          }}
-                          optionList={[
-                            { value: 'definite', label: '具体日期' },
-                            { value: 'Today', label: '今天' },
-                            { value: 'Tomorrow', label: '明天' },
-                            { value: 'Yesterday', label: '昨天' },
-                            { value: 'CurrentWeek', label: '本周' },
-                            { value: 'LastWeek', label: '上周' },
-                            { value: 'CurrentMonth', label: '本月' },
-                            { value: 'LastMonth', label: '上月' },
-                            { value: 'TheLastWeek', label: '过去 7 天内' },
-                            { value: 'TheNextWeek', label: '未来 7 天内' },
-                            { value: 'TheLastMonth', label: '过去 30 天内' },
-                            { value: 'TheNextMonth', label: '未来 30 天内' },
-                          ]}
-                        />
+                                  _arr[index].duration = value;
 
-                        {/* FIXME 具体日期 */}
+                                  if (item.duration !== 'definite') {
+                                    _arr[index].value = value;
+                                  }
+                                  setFilterList(_arr);
+                                }}
+                                optionList={[
+                                  { value: 'definite', label: '具体日期' },
+                                  { value: 'Today', label: '今天' },
+                                  { value: 'Tomorrow', label: '明天' },
+                                  { value: 'Yesterday', label: '昨天' },
+                                  { value: 'CurrentWeek', label: '本周' },
+                                  { value: 'LastWeek', label: '上周' },
+                                  { value: 'CurrentMonth', label: '本月' },
+                                  { value: 'LastMonth', label: '上月' },
+                                  { value: 'TheLastWeek', label: '过去 7 天内' },
+                                  { value: 'TheNextWeek', label: '未来 7 天内' },
+                                  { value: 'TheLastMonth', label: '过去 30 天内' },
+                                  { value: 'TheNextMonth', label: '未来 30 天内' },
+                                ]}
+                              />
 
-                        {item.duration === 'definite' && (
-                          <DatePicker
-                            format='yyyy/MM/dd'
-                            onChange={(date, dateString) => {
-                              const dateObject = new Date(date);
-                              const timestamp = dateObject.getTime(); // 获取时间戳
-                              let _arr = [...filterList];
-                              _arr[index].value = timestamp;
-                              setFilterList(_arr);
-                            }}
-                          />
-                        )}
-                      </>
-                    )}
+                              {/* FIXME 具体日期 */}
 
-                    {/* 复选框 */}
-                    {item.type === 7 && (
-                      <>
-                        <Checkbox
-                          defaultChecked={item.value}
-                          onChange={(e) => (item.value = e.target.checked)}
-                        />
-                      </>
-                    )}
-                  </div>
+                              {item.duration === 'definite' && (
+                                <DatePicker
+                                  format='yyyy/MM/dd'
+                                  onChange={(date, dateString) => {
+                                    const dateObject = new Date(date);
+                                    const timestamp = dateObject.getTime(); // 获取时间戳
+                                    let _arr = [...filterList];
+                                    _arr[index].value = timestamp;
+                                    setFilterList(_arr);
+                                  }}
+                                />
+                              )}
+                            </>
+                          )}
+
+                          {/* 复选框 */}
+                          {item.type === 7 && (
+                            <>
+                              <Checkbox
+                                defaultChecked={item.value}
+                                onChange={(e) => (item.value = e.target.checked)}
+                              />
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  }
+
                   <div
                     className='delete'
                     onClick={() => {
