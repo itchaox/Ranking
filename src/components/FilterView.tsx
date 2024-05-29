@@ -229,6 +229,10 @@ export const useFilterView = (props: modalPropsType) => {
     async function fn() {
       if (!show) return;
 
+      // 弹窗打开时
+      const _table = await bitable.base.getTable(externalParams?.tableId);
+      setTable(_table);
+
       // 条件复显
       if (externalParams?.filterInfo?.conditions) {
         let _arr = externalParams?.filterInfo?.conditions?.map((item) => {
@@ -242,7 +246,7 @@ export const useFilterView = (props: modalPropsType) => {
           _arr.map(async (item, index) => {
             // 单选/多选
             if (item?.type === 3 || item?.type === 4) {
-              const selectField = await table.getField(item.id);
+              const selectField = await _table.getField(item.id);
               let options = await selectField.getOptions();
 
               // 获取颜色
@@ -274,16 +278,12 @@ export const useFilterView = (props: modalPropsType) => {
         setConjunction('and');
       }
 
-      // 弹窗打开时
-      const _table = await bitable.base.getTable(externalParams?.tableId);
-
       const viewList = await _table.getViewList();
 
       const view = await _table.getViewById(viewList[0]?.id);
 
       const fieldMetaList = await view.getFieldMetaList();
 
-      setTable(_table);
       // FIXME 哪些字段不需要处理（按钮没有，但是按钮和流程的 type 都为 0，这个如何判断呢） 流程 和按钮字段在 js sdk 中找不到
       // FIXME JS SDK 异常，日期筛选字段 暂时隐藏（或者测试哪些是正常的）
 
