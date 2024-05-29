@@ -285,7 +285,9 @@ export const useFilterView = (props: modalPropsType) => {
 
       setTable(_table);
       // FIXME 哪些字段不需要处理（按钮没有，但是按钮和流程的 type 都为 0，这个如何判断呢） 流程 和按钮字段在 js sdk 中找不到
-      setFilterFieldList(fieldMetaList.filter((item) => item.type !== 0));
+      // FIXME JS SDK 异常，日期筛选字段 暂时隐藏（或者测试哪些是正常的）
+
+      setFilterFieldList(fieldMetaList.filter((item) => ![0, 5, 1001, 1002].includes(item.type)));
     }
 
     fn();
