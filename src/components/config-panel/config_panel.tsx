@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-29 12:57
+ * @LastTime   : 2024-05-29 13:12
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -66,7 +66,6 @@ export const ConfigPanel: FC<any> = ({
       }
 
       bitable.bridge.onThemeChange((event) => {
-        console.log('theme change', event.data.theme);
         if (event.data.theme === 'DARK') {
           setIsDarkMode(true);
         } else {

@@ -25,7 +25,6 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
-  console.log('🚀  dataSet:', dataSet);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -57,7 +56,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   }, []);
 
   const getIndexImage = (index) => {
-    console.log('🚀  index:', index);
     const images = [image1, image2, image3];
     return (
       <img
@@ -104,21 +102,18 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
 
     // 如果小数部分的位数已经等于要保留的位数,直接返回格式化后的数字
     if (decimalPart.length === decimalPlaces) {
-      console.log('ttt2');
       return integerPart + '.' + decimalPart;
     }
 
     // 如果小数部分的位数多于要保留的位数,截取指定位数的小数
     if (decimalPart.length > decimalPlaces) {
       decimalPart = decimalPart.slice(0, decimalPlaces);
-      console.log('ttt3');
       return integerPart + '.' + decimalPart;
     }
 
     // 如果小数部分的位数少于要保留的位数,在小数后面补足0
     decimalPart = decimalPart.padEnd(decimalPlaces, '0');
 
-    console.log('ttt4', integerPart, decimalPart);
     return integerPart + '.' + decimalPart;
   };
 
