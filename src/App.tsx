@@ -246,8 +246,10 @@ export default function App() {
 
           formInitValue = {
             table: tableId,
-            dataRange: JSON.stringify(dataRange),
-            // dataRange: JSON.stringify(_dataRange),
+            // dataRange: JSON.stringify(dataRange),
+
+            dataRange: JSON.stringify(_dataRange),
+
             category: groups?.[0]?.fieldId ?? '',
             selectFiled,
             unit,
@@ -296,8 +298,6 @@ export default function App() {
         filterInfo,
       },
     };
-
-    console.log('🚀  updatedPreviewConfig:', updatedPreviewConfig);
 
     const data = await dashboard.getPreviewData(updatedPreviewConfig);
 
@@ -352,7 +352,6 @@ export default function App() {
     // 监听表单变化
 
     const dataRangeObj = JSON.parse(dataRange);
-    console.log('🚀  dataRangeObj:', dataRangeObj);
 
     const groups = [
       {
@@ -364,7 +363,6 @@ export default function App() {
         },
       },
     ];
-    console.log('🚀  groups:', groups);
 
     let series: 'COUNTA' | ISeries[];
 
@@ -379,8 +377,6 @@ export default function App() {
         },
       ];
     }
-
-    console.log('🚀  series:', series);
 
     const data = await dashboard.getPreviewData({
       tableId: table,
