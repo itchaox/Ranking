@@ -10,10 +10,14 @@ import { AppWrapper } from './style';
 import IconComponent from './FiledIcon';
 
 type modalPropsType = {
-  saveCallback?: (values?: any) => void;
+  // 点击保存按钮的回调函数
+  saveCallback: (values?: any) => void;
+
+  // 点击取消按钮的回调函数
+  cancelCallback?: (values?: any) => void;
 };
 
-export const useFilterView = (props: modalPropsType = {}) => {
+export const useFilterView = (props: modalPropsType) => {
   const { saveCallback = () => {} } = props;
 
   const [show, setShow] = useState<boolean>(false);
@@ -624,11 +628,12 @@ export const useFilterView = (props: modalPropsType = {}) => {
     }
   }, [show, cancel, containerRef, success, externalParams]);
 
-  const openFilterView = (params: any) => {
+  // 打开筛选弹窗
+  const openFilterModal = (params: any) => {
     createContainer();
     setExternalParams(params);
     setShow(true);
   };
 
-  return { openFilterView };
+  return { openFilterModal };
 };

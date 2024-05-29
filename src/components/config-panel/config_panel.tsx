@@ -42,7 +42,7 @@ export const ConfigPanel: FC<any> = ({
 
   const [aNumber, setANumber] = useState(0);
 
-  const { openFilterView } = useFilterView({
+  const { openFilterModal } = useFilterView({
     saveCallback: ({ filterNumber, filterInfo }) => {
       // FIXME 到这个地方，就结束了，其他的就是用户自己操作给的数据
 
@@ -244,7 +244,7 @@ export const ConfigPanel: FC<any> = ({
                     <div className='filter'>
                       <div
                         className='main'
-                        onClick={() => openFilterView({ tableId: formState.values.table, filterInfo })}
+                        onClick={() => openFilterModal({ tableId: formState.values.table, filterInfo })}
                       >
                         <img
                           src={FilterIcon}
