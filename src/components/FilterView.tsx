@@ -14,11 +14,11 @@ type modalPropsType = {
   saveCallback: (values?: any) => void;
 
   // 点击取消按钮的回调函数
-  cancelCallback?: (values?: any) => void;
+  cancelCallback?: () => void;
 };
 
 export const useFilterView = (props: modalPropsType) => {
-  const { saveCallback = () => {} } = props;
+  const { saveCallback = () => {}, cancelCallback = () => {} } = props;
 
   const [show, setShow] = useState<boolean>(false);
 
@@ -218,6 +218,8 @@ export const useFilterView = (props: modalPropsType) => {
   const cancel = useCallback(() => {
     setShow(false);
     unMounted();
+
+    cancelCallback();
   }, [unMounted]);
 
   let [table, setTable] = useState();

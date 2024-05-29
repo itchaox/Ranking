@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-27 12:38
+ * @LastTime   : 2024-05-29 12:57
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -50,6 +50,10 @@ export const ConfigPanel: FC<any> = ({
 
       setANumber(filterNumber);
       // 再次请求数据
+    },
+
+    cancelCallback: () => {
+      // console.log('取消回调');
     },
   });
 
