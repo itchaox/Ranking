@@ -524,7 +524,11 @@ export default function App() {
 
     const data = await dashboard.getPreviewData({
       tableId: table,
-      dataRange: dataRangeObj,
+      // FIXME 筛选
+      // dataRange: dataRangeObj,
+
+      dataRange: { ...dataRangeObj, filterInfo },
+
       groups,
       series,
     });
