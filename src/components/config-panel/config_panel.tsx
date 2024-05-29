@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-29 13:12
+ * @LastTime   : 2024-05-29 15:49
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -41,6 +41,11 @@ export const ConfigPanel: FC<any> = ({
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [aNumber, setANumber] = useState(0);
+
+  // FIXME 更新条件的数量
+  useEffect(() => {
+    setANumber(filterInfo?.conditions?.length);
+  }, [filterInfo]);
 
   const { openFilterModal } = useFilterView({
     saveCallback: ({ filterNumber, filterInfo }) => {
