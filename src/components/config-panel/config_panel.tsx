@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-29 15:49
+ * @LastTime   : 2024-05-31 00:00
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -40,21 +40,11 @@ export const ConfigPanel: FC<any> = ({
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const [aNumber, setANumber] = useState(0);
-
-  // FIXME 更新条件的数量
-  useEffect(() => {
-    setANumber(filterInfo?.conditions?.length);
-  }, [filterInfo]);
-
   const { openFilterModal } = useFilterView({
-    saveCallback: ({ filterNumber, filterInfo }) => {
+    saveCallback: (filterInfo) => {
       // FIXME 到这个地方，就结束了，其他的就是用户自己操作给的数据
 
       getNewData(filterInfo);
-
-      setANumber(filterNumber);
-      // 再次请求数据
     },
 
     cancelCallback: () => {
@@ -261,7 +251,9 @@ export const ConfigPanel: FC<any> = ({
                         筛选数据
                       </div>
 
-                      {aNumber > 0 && <div className='selected'>已选：{aNumber} 个条件</div>}
+                      {filterInfo?.conditions?.length > 0 && (
+                        <div className='selected'>已选：{filterInfo?.conditions?.length} 个条件</div>
+                      )}
                     </div>
                   }
 

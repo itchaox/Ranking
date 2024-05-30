@@ -193,12 +193,9 @@ export const useFilterView = (props: modalPropsType) => {
   const success = useCallback(() => {
     // FIXME 把这些东西抛出去
 
-    saveCallback({
-      // 过滤条件数量
-      filterNumber: filterList.length,
-
+    saveCallback(
       // 过滤条件的生效条件
-      filterInfo: {
+      {
         conjunction,
         conditions: filterList.map((item) => ({
           fieldId: item.id,
@@ -208,7 +205,7 @@ export const useFilterView = (props: modalPropsType) => {
           name: item.name,
         })),
       },
-    });
+    );
 
     setShow(false);
     unMounted();
