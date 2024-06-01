@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 13:51
+ * @LastTime   : 2024-06-01 17:22
  * @desc       :
  */
 
@@ -158,6 +158,7 @@ export const AppWrapper = styled.div`
 
   .semi-input-number-suffix-btns {
     width: 40px;
+    border-radius: 4px;
 
     svg {
       width: 14px;
@@ -167,11 +168,8 @@ export const AppWrapper = styled.div`
     .semi-input-number-button {
       width: 100%;
 
-      border-bottom: 1px solid ${(props) => props.theme.borderColor};
-      border-right: 1px solid ${(props) => props.theme.borderColor};
-
       &:nth-child(1) {
-        border-top: 1px solid ${(props) => props.theme.borderColor};
+        border-bottom: 1px solid ${(props) => props.theme.borderColor};
       }
     }
   }
