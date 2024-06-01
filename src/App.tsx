@@ -173,6 +173,7 @@ export default function App() {
             decimalNumber: 0,
             displayFormat: 1,
             sort: 1,
+            isParallel: true,
             // style: 1,
           };
 
@@ -219,6 +220,7 @@ export default function App() {
             decimalNumber,
             displayFormat,
             sort,
+            isParallel,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
@@ -260,6 +262,7 @@ export default function App() {
             decimalNumber,
             displayFormat,
             sort,
+            isParallel,
           };
 
           previewConfig = {

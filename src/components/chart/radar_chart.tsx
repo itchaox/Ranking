@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-28 22:22
+ * @LastTime   : 2024-06-01 20:14
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -25,6 +25,8 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
+  console.log('🚀  formState:', formState);
+
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   // 降序排序
   let temData = dataSet
     .sort((a: any, b: any) => (formState.sort === 1 ? b[1] - a[1] : a[1] - b[1]))
-    .filter((item) => item[0] !== '');
+    .filter((item) => item[0] !== '' && item[1] !== '');
 
   let _data = !formState?.amountSwitch ? [...temData.slice(1)] : [...temData.slice(1, formState?.amountNumber + 1)];
 
@@ -119,6 +121,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
 
   const getNewData = (data) => {
     let sortedData = [...data];
+    console.log('🚀  sortedData:', sortedData);
 
     let rank = 1;
     let prevScore = formatDecimal(isPercent ? sortedData[0][1] * 100 : sortedData[0][1], true);
@@ -133,7 +136,9 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
           ? parseFloat(currentScore) < parseFloat(prevScore)
           : parseFloat(currentScore) > parseFloat(prevScore)
       ) {
-        rank = index + 1;
+        // rank = index + 1;
+
+        rank = formState.isParallel ? index + 1 : sortedData[index - 1][sortedData[index - 1].length - 1] + 1;
       }
       data.push(rank);
       prevScore = currentScore;

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 18:02
+ * @LastTime   : 2024-06-01 19:22
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -520,6 +520,32 @@ export const ConfigPanel: FC<any> = ({
                       field='amountNumber'
                     />
                   )}
+
+                  {/* 自定义颜色 */}
+                  <Form.InputGroup
+                    className='amountSwitch'
+                    label={{ text: <span>自定义颜色</span> }}
+                    labelPosition='left'
+                  >
+                    <Form.Switch field='amountSwitch' />
+                  </Form.InputGroup>
+                  {formState.values.amountSwitch && (
+                    <Form.InputNumber
+                      className='amountNumber'
+                      noLabel={true}
+                      max={50000}
+                      min={0}
+                      style={{ width: '100%', marginBottom: '0px' }}
+                      field='amountNumber'
+                    />
+                  )}
+
+                  <Form.Checkbox
+                    field='isParallel'
+                    noLabel={true}
+                  >
+                    并列占用名次
+                  </Form.Checkbox>
                 </div>
 
                 <Button
