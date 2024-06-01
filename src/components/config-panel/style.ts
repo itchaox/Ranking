@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 13:45
+ * @LastTime   : 2024-06-01 13:47
  * @desc       :
  */
 
@@ -153,7 +153,6 @@ export const AppWrapper = styled.div`
   }
 
   .semi-input-number-suffix-btns {
-    margin-left: 0;
     width: 40px;
 
     svg {
