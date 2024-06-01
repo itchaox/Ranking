@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 13:50
+ * @LastTime   : 2024-06-01 13:51
  * @desc       :
  */
 
@@ -193,7 +193,7 @@ export const AppWrapper = styled.div`
 
     .semi-radio-addon-buttonRadio-checked {
       background-color: rgba(20, 86, 240, 0.1);
-      color: rgba(20, 86, 240, 1);
+      color: #4c88ff;
     }
 
     .semi-radio-addon-buttonRadio {
