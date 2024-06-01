@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 17:26
+ * @LastTime   : 2024-06-01 18:07
  * @desc       :
  */
 
@@ -111,9 +111,6 @@ export const AppWrapper = styled.div`
 
   /* FIXME 修改 ui 组件样式 */
 
-  /* .select-suffix {
-  } */
-
   .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
     width: 0;
   }
@@ -180,7 +177,8 @@ export const AppWrapper = styled.div`
 
   .semi-radioGroup {
     flex: 1;
-    /* width: 100%; */
+    height: 32px !important;
+
     background-color: ${(props) => props.theme.backgroundColor};
     border: 1px solid ${(props) => props.theme.borderColor};
     border-radius: 6px;
@@ -199,12 +197,19 @@ export const AppWrapper = styled.div`
     }
 
     .semi-radio-addon-buttonRadio {
-      height: 100%;
-      line-height: 100%;
+      &:nth-child(1) {
+        line-height: 100%;
+      }
+
       &:hover {
         background-color: rgba(20, 86, 240, 0.1);
       }
     }
+  }
+
+  .semi-input-default {
+    height: 32px !important;
+    line-height: 32px !important;
   }
 
   .semi-switch-checked {

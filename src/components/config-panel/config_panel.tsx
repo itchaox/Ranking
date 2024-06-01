@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 13:42
+ * @LastTime   : 2024-06-01 18:02
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -408,8 +408,34 @@ export const ConfigPanel: FC<any> = ({
                         field='unitPosition'
                         type='button'
                         options={[
-                          { value: 'LEFT', label: '左' },
-                          { value: 'RIGHT', label: '右' },
+                          {
+                            value: 'LEFT',
+                            label: (
+                              <div
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  height: '16px',
+                                }}
+                              >
+                                左
+                              </div>
+                            ),
+                          },
+                          {
+                            value: 'RIGHT',
+                            label: (
+                              <div
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  height: '16px',
+                                }}
+                              >
+                                右
+                              </div>
+                            ),
+                          },
                         ]}
                       />
                     </Form.InputGroup>
@@ -430,11 +456,12 @@ export const ConfigPanel: FC<any> = ({
                               display: 'inline-flex',
                               alignItems: 'center',
                               justifyContent: 'center',
+                              height: '100%',
                             }}
                           >
                             <svg
                               width='17'
-                              height='16'
+                              height='14'
                               viewBox='0 0 17 16'
                               fill='currentColor'
                               xmlns='http://www.w3.org/2000/svg'
@@ -455,7 +482,7 @@ export const ConfigPanel: FC<any> = ({
                           <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                             <svg
                               width='17'
-                              height='16'
+                              height='14'
                               viewBox='0 0 17 16'
                               fill='currentColor'
                               xmlns='http://www.w3.org/2000/svg'
