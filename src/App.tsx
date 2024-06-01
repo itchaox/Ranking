@@ -174,6 +174,8 @@ export default function App() {
             displayFormat: 1,
             sort: 1,
             isParallel: true,
+            prefix: '',
+            suffix: '',
             // style: 1,
           };
 
@@ -221,6 +223,8 @@ export default function App() {
             displayFormat,
             sort,
             isParallel,
+            prefix,
+            suffix,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
@@ -263,6 +267,8 @@ export default function App() {
             displayFormat,
             sort,
             isParallel,
+            prefix,
+            suffix,
           };
 
           previewConfig = {

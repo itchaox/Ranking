@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 00:05
+ * @LastTime   : 2024-06-02 00:20
  * @desc       :
  */
 
@@ -138,11 +138,11 @@ export const AppWrapper = styled.div`
   }
 
   .semi-form-field:first-child {
-    padding-top: 0;
+    /* padding-top: 0; */
   }
 
   .semi-form-field:last-child {
-    margin-top: -18px;
+    /* margin-top: -18px; */
   }
 
   .semi-input-wrapper {

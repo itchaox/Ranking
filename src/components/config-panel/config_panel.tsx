@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 19:22
+ * @LastTime   : 2024-06-02 00:41
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -391,7 +391,7 @@ export const ConfigPanel: FC<any> = ({
                   )}
 
                   {/* 单位 */}
-                  {!isPercent && (
+                  {/* {!isPercent && (
                     <Form.InputGroup
                       label={{ text: <span>单位</span> }}
                       labelPosition='top'
@@ -439,7 +439,26 @@ export const ConfigPanel: FC<any> = ({
                         ]}
                       />
                     </Form.InputGroup>
-                  )}
+                  )} */}
+
+                  {/* 前缀和后缀 */}
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ marginRight: '14px' }}>
+                      <Form.Input
+                        field='prefix'
+                        label='前缀'
+                        placeholder='请输入前缀'
+                      />
+                    </div>
+
+                    <div>
+                      <Form.Input
+                        field='suffix'
+                        label='后缀'
+                        placeholder='请输入后缀'
+                      />
+                    </div>
+                  </div>
 
                   {/* 排序 */}
                   <Form.RadioGroup

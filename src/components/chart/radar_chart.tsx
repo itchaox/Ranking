@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 20:14
+ * @LastTime   : 2024-06-02 00:34
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -25,8 +25,6 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
-  console.log('🚀  formState:', formState);
-
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -121,7 +119,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
 
   const getNewData = (data) => {
     let sortedData = [...data];
-    console.log('🚀  sortedData:', sortedData);
 
     let rank = 1;
     let prevScore = formatDecimal(isPercent ? sortedData[0][1] * 100 : sortedData[0][1], true);
@@ -158,41 +155,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
         src={RightImage}
       />
 
-      {/* <div className='scroll'>
-        {_data.length > 0 && (
-          <div className='content'>
-            {_data.map((item, index) => (
-              <div
-                className='line'
-                key={item[0]}
-              >
-                {index <= 2 ? (
-                  <div className='index'>{getIndexImage(index)}</div>
-                ) : (
-                  <div className='index'>{index + 1}</div>
-                )}
-
-                <div className='info'>
-                  <div className='name'>{item[0]}</div>
-
-                  <div className={`number ${index <= 2 ? 'special' : ''}`}>
-                    {isPercent ? (
-                      <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
-                    ) : (
-                      <div>
-                        {formState?.unitPosition === 'LEFT'
-                          ? `${formState?.unit || ''} ${formatDecimal(+item[1])}`
-                          : `${formatDecimal(+item[1])} ${formState?.unit || ''}`}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div> */}
-
       <div className='scroll'>
         {_data.length > 0 && (
           <div className='content'>
@@ -201,6 +163,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                 className='line'
                 key={item[0]}
               >
+                {/* 序号 */}
                 {item[item.length - 1] <= 3 ? (
                   <div className='index'>{getIndexImage(item[item.length - 1])}</div>
                 ) : (
@@ -208,10 +171,18 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                 )}
 
                 <div className='info'>
+                  {/* 名字 */}
                   <div className='name'>{item[0]}</div>
 
+                  {/* 数值 */}
                   <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
-                    {isPercent ? (
+                    <div>
+                      <div>
+                        {(formState?.prefix ?? '') + ' ' + formatDecimal(+item[1]) + ' ' + (formState?.suffix ?? '')}
+                      </div>
+                    </div>
+
+                    {/* {isPercent ? (
                       <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
                     ) : (
                       <div>
@@ -219,7 +190,7 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                           ? `${formState?.unit || ''} ${formatDecimal(+item[1])}`
                           : `${formatDecimal(+item[1])} ${formState?.unit || ''}`}
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
