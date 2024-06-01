@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 17:22
+ * @LastTime   : 2024-06-01 17:26
  * @desc       :
  */
 
@@ -113,6 +113,10 @@ export const AppWrapper = styled.div`
 
   /* .select-suffix {
   } */
+
+  .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
+    width: 0;
+  }
 
   .semi-form-field-group {
     position: relative;
