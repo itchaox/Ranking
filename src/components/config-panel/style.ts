@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 15:12
+ * @LastTime   : 2024-06-01 13:45
  * @desc       :
  */
 
@@ -21,7 +21,6 @@ export const AppWrapper = styled.div`
 
   .form-content {
     height: calc(100% - 50px);
-    padding-right: 10px;
     overflow: auto;
   }
 

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-31 00:00
+ * @LastTime   : 2024-06-01 13:42
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -16,6 +16,7 @@ import { IconSearch } from '@douyinfe/semi-icons';
 import { People, ViewList } from '@icon-park/react';
 
 import { useFilterView } from '../FilterView';
+// import { useFilterView } from 'lark-filter-modal/react';
 
 import TableIcon from '../../assets/icons/Table.svg';
 import FilterIcon from '../../assets/icons/filter.svg';
