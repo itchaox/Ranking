@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 13:47
+ * @LastTime   : 2024-06-01 13:50
  * @desc       :
  */
 
@@ -133,6 +133,10 @@ export const AppWrapper = styled.div`
   .semi-form-field-label {
     font-weight: 400;
     margin-bottom: 8px;
+  }
+
+  .semi-form-field:first-child {
+    padding-top: 0;
   }
 
   .semi-form-field:last-child {
