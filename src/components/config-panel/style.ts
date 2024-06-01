@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-01 18:07
+ * @LastTime   : 2024-06-02 00:05
  * @desc       :
  */
 
@@ -12,7 +12,7 @@ import styled from 'styled-components';
 export const AppWrapper = styled.div`
   width: 340px;
   display: flex;
-  padding: 20px;
+  padding: 20px 10px 20px 20px;
   border-left: 0.5px solid ${(props) => props.theme.borderColor};
 
   .form {
@@ -21,6 +21,7 @@ export const AppWrapper = styled.div`
 
   .form-content {
     height: calc(100% - 50px);
+    padding-right: 10px;
     overflow: auto;
   }
 
