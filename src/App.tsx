@@ -534,7 +534,6 @@ export default function App() {
     const groups = [
       {
         fieldId: category,
-        // fieldId: statistics === 'COUNTA' ? category : selectFiled,
         mode: GroupMode.ENUMERATED,
         sort: {
           order: ORDER.DESCENDING,
@@ -572,6 +571,13 @@ export default function App() {
 
     setFormState(allValues);
     setRenderData(data);
+
+    setTemPreviewConfig({
+      tableId: table,
+      dataRange: { ...dataRangeObj, filterInfo },
+      groups,
+      series,
+    });
 
     if (changedVal.selectFiled) {
       setIsPercent(false);
