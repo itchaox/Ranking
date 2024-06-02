@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 08:57
+ * @LastTime   : 2024-06-02 10:26
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -22,9 +22,11 @@ interface RadarChartProps {
   dataSet: Array<(string | number)[]>;
   formState: any;
   isPercent: boolean;
+  backgroundColor: string;
+  textColor: string;
 }
 
-export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
+export function RadarChart({ dataSet, formState, isPercent, backgroundColor, textColor }: RadarChartProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -150,7 +152,11 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
   };
 
   return (
-    <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
+    <AppWrapper
+      theme={isDarkMode ? darkTheme : lightTheme}
+      textColor={textColor}
+      backgroundColor={backgroundColor}
+    >
       <img
         className='img-left'
         src={LeftImage}

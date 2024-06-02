@@ -32,25 +32,40 @@ export default function App() {
   const [operation, setOperation] = useState('求和');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  useEffect(() => {
-    async function fn() {
-      const theme = await bitable.bridge.getTheme();
+  // 控制主题色
 
-      if (theme === 'DARK') {
-        setIsDarkMode(true);
+  async function fn() {
+    const theme = await bitable.bridge.getTheme();
+
+    if (theme === 'DARK') {
+      setIsDarkMode(true);
+
+      if (formState?.customColor === false) {
+        setBackgroundColor('#2c3837');
+        setTextColor('#fff');
       }
-
-      bitable.bridge.onThemeChange((event) => {
-        if (event.data.theme === 'DARK') {
-          setIsDarkMode(true);
-        } else {
-          setIsDarkMode(false);
-        }
-      });
     }
 
-    fn();
-  }, []);
+    bitable.bridge.onThemeChange((event) => {
+      if (event.data.theme === 'DARK') {
+        setIsDarkMode(true);
+
+        if (formState?.customColor === false) {
+          setBackgroundColor('#2c3837');
+          setTextColor('#fff');
+        }
+      } else {
+        setIsDarkMode(false);
+
+        if (formState?.customColor === false) {
+          setBackgroundColor('#fff');
+          setTextColor('#000');
+        }
+      }
+    });
+  }
+
+  fn();
 
   useEffect(() => {
     async function fn() {
@@ -110,6 +125,8 @@ export default function App() {
         const res2 = await dashboard.getConfig();
         setFormState(res2.customConfig);
         setIsPercent(res2?.customConfig?.isPercent);
+        setBackgroundColor(res2?.customConfig?.backgroundColor);
+        setTextColor(res2?.customConfig?.textColor);
 
         // 获取数据
         const res = await dashboard.getData();
@@ -123,6 +140,8 @@ export default function App() {
           setFormState(res?.data?.customConfig);
           setOperation(res?.data?.customConfig?.operation);
           setIsPercent(res?.data?.customConfig?.isPercent);
+          setBackgroundColor(res?.data?.customConfig?.backgroundColor);
+          setTextColor(res?.data?.customConfig?.textColor);
         });
       }
     }
@@ -176,6 +195,7 @@ export default function App() {
             isParallel: true,
             prefix: '',
             suffix: '',
+            customColor: false,
             // style: 1,
           };
 
@@ -225,6 +245,9 @@ export default function App() {
             isParallel,
             prefix,
             suffix,
+            customColor,
+            backgroundColor: _backgroundColor,
+            textColor: _textColor,
           } = customConfig;
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
@@ -232,6 +255,8 @@ export default function App() {
           setCategories(categories);
           setOperation(_operation);
           setIsPercent(_isPercent);
+          setBackgroundColor(_backgroundColor);
+          setTextColor(_textColor);
 
           // FIXME 这里会导致下拉框无法正确返显
           // const statistics = series === 'COUNTA' ? 'COUNTA' : 'VALUE';
@@ -269,6 +294,7 @@ export default function App() {
             isParallel,
             prefix,
             suffix,
+            customColor,
           };
 
           previewConfig = {
@@ -606,14 +632,38 @@ export default function App() {
         ...allValues,
         operation,
         isPercent,
+        backgroundColor,
+        textColor,
       },
     });
   };
+
+  useEffect(() => {
+    async function fn() {
+      if (formState?.customColor === false) {
+        const theme = await bitable.bridge.getTheme();
+        if (theme === 'DARK') {
+          setBackgroundColor('#2c3837');
+          setTextColor('#fff');
+        } else {
+          setBackgroundColor('#fff');
+          setTextColor('#000');
+        }
+      }
+    }
+
+    fn();
+  }, [formState?.customColor]);
 
   {
     /* 创建和配置菜显示 配置界面 */
   }
   const isCreateOrConfig = dashboard.state === DashboardState.Create || dashboard.state === DashboardState.Config;
+
+  // 默认明亮主题
+
+  const [backgroundColor, setBackgroundColor] = useState('#fff');
+  const [textColor, setTextColor] = useState('#000');
 
   return (
     <div
@@ -625,6 +675,8 @@ export default function App() {
         dataSet={renderData.map((data) => data.map((item) => item.value ?? ''))}
         formState={formState}
         isPercent={isPercent}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
       />
 
       {isCreateOrConfig ? (
@@ -641,6 +693,10 @@ export default function App() {
           isPercent={isPercent}
           getNewData={getNewData}
           filterInfo={filterInfo}
+          setBackgroundColor={setBackgroundColor}
+          setTextColor={setTextColor}
+          backgroundColor={backgroundColor}
+          textColor={textColor}
         />
       ) : null}
     </div>

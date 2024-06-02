@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-26 10:17
+ * @LastTime   : 2024-06-02 11:07
  * @desc       :
  */
 
@@ -19,7 +19,7 @@ export const AppWrapper = styled.div`
   background: ${(props) => `${props.theme.background}`};
 
   height: 100%;
-  color: ${(props) => `${props.theme.textColor}`};
+  color: ${(props) => `${props.textColor}`};
 
   .img-left {
     position: absolute;
@@ -40,7 +40,7 @@ export const AppWrapper = styled.div`
   }
 
   .content {
-    background-color: ${(props) => `${props.theme.contentBackgroundColor}`};
+    background-color: ${(props) => `${props.backgroundColor}`};
     position: relative;
 
     padding: 24px;

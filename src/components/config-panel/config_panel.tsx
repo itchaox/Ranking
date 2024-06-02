@@ -3,15 +3,17 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 00:49
+ * @LastTime   : 2024-06-02 09:50
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
-// import { Form, Select, FormInstance, Radio } from 'antd';
 import { IDataRange, SourceType, ICategory, bitable } from '@lark-base-open/js-sdk';
 import { AppWrapper } from './style';
 import { Button, Form, Divider, Input, Dropdown } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
+
+import { DownOutlined } from '@ant-design/icons';
+import { ColorPicker } from 'antd';
 
 import { People, ViewList } from '@icon-park/react';
 
@@ -38,6 +40,10 @@ export const ConfigPanel: FC<any> = ({
   isPercent,
   getNewData,
   filterInfo,
+  setBackgroundColor,
+  setTextColor,
+  backgroundColor,
+  textColor,
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -177,6 +183,9 @@ export const ConfigPanel: FC<any> = ({
     dropChange(data, formState.values);
   };
 
+  const [openBackground, setOpenBackground] = useState(false);
+  const [openText, setOpenText] = useState(false);
+
   return (
     <AppWrapper theme={isDarkMode ? darkTheme : lightTheme}>
       {initFormValue && tableSource.length && categories.length ? (
@@ -281,15 +290,13 @@ export const ConfigPanel: FC<any> = ({
                     style={{ width: '100%' }}
                     renderSelectedItem={renderSelectedItem}
                     renderOptionItem={renderOptionItem}
-                    optionList={categories
-                      // .filter((item) => [11, 1003, 1004].includes(item.fieldType))
-                      .map((category) => {
-                        const { fieldName } = category;
-                        return {
-                          value: category.fieldId,
-                          label: fieldName,
-                        };
-                      })}
+                    optionList={categories.map((category) => {
+                      const { fieldName } = category;
+                      return {
+                        value: category.fieldId,
+                        label: fieldName,
+                      };
+                    })}
                   />
 
                   {/* 指标 */}
@@ -548,17 +555,55 @@ export const ConfigPanel: FC<any> = ({
                     label={{ text: <span>自定义颜色</span> }}
                     labelPosition='left'
                   >
-                    <Form.Switch field='amountSwitch' />
+                    <Form.Switch field='customColor' />
                   </Form.InputGroup>
-                  {formState.values.amountSwitch && (
-                    <Form.InputNumber
-                      className='amountNumber'
-                      noLabel={true}
-                      max={50000}
-                      min={0}
-                      style={{ width: '100%', marginBottom: '0px' }}
-                      field='amountNumber'
-                    />
+
+                  {formState.values.customColor && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div style={{ marginRight: '14px', width: '100%' }}>
+                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>背景颜色</div>
+                        <ColorPicker
+                          defaultValue={backgroundColor}
+                          value={backgroundColor}
+                          onChange={(value, hex) => setBackgroundColor(hex)}
+                          open={openBackground}
+                          onOpenChange={setOpenBackground}
+                          showText={(color) => (
+                            <>
+                              <span style={{ marginRight: '5px' }}>{color.toHexString()}</span>
+                              <DownOutlined
+                                rotate={openBackground ? 180 : 0}
+                                style={{
+                                  color: 'rgba(0, 0, 0, 0.25)',
+                                }}
+                              />
+                            </>
+                          )}
+                        />
+                      </div>
+
+                      <div style={{ width: '100%' }}>
+                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>文字颜色</div>
+                        <ColorPicker
+                          defaultValue={textColor}
+                          value={textColor}
+                          onChange={(value, hex) => setTextColor(hex)}
+                          open={openText}
+                          onOpenChange={setOpenText}
+                          showText={(color) => (
+                            <>
+                              <span style={{ marginRight: '5px' }}>{color.toHexString()}</span>
+                              <DownOutlined
+                                rotate={openText ? 180 : 0}
+                                style={{
+                                  color: 'rgba(0, 0, 0, 0.25)',
+                                }}
+                              />
+                            </>
+                          )}
+                        />
+                      </div>
+                    </div>
                   )}
 
                   <Form.Checkbox
