@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 00:34
+ * @LastTime   : 2024-06-02 01:02
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -121,12 +121,19 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
     let sortedData = [...data];
 
     let rank = 1;
-    let prevScore = formatDecimal(isPercent ? sortedData[0][1] * 100 : sortedData[0][1], true);
+    let prevScore = formatDecimal(
+      sortedData[0][1] *
+        (isPercent || formState?.displayFormat === 3 ? 100 : formState?.displayFormat === 4 ? 1000 : 1),
+      true,
+    );
 
     // FIXME 小数点更新后，更新排名
 
     sortedData.forEach((data, index) => {
-      const currentScore = formatDecimal(isPercent ? data[1] * 100 : data[1], true);
+      const currentScore = formatDecimal(
+        data[1] * (isPercent || formState?.displayFormat === 3 ? 100 : formState?.displayFormat === 4 ? 1000 : 1),
+        true,
+      );
 
       if (
         formState.sort === 1
@@ -178,7 +185,19 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                   <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
                     <div>
                       <div>
-                        {(formState?.prefix ?? '') + ' ' + formatDecimal(+item[1]) + ' ' + (formState?.suffix ?? '')}
+                        {(formState?.prefix ?? '') +
+                          ' ' +
+                          formatDecimal(
+                            +item[1] *
+                              (isPercent || formState?.displayFormat === 3
+                                ? 100
+                                : formState?.displayFormat === 4
+                                ? 1000
+                                : 1),
+                          ) +
+                          (formState?.displayFormat === 3 ? '%' : formState?.displayFormat === 4 ? '‰' : '') +
+                          ' ' +
+                          (formState?.suffix ?? '')}
                       </div>
                     </div>
 
