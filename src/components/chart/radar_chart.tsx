@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 01:02
+ * @LastTime   : 2024-06-02 08:57
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -140,8 +140,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
           ? parseFloat(currentScore) < parseFloat(prevScore)
           : parseFloat(currentScore) > parseFloat(prevScore)
       ) {
-        // rank = index + 1;
-
         rank = formState.isParallel ? index + 1 : sortedData[index - 1][sortedData[index - 1].length - 1] + 1;
       }
       data.push(rank);
@@ -200,16 +198,6 @@ export function RadarChart({ dataSet, formState, isPercent }: RadarChartProps) {
                           (formState?.suffix ?? '')}
                       </div>
                     </div>
-
-                    {/* {isPercent ? (
-                      <div>{`${formatDecimal(+item[1] * 100)}%`}</div>
-                    ) : (
-                      <div>
-                        {formState?.unitPosition === 'LEFT'
-                          ? `${formState?.unit || ''} ${formatDecimal(+item[1])}`
-                          : `${formatDecimal(+item[1])} ${formState?.unit || ''}`}
-                      </div>
-                    )} */}
                   </div>
                 </div>
               </div>
