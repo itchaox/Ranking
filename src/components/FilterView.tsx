@@ -484,7 +484,7 @@ export const useFilterView = (props: IModalPropsType) => {
                             item.type,
                           ) && (
                             <Input
-                              value={item.value}
+                              defaultValue={item.value}
                               onChange={(value) => {
                                 let _arr = [...filterList];
                                 _arr[index].value = value;
