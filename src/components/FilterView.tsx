@@ -9,6 +9,10 @@ import { AppWrapper } from './style';
 
 import IconComponent from './FiledIcon';
 
+import zhLocal from './locales/zh.js';
+import enLocal from './locales/en.js';
+import jaLocal from './locales/ja.js';
+
 interface IModalPropsType {
   // 点击保存按钮的回调函数
   saveCallback: (filterInfo: IFilterInfo) => void;
@@ -21,6 +25,7 @@ export const useFilterView = (props: IModalPropsType) => {
   const { saveCallback = () => {}, cancelCallback = () => {} } = props;
 
   const [show, setShow] = useState<boolean>(false);
+  const [localText, setLocalText] = useState(enLocal);
 
   interface IExternalParams {
     // 表格 id
@@ -56,6 +61,16 @@ export const useFilterView = (props: IModalPropsType) => {
     fn();
   }, []);
 
+  bitable.bridge.getLanguage().then((lang) => {
+    if (lang === 'zh') {
+      setLocalText(zhLocal);
+    } else if (lang === 'ja') {
+      setLocalText(jaLocal);
+    } else {
+      setLocalText(enLocal);
+    }
+  });
+
   const getOperatorOptionList = (filedType: number) => {
     const _arr1 = [1, 3, 4, 13, 15, 22, 99001, 99005];
     const _arr2 = [2, 1005, 99002, 99003, 99004];
@@ -84,62 +99,62 @@ export const useFilterView = (props: IModalPropsType) => {
     const list = [
       {
         value: 'is',
-        label: '等于',
+        label: localText.is,
         type: [1, 2, 4, 5, 6],
       },
       {
         value: 'isNot',
-        label: '不等于',
+        label: localText.isNot,
         type: [1, 2, 5, 6],
       },
       {
         value: 'contains',
-        label: '包含',
+        label: localText.contains,
         type: [1, 5, 6],
       },
       {
         value: 'doesNotContain',
-        label: '不包含',
+        label: localText.doesNotContain,
         type: [1, 5, 6],
       },
       {
         value: 'isGreater',
-        label: '晚于',
+        label: localText.isGreater,
         type: [4],
       },
       {
         value: 'isLess',
-        label: '早于',
+        label: localText.isLess,
         type: [4],
       },
       {
         value: 'isEmpty',
-        label: '为空',
+        label: localText.isEmpty,
         type: [1, 2, 3, 4, 5, 6],
       },
       {
         value: 'isNotEmpty',
-        label: '不为空',
+        label: localText.isNotEmpty,
         type: [1, 2, 3, 4, 5, 6],
       },
       {
         value: 'isGreater',
-        label: '大于',
+        label: localText.isGreater1,
         type: [2, 5],
       },
       {
         value: 'isGreaterEqual',
-        label: '大于或等于',
+        label: localText.isGreaterEqual,
         type: [2, 5],
       },
       {
         value: 'isLess',
-        label: '小于',
+        label: localText.isLess1,
         type: [2, 5],
       },
       {
         value: 'isLessEqual',
-        label: '小于或等于',
+        label: localText.isLessEqual,
         type: [2, 5],
       },
     ];
@@ -392,7 +407,7 @@ export const useFilterView = (props: IModalPropsType) => {
           onCancel={cancel}
           visible={show}
           onOk={() => success()}
-          title={'设置筛选条件'}
+          title={localText.setFilter}
           destroyOnClose
           width='45%'
           centered
@@ -402,14 +417,14 @@ export const useFilterView = (props: IModalPropsType) => {
               key='cancel'
               onClick={cancel}
             >
-              取消
+              {localText.cancel}
             </Button>,
             <Button
               key='success'
               theme='solid'
               onClick={() => success()}
             >
-              保存
+              {localText.save}
             </Button>,
           ]}
           getContainer={() => containerRef.current!}
@@ -417,7 +432,7 @@ export const useFilterView = (props: IModalPropsType) => {
           <AppWrapper>
             {filterList.length > 1 && (
               <div className='filterConjunction'>
-                <span>符合以下</span>
+                <span>{localText.meet}</span>
                 <Select
                   className='conjunctionSelect'
                   size='small'
@@ -426,15 +441,15 @@ export const useFilterView = (props: IModalPropsType) => {
                   optionList={[
                     {
                       value: 'and',
-                      label: '所有',
+                      label: localText.all,
                     },
                     {
                       value: 'or',
-                      label: '任一',
+                      label: localText.or,
                     },
                   ]}
                 />
-                <span>条件</span>
+                <span>{localText.condition}</span>
               </div>
             )}
 
@@ -461,7 +476,7 @@ export const useFilterView = (props: IModalPropsType) => {
                   {/* FIXME  条件 */}
                   <div className='operator'>
                     {item.type === 7 ? (
-                      <div>等于</div>
+                      <div>{localText.is}</div>
                     ) : (
                       <Select
                         filter
@@ -493,7 +508,7 @@ export const useFilterView = (props: IModalPropsType) => {
                                 _arr[index].value = value;
                                 setFilterList(_arr);
                               }}
-                              placeholder='请输入'
+                              placeholder={localText.enter}
                             />
                           )}
 
@@ -502,7 +517,7 @@ export const useFilterView = (props: IModalPropsType) => {
                             <Select
                               multiple={item.type === 4}
                               maxTagCount={2}
-                              placeholder='请选择'
+                              placeholder={localText.select}
                               style={{ width: '100%' }}
                               filter
                               value={item.value}
@@ -556,18 +571,18 @@ export const useFilterView = (props: IModalPropsType) => {
                                   setFilterList(_arr);
                                 }}
                                 optionList={[
-                                  { value: 'definite', label: '具体日期' },
-                                  { value: 'Today', label: '今天' },
-                                  { value: 'Tomorrow', label: '明天' },
-                                  { value: 'Yesterday', label: '昨天' },
-                                  { value: 'CurrentWeek', label: '本周' },
-                                  { value: 'LastWeek', label: '上周' },
-                                  { value: 'CurrentMonth', label: '本月' },
-                                  { value: 'LastMonth', label: '上月' },
-                                  { value: 'TheLastWeek', label: '过去 7 天内' },
-                                  { value: 'TheNextWeek', label: '未来 7 天内' },
-                                  { value: 'TheLastMonth', label: '过去 30 天内' },
-                                  { value: 'TheNextMonth', label: '未来 30 天内' },
+                                  { value: 'definite', label: localText.definite },
+                                  { value: 'Today', label: localText.Today },
+                                  { value: 'Tomorrow', label: localText.Tomorrow },
+                                  { value: 'Yesterday', label: localText.Yesterday },
+                                  { value: 'CurrentWeek', label: localText.CurrentWeek },
+                                  { value: 'LastWeek', label: localText.LastWeek },
+                                  { value: 'CurrentMonth', label: localText.CurrentMonth },
+                                  { value: 'LastMonth', label: localText.LastMonth },
+                                  { value: 'TheLastWeek', label: localText.TheLastWeek },
+                                  { value: 'TheNextWeek', label: localText.TheNextWeek },
+                                  { value: 'TheLastMonth', label: localText.TheLastMonth },
+                                  { value: 'TheNextMonth', label: localText.TheNextMonth },
                                 ]}
                               />
 
@@ -632,7 +647,7 @@ export const useFilterView = (props: IModalPropsType) => {
               onClick={addFilter}
               className='add'
             >
-              + 添加条件
+              + {localText.add}
             </div>
           </AppWrapper>
         </Modal>,
