@@ -62,7 +62,8 @@ export const useFilterView = (props: IModalPropsType) => {
     // const _arr3 = [11, 17, 18, 19, 20, 21, 23, 1003, 1004];
     const _arr3 = [11, 17, 23, 1003, 1004];
     const _arr4 = [5, 1001, 1002];
-    const _arr5 = [18, 19, 20, 21];
+    const _arr5 = [19, 20];
+    const _arr6 = [18, 21];
 
     let type = 1;
 
@@ -76,28 +77,30 @@ export const useFilterView = (props: IModalPropsType) => {
       type = 4;
     } else if (_arr5.includes(filedType)) {
       type = 5;
+    } else if (_arr6.includes(filedType)) {
+      type = 6;
     }
 
     const list = [
       {
         value: 'is',
         label: '等于',
-        type: [1, 2, 4, 5],
+        type: [1, 2, 4, 5, 6],
       },
       {
         value: 'isNot',
         label: '不等于',
-        type: [1, 2, 5],
+        type: [1, 2, 5, 6],
       },
       {
         value: 'contains',
         label: '包含',
-        type: [1, 5],
+        type: [1, 5, 6],
       },
       {
         value: 'doesNotContain',
         label: '不包含',
-        type: [1, 5],
+        type: [1, 5, 6],
       },
       {
         value: 'isGreater',
@@ -112,12 +115,12 @@ export const useFilterView = (props: IModalPropsType) => {
       {
         value: 'isEmpty',
         label: '为空',
-        type: [1, 2, 3, 4, 5],
+        type: [1, 2, 3, 4, 5, 6],
       },
       {
         value: 'isNotEmpty',
         label: '不为空',
-        type: [1, 2, 3, 4, 5],
+        type: [1, 2, 3, 4, 5, 6],
       },
       {
         value: 'isGreater',
