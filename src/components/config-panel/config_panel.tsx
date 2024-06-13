@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 19:15
+ * @LastTime   : 2024-06-13 19:44
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -27,6 +27,8 @@ import IconComponent from '../FiledIcon';
 
 import { lightTheme, darkTheme } from '../../utils/theme';
 
+import { useTranslation } from 'react-i18next';
+
 export const ConfigPanel: FC<any> = ({
   initFormValue,
   tableSource,
@@ -45,6 +47,8 @@ export const ConfigPanel: FC<any> = ({
   backgroundColor,
   textColor,
 }) => {
+  const { t, i18n } = useTranslation();
+
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const { openFilterModal } = useFilterView({
@@ -198,6 +202,8 @@ export const ConfigPanel: FC<any> = ({
           >
             {({ formState, values, formApi }) => (
               <>
+                <h1>{t('a')}</h1>
+
                 <div className='form-content'>
                   {/* 数据源 */}
                   <Form.Select

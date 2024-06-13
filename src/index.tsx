@@ -3,13 +3,15 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-05-10 22:41
+ * @LastTime   : 2024-06-13 19:43
  * @desc       :
  */
 
 import ReactDOM from 'react-dom/client';
 import 'normalize.css';
 import App from './App';
+
+import './locales/i18n'; // 引入 i18n 配置
 
 import { bitable } from '@lark-base-open/js-sdk';
 
