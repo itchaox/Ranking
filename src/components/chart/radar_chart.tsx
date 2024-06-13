@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 19:11
+ * @LastTime   : 2024-06-13 19:52
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -18,6 +18,8 @@ import { useState, useEffect } from 'react';
 import { bitable, dashboard } from '@lark-base-open/js-sdk';
 import { lightTheme, darkTheme } from '../../utils/theme';
 
+import { useTranslation } from 'react-i18next';
+
 interface RadarChartProps {
   dataSet: Array<(string | number)[]>;
   formState: any;
@@ -27,6 +29,7 @@ interface RadarChartProps {
 }
 
 export function RadarChart({ dataSet, formState, isPercent, backgroundColor, textColor }: RadarChartProps) {
+  const { t } = useTranslation();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -229,7 +232,7 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
               height='120'
               src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTExMi4zOTQgMTIuMjM4SDM1LjYyN2MtNC4wNzYgMC03LjYwNCAzLjE0Ny04LjI3MyA3LjQ3NEwxNC4xNiAxMTAuODk5aDc2LjI4bDExLjg1Ny04My4xMjFoNy45MDFhMy45NzIgMy45NzIgMCAwIDAgMy44NjUtMy4wMmMxLjk3OC04LjExIDIuNDY4LTEyLjUxOS0xLjY2OC0xMi41MTlaIiBmaWxsPSIjQkJCRkM0IiBmaWxsLW9wYWNpdHk9Ii40NSIvPjxwYXRoIGQ9Ik0xNS4zMzcgMTAyLjc2Yy01LjEzNC0xLjA5LTExLjA1OS00LjQxNC0xMS4wNTktOC4zNzd2Ny4wMDVjMCAzLjEyIDIuMjQ4IDguMTQ3IDkuOTE0IDkuMjgxbDEuMTQ1LTcuOTA5Wm04NC40MjktNTcuMjk2YzMuOTIzIDIuNDQ0IDguMTg2IDYuNDUyIDkuODAyIDEwLjM5NS41MjUgMS4yODIuNzcgMi41NTcuNjMzIDMuNzY5LjE2LTEuNDE0LjI4NS0yLjcyNy4zODMtMy45Mi4zMjMtMy45NTcuMzQ3LTYuNTkzLjM0Ny03LjE3Ni0uMjQzLTIuMjctMi41NzItNy44ODQtMTAuMDI5LTExLjAzNGwtLjE0NiAxLjAyNmM2Ljg2OSAzIDguOTQzIDguMTQgOS4xNzUgMTAuMDY0LS4wMDEuNTU2LS4wMjMgMi40NTYtLjIxNSA1LjMwNC0uOTg3LTEuNzQyLTIuMzc2LTMuNDMtMy45MjQtNC45NDhhMzIuNjYgMzIuNjYgMCAwIDAtNS44NzMtNC41NTlsLS4xNTMgMS4wNzlabTQuMTA0LTIzLjcxOWMuOTEyLTMuNTQgMS43NjQtNS4xMTQgMi43MzctNi40OSAxLjMzOC0xLjcwNiAzLjQwNi0zLjAxNyA1Ljc3OS0zLjAxNyA0LjEzNCAwIDMuNjQ3IDQuNDA1IDEuNzE0IDEyLjU1N2EzLjk3NSAzLjk3NSAwIDAgMS0zLjg3MyAzLjA0N2gtNy44NzhsMS41MjEtNi4wOTdaIiBmaWxsPSIjMEMyOTZFIi8+PHBhdGggZD0iTTEwNy4xNzcgNzkuMDUyYy0xMC4zOCA2LjcyNC0yOC41NTYgOS43NjYtNDAuMzA0IDEzLjAyMS0xMy4yMTYgMy42NS0xNy41OTMgNS4wNS0yNi42MTcgOS45MTFsLS40NjctOC43MzhjOC40MS00LjQxOSAxMy40NTctNS42NzMgMjUuOTY4LTkuMTI5IDEyLjkwNi0zLjU3NiAyOS4wNzQtNi45OSA0MC45NDctMTMuODg3IiBmaWxsPSIjMDBENkI5Ii8+PHBhdGggZD0iTTExMC45MzIgNTcuMzMyVjQ3LjIyOGMwIDEwLjc4Ni0yMC40NDQgMTYuOTktNDAuNDc2IDIxLjQ3OFY3Ni42YzIwLjY0Ny00LjgzMiA0MC40NzYtMTEuMiA0MC40NzYtMTkuMjY4Wk00LjI5NCAxMDAuNTM0di03LjAwN2MwLTUuNzQ4IDcuODM1LTEwLjUxNiAxNC4zODYtMTMuODY5bC0xLjA1NCA4LjU1Yy02LjMxIDMuNjItMTMuMzMyIDguMzYxLTEzLjMzMiAxMi4zMjZaIiBmaWxsPSIjMzM3MEZGIi8+PHBhdGggZD0iTTUyLjU1IDMyLjAwOGEzLjUgMy41IDAgMCAwLTUuMTU2LS4wMzNMMzMuMjM4IDQ3LjE5NGEuNS41IDAgMSAxLS43MzItLjY4MWwxNC4xNTYtMTUuMjE4YTQuNSA0LjUgMCAwIDEgNi42MjguMDQzbDEwLjc2NCAxMS44N2EzLjUgMy41IDAgMCAwIDUuMjE0LS4wMzJsMTEuNTYzLTEzLjA3YS41LjUgMCAwIDEgLjc0OS42NjJsLTExLjU2MyAxMy4wN2E0LjUgNC41IDAgMCAxLTYuNzA0LjA0MUw1Mi41NDkgMzIuMDFaTTMwLjM2MiA2MGEuNS41IDAgMCAwIC41LjVoMTQuOTI2YS41LjUgMCAwIDAgMC0xSDMwLjg2MmEuNS41IDAgMCAwLS41LjVabS0xLjU5NSAxMC4zMjJhLjUuNSAwIDAgMCAuNS41SDUzLjZhLjUuNSAwIDEgMCAwLTFIMjkuMjY3YS41LjUgMCAwIDAtLjUuNVoiIGZpbGw9IiM4Rjk1OUUiLz48L3N2Zz4='
             ></img>
-            <div style={{ fontSize: '14px', color: '#646a73' }}>暂无数据</div>
+            <div style={{ fontSize: '14px', color: '#646a73' }}>{t('zan-wu-shu-ju')}</div>
           </div>
         )}
       </div>

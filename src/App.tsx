@@ -21,15 +21,18 @@ import { RadarChart } from './components/chart/radar_chart';
 import { ConfigPanel, IFormValues, ITableSource } from './components/config-panel/config_panel';
 
 import { lightTheme, darkTheme } from './utils/theme';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [tableSource, setTableSource] = useState<ITableSource[]>([]);
   const [dataRange, setDataRange] = useState<IDataRange[]>([{ type: SourceType.ALL }]);
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [initFormValue, setInitFormValue] = useState<IFormValues>();
   const [renderData, setRenderData] = useState<IData>([]);
   const [formState, setFormState] = useState({});
-  const [operation, setOperation] = useState('求和');
+  const [operation, setOperation] = useState('qiu-he');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // 控制主题色
@@ -249,6 +252,7 @@ export default function App() {
             backgroundColor: _backgroundColor,
             textColor: _textColor,
           } = customConfig;
+          console.log('🚀  _operation:', _operation);
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
           setDataRange(tableRanges);
@@ -372,11 +376,18 @@ export default function App() {
     return currencySymbols[currencyCode] || '';
   }
 
+  // let operationMap = {
+  //   最大值: Rollup.MAX,
+  //   最小值: Rollup.MIN,
+  //   求和: Rollup.SUM,
+  //   平均值: Rollup.AVERAGE,
+  // };
+
   let operationMap = {
-    最大值: Rollup.MAX,
-    最小值: Rollup.MIN,
-    求和: Rollup.SUM,
-    平均值: Rollup.AVERAGE,
+    'qiu-he': Rollup.SUM,
+    'zui-da-zhi': Rollup.MAX,
+    'zui-xiao-zhi': Rollup.MIN,
+    'ping-jun-zhi': Rollup.AVERAGE,
   };
 
   const dropChange = async (value, allValues) => {

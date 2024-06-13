@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-13 19:44
+ * @LastTime   : 2024-06-13 20:31
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -202,8 +202,6 @@ export const ConfigPanel: FC<any> = ({
           >
             {({ formState, values, formApi }) => (
               <>
-                <h1>{t('a')}</h1>
-
                 <div className='form-content'>
                   {/* 数据源 */}
                   <Form.Select
@@ -216,7 +214,7 @@ export const ConfigPanel: FC<any> = ({
                         style={{ margin: '0 8px 0 10px' }}
                       />
                     }
-                    label={{ text: '数据源' }}
+                    label={{ text: t('shu-ju-yuan') }}
                     style={{ width: '100%' }}
                     optionList={tableSource.map((item) => ({
                       value: item.tableId,
@@ -235,14 +233,14 @@ export const ConfigPanel: FC<any> = ({
                         style={{ margin: '0 8px 0 10px' }}
                       />
                     }
-                    label={{ text: '数据范围', required: true }}
+                    label={{ text: t('shu-ju-fan-wei'), required: true }}
                     style={{ width: '100%' }}
                     optionList={dataRange.map((range) => {
                       const { type } = range;
                       if (type === SourceType.ALL) {
                         return {
                           value: JSON.stringify(range),
-                          label: '全部数据',
+                          label: t('quan-bu-shu-ju'),
                         };
                       } else {
                         return {
@@ -264,11 +262,14 @@ export const ConfigPanel: FC<any> = ({
                           src={FilterIcon}
                           style={{ marginRight: '2px' }}
                         />
-                        筛选数据
+                        {t('shai-xuan-shu-ju')}
                       </div>
 
                       {filterInfo?.conditions?.length > 0 && (
-                        <div className='selected'>已选：{filterInfo?.conditions?.length} 个条件</div>
+                        <div className='selected'>
+                          {t('yi-xuan')}
+                          {filterInfo?.conditions?.length} {t('ge-tiao-jian')}
+                        </div>
                       )}
                     </div>
                   }
@@ -292,7 +293,7 @@ export const ConfigPanel: FC<any> = ({
                   <Form.Select
                     filter
                     field='category'
-                    label={{ text: '名称' }}
+                    label={{ text: t('ming-cheng') }}
                     style={{ width: '100%' }}
                     renderSelectedItem={renderSelectedItem}
                     renderOptionItem={renderOptionItem}
@@ -308,11 +309,11 @@ export const ConfigPanel: FC<any> = ({
                   {/* 指标 */}
                   <Form.Select
                     field='statistics'
-                    label={{ text: '指标' }}
+                    label={{ text: t('zhi-biao') }}
                     style={{ width: '100%' }}
                     optionList={[
-                      { value: 'COUNTA', label: '统计记录总数' },
-                      { value: 'VALUE', label: '统计字段数值' },
+                      { value: 'COUNTA', label: t('tong-ji-ji-lu-zong-shu') },
+                      { value: 'VALUE', label: t('tong-ji-zi-duan-shu-zhi') },
                     ]}
                   />
 
@@ -330,10 +331,16 @@ export const ConfigPanel: FC<any> = ({
                           clickToHide={true}
                           render={
                             <Dropdown.Menu>
-                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>求和</Dropdown.Item>
-                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最大值</Dropdown.Item>
-                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>最小值</Dropdown.Item>
-                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>平均值</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>{t('qiu-he')}</Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>
+                                {t('zui-da-zhi')}
+                              </Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>
+                                {t('zui-xiao-zhi')}
+                              </Dropdown.Item>
+                              <Dropdown.Item onClick={(e) => dropItemClick(e, formState)}>
+                                {t('ping-jun-zhi')}
+                              </Dropdown.Item>
                             </Dropdown.Menu>
                           }
                         >
@@ -342,12 +349,12 @@ export const ConfigPanel: FC<any> = ({
                               e.stopPropagation();
                             }}
                           >
-                            {operation}
+                            {t(operation)}
                           </div>
                         </Dropdown>
                       }
                       field='selectFiled'
-                      label={{ text: '选择字段' }}
+                      label={{ text: t('xuan-ze-zi-duan') }}
                       style={{ width: '100%' }}
                       renderSelectedItem={renderSelectedItem}
                       // outerTopSlot={
@@ -377,12 +384,12 @@ export const ConfigPanel: FC<any> = ({
                   {/* 小数位与格式 */}
                   {formState.values.statistics === 'VALUE' && (
                     <Form.InputGroup
-                      label={{ text: <span>小数位与格式</span> }}
+                      label={{ text: <span>{t('xiao-shu-wei-yu-ge-shi')}</span> }}
                       labelPosition='top'
                       className='decimal-number-line'
                     >
                       <Form.InputNumber
-                        placeholder='请输入小数位数'
+                        placeholder={t('qing-shu-ru-xiao-shu-wei-shu')}
                         className='decimalNumber'
                         field='decimalNumber'
                         formatter={(value) => `${value}`.replace(/\D/g, '')}
@@ -394,12 +401,12 @@ export const ConfigPanel: FC<any> = ({
                       <Form.Select
                         className='displayFormat'
                         field='displayFormat'
-                        placeholder='请选择展示格式'
+                        placeholder={t('qing-xuan-ze-zhan-shi-ge-shi')}
                         optionList={[
-                          { value: 1, label: '整数' },
-                          { value: 2, label: '整数 (千分位)' },
-                          { value: 3, label: '百分比' },
-                          { value: 4, label: '千分比' },
+                          { value: 1, label: t('zheng-shu') },
+                          { value: 2, label: t('zheng-shu-qian-fen-wei') },
+                          { value: 3, label: t('bai-fen-bi') },
+                          { value: 4, label: t('qian-fen-bi') },
                         ]}
                       />
                     </Form.InputGroup>
@@ -461,16 +468,16 @@ export const ConfigPanel: FC<any> = ({
                     <div style={{ marginRight: '14px' }}>
                       <Form.Input
                         field='prefix'
-                        label='前缀'
-                        placeholder='请输入前缀'
+                        label={t('qian-zhui')}
+                        placeholder={t('qing-shu-ru-qian-zhui')}
                       />
                     </div>
 
                     <div>
                       <Form.Input
                         field='suffix'
-                        label='后缀'
-                        placeholder='请输入后缀'
+                        label={t('hou-zhui')}
+                        placeholder={t('qing-shu-ru-hou-zhui')}
                       />
                     </div>
                   </div>
@@ -478,7 +485,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 排序 */}
                   <Form.RadioGroup
                     style={{ width: '99.5%' }}
-                    label={{ text: '排序' }}
+                    label={{ text: t('pai-xu') }}
                     field='sort'
                     type='button'
                     options={[
@@ -506,7 +513,7 @@ export const ConfigPanel: FC<any> = ({
                                 fill='currentColor'
                               />
                             </svg>
-                            降序
+                            {t('jiang-xu')}
                           </div>
                         ),
                       },
@@ -527,7 +534,7 @@ export const ConfigPanel: FC<any> = ({
                                 fill='currentColor'
                               />
                             </svg>
-                            升序
+                            {t('sheng-xu')}
                           </div>
                         ),
                       },
@@ -539,7 +546,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 自定义数量 */}
                   <Form.InputGroup
                     className='amountSwitch'
-                    label={{ text: <span>自定义数量</span> }}
+                    label={{ text: <span>{t('zi-ding-yi-shu-liang')}</span> }}
                     labelPosition='left'
                   >
                     <Form.Switch field='amountSwitch' />
@@ -558,7 +565,7 @@ export const ConfigPanel: FC<any> = ({
                   {/* 自定义颜色 */}
                   <Form.InputGroup
                     className='amountSwitch'
-                    label={{ text: <span>自定义颜色</span> }}
+                    label={{ text: <span>{t('zi-ding-yi-yan-se')}</span> }}
                     labelPosition='left'
                   >
                     <Form.Switch field='customColor' />
@@ -567,7 +574,7 @@ export const ConfigPanel: FC<any> = ({
                   {formState.values.customColor && (
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '14px', width: '100%' }}>
-                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>背景颜色</div>
+                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>{t('bei-jing-yan-se')}</div>
                         <ColorPicker
                           defaultValue={backgroundColor}
                           value={backgroundColor}
@@ -589,7 +596,7 @@ export const ConfigPanel: FC<any> = ({
                       </div>
 
                       <div style={{ width: '100%' }}>
-                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>文字颜色</div>
+                        <div style={{ marginBottom: '10px', fontSize: '12px' }}>{t('wen-zi-yan-se')}</div>
                         <ColorPicker
                           defaultValue={textColor}
                           value={textColor}
@@ -616,7 +623,7 @@ export const ConfigPanel: FC<any> = ({
                     field='isParallel'
                     noLabel={true}
                   >
-                    并列占用名次
+                    {t('bing-lie-zhan-yong-ming-ci')}
                   </Form.Checkbox>
                 </div>
 
@@ -627,7 +634,7 @@ export const ConfigPanel: FC<any> = ({
                   className='confirm'
                   style={{ position: 'fixed', bottom: 20, right: 30 }}
                 >
-                  确定
+                  {t('que-ding')}
                 </Button>
               </>
             )}
