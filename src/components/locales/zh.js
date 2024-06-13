@@ -1,12 +1,3 @@
-/*
- * @Version    : v1.00
- * @Author     : itchaox
- * @Date       : 2024-06-10 22:15
- * @LastAuthor : itchaox
- * @LastTime   : 2024-06-10 23:32
- * @desc       :
- */
-
 export default {
   cancel: '取消',
   save: '保存',
