@@ -253,7 +253,8 @@ export const useFilterView = (props: IModalPropsType) => {
         let _arr = externalParams?.filterInfo?.conditions?.map((item) => {
           return {
             ...item,
-            id: item.fieldId,
+            id: item?.fieldId || item?.id,
+            type: item?.fieldType || item?.type,
           };
         });
 
@@ -520,7 +521,8 @@ export const useFilterView = (props: IModalPropsType) => {
                               placeholder={localText.select}
                               style={{ width: '100%' }}
                               filter
-                              value={item.value}
+                              // value={item.value}
+                              value={Array.isArray(item.value) && item.type === 3 ? item.value[0] : item.value}
                               onChange={(value) => {
                                 let _arr = [...filterList];
                                 _arr[index].value = value;
