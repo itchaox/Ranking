@@ -31,6 +31,7 @@
     "@semi-bot/semi-theme-feishu-dashboard": "^1.0.3",
     "@types/lodash-es": "^4.17.12",
     "antd": "^5.7.3",
+    "dayjs": "^1.11.11",
     "echarts": "^5.5.0",
     "i18next": "^23.11.5",
     "jquery": "^3.7.0",
