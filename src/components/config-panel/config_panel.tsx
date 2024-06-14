@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-13 20:31
+ * @LastTime   : 2024-06-14 08:28
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -182,9 +182,26 @@ export const ConfigPanel: FC<any> = ({
     setCustomOptionList(_list);
   }, [inputValue]);
 
+  let operationMap = {
+    'qiu-he': 1,
+    'zui-da-zhi': 2,
+    'zui-xiao-zhi': 3,
+    'ping-jun-zhi': 4,
+  };
+
   const dropItemClick = (e, formState) => {
     let data = e.target.textContent;
-    dropChange(data, formState.values);
+    let _key;
+
+    for (const key in operationMap) {
+      if (t(key) === data) {
+        _key = key;
+      }
+    }
+
+    // dropChange(data, formState.values);
+
+    dropChange(_key, formState.values);
   };
 
   const [openBackground, setOpenBackground] = useState(false);
