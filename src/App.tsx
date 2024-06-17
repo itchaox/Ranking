@@ -252,7 +252,6 @@ export default function App() {
             backgroundColor: _backgroundColor,
             textColor: _textColor,
           } = customConfig;
-          console.log('🚀  _operation:', _operation);
 
           const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
           setDataRange(tableRanges);

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-17 14:24
+ * @LastTime   : 2024-06-17 19:28
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -425,7 +425,7 @@ export const ConfigPanel: FC<any> = ({
                           { value: 2, label: t('zheng-shu-qian-fen-wei') },
                           { value: 3, label: t('bai-fen-bi') },
                           { value: 4, label: t('qian-fen-bi') },
-                          // { value: 5, label: t('ri-qi') },
+                          { value: 5, label: t('ri-qi') },
                         ]}
                       />
                     </Form.InputGroup>
