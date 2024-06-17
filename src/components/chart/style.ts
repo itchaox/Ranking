@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-02 11:07
+ * @LastTime   : 2024-06-17 19:24
  * @desc       :
  */
 
@@ -53,7 +53,7 @@ export const AppWrapper = styled.div`
   }
 
   .line {
-    height: 44px;
+    min-height: 44px;
     line-height: 44px;
     display: flex;
   }
@@ -81,10 +81,12 @@ export const AppWrapper = styled.div`
   }
 
   .number {
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
     color: '#1F2329';
     font-family: 'd-din';
+    margin-left: 24px;
   }
 
   .number.special {
