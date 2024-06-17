@@ -177,10 +177,25 @@ export default function App() {
           // 创建阶段没有任何配置，设置默认配置
           const tableId = tableList[0]?.tableId;
 
-          let [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
+          const table = await bitable.base.getTable(tableId);
+
+          const viewList = await table.getViewList();
+          const _view = viewList[0];
+          console.log('🚀  _view:', _view);
+
+          const _fieldMetaList = await _view.getFieldMetaList();
+          setCategories(
+            _fieldMetaList.map((item) => ({ fieldId: item.id, fieldName: item.name, fieldType: item.type })),
+          );
+
+          // 第一个视图
+
+          // let [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
+
+          let tableRanges = await getTableRange(tableId);
 
           setDataRange(tableRanges);
-          setCategories(categories);
+          // setCategories(categories);
 
           formInitValue = {
             table: tableId,
