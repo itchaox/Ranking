@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-14 09:19
+ * @LastTime   : 2024-06-17 14:24
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -269,7 +269,8 @@ export const ConfigPanel: FC<any> = ({
                   />
 
                   {/* FIXME 筛选数据 */}
-                  {
+                  {/* FIXME 由于筛选 sdk 异常，暂时注释 */}
+                  {/* {
                     <div className='filter'>
                       <div
                         className='main'
@@ -289,7 +290,7 @@ export const ConfigPanel: FC<any> = ({
                         </div>
                       )}
                     </div>
-                  }
+                  } */}
 
                   {/* 样式 */}
                   {/* FIXME 暂时不需要样式切换，等有头像再做 */}
