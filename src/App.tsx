@@ -205,6 +205,7 @@ export default function App() {
             unit: '',
             unitPosition: 'LEFT',
             amountSwitch: true,
+            iconSwitch: true,
             amountNumber: 10,
             decimalNumber: 0,
             displayFormat: 1,
@@ -252,6 +253,7 @@ export default function App() {
             unit,
             unitPosition,
             amountSwitch,
+            iconSwitch,
             amountNumber,
             statistics,
             selectFiled,
@@ -322,6 +324,7 @@ export default function App() {
             unit,
             unitPosition,
             amountSwitch,
+            iconSwitch,
             amountNumber,
             statistics,
             decimalNumber,
@@ -527,6 +530,10 @@ export default function App() {
     }
 
     // 切换至『统计字段数值』默认选中第一个数字或货币字段
+
+    if (changedVal.sort === 2) {
+      form.setValue('iconSwitch', true);
+    }
 
     if (changedVal.statistics === 'VALUE') {
       setIsPercent(false);

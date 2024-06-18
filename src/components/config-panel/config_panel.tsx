@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 19:41
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-18 00:13
+ * @LastTime   : 2024-06-18 21:57
  * @desc       :
  */
 import { FC, useEffect, useRef, useState } from 'react';
@@ -562,6 +562,17 @@ export const ConfigPanel: FC<any> = ({
 
                   <Divider />
 
+                  {/* 显示图标 */}
+                  {formState.values.sort === 2 && (
+                    <Form.InputGroup
+                      className='amountSwitch'
+                      label={{ text: <span>{t('xian-shi-tu-biao')}</span> }}
+                      labelPosition='left'
+                    >
+                      <Form.Switch field='iconSwitch' />
+                    </Form.InputGroup>
+                  )}
+
                   {/* 自定义数量 */}
                   <Form.InputGroup
                     className='amountSwitch'
@@ -570,6 +581,7 @@ export const ConfigPanel: FC<any> = ({
                   >
                     <Form.Switch field='amountSwitch' />
                   </Form.InputGroup>
+
                   {formState.values.amountSwitch && (
                     <Form.InputNumber
                       className='amountNumber'

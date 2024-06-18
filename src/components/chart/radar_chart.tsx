@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-14 09:15
+ * @LastTime   : 2024-06-18 22:12
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -180,7 +180,11 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
               >
                 {/* 序号 */}
                 {item[item.length - 1] <= 3 ? (
-                  <div className='index'>{getIndexImage(item[item.length - 1])}</div>
+                  <div className='index'>
+                    {formState.sort === 2 && !formState.iconSwitch
+                      ? item[item.length - 1]
+                      : getIndexImage(item[item.length - 1])}
+                  </div>
                 ) : (
                   <div className='index'>{item[item.length - 1]}</div>
                 )}
