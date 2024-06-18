@@ -181,7 +181,6 @@ export default function App() {
 
           const viewList = await table.getViewList();
           const _view = viewList[0];
-          console.log('🚀  _view:', _view);
 
           const _fieldMetaList = await _view.getFieldMetaList();
           setCategories(
@@ -240,6 +239,7 @@ export default function App() {
           const { dataConditions, customConfig } = await dashboard.getConfig();
 
           let { tableId, dataRange, groups } = dataConditions[0];
+          console.log('🚀  dataRange:', dataRange);
 
           // FIXME 筛选暂时注释
           setFilterInfo(dataRange?.filterInfo);
@@ -268,9 +268,27 @@ export default function App() {
             textColor: _textColor,
           } = customConfig;
 
-          const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
+          const table = await bitable.base.getTable(tableId);
+
+          let _view;
+          if (dataRange?.type === 'ALL') {
+            const viewList = await table.getViewList();
+            _view = viewList[0];
+          } else if (dataRange?.type === 'VIEW') {
+            _view = await table.getViewById(dataRange?.viewId);
+          }
+
+          const _fieldMetaList = await _view.getFieldMetaList();
+          setCategories(
+            _fieldMetaList.map((item) => ({ fieldId: item.id, fieldName: item.name, fieldType: item.type })),
+          );
+
+          // const [tableRanges, categories] = await Promise.all([getTableRange(tableId), getCategories(tableId)]);
+          const tableRanges = await getTableRange(tableId);
           setDataRange(tableRanges);
-          setCategories(categories);
+
+          // setCategories(categories);
+
           setOperation(_operation);
           setIsPercent(_isPercent);
           setBackgroundColor(_backgroundColor);
@@ -454,6 +472,7 @@ export default function App() {
   const [isPercent, setIsPercent] = useState(false);
 
   const handleConfigChange = async (changedVal, allValues: IFormValues, form) => {
+    console.log('🚀  changedVal:', changedVal);
     let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
     // 监听表单变化
@@ -482,6 +501,29 @@ export default function App() {
 
       form.setValue('style', 1);
       form.setValue('statistics', 'COUNTA');
+    }
+
+    // view 修改
+    if (changedVal.dataRange) {
+      const _dataRange = JSON.parse(changedVal.dataRange);
+
+      const _table = await bitable.base.getTable(table);
+
+      let _view;
+
+      if (_dataRange.type === 'ALL') {
+        const viewList = await _table.getViewList();
+        _view = viewList[0];
+      } else if (_dataRange.type === 'VIEW') {
+        _view = await _table.getViewById(_dataRange?.viewId);
+      }
+
+      const _fieldMetaList = await _view.getFieldMetaList();
+      console.log('🚀  _fieldMetaList:', _fieldMetaList);
+      setCategories(_fieldMetaList.map((item) => ({ fieldId: item.id, fieldName: item.name, fieldType: item.type })));
+
+      // 视图修改后，字段为第一个字段
+      form.setValue('category', _fieldMetaList[0].id);
     }
 
     // 切换至『统计字段数值』默认选中第一个数字或货币字段
