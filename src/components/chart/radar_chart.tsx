@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-18 22:12
+ * @LastTime   : 2024-06-20 12:26
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -194,29 +194,31 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
                   <div className='name'>{item[0]}</div>
 
                   {/* 数值 */}
-                  <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
-                    <div>
-                      {formState?.displayFormat === 5 ? (
-                        <div>{dayjs(item[1]).format('YYYY/MM/DD')}</div>
-                      ) : (
-                        <div>
-                          {(formState?.prefix ?? '') +
-                            ' ' +
-                            formatDecimal(
-                              +item[1] *
-                                (isPercent || formState?.displayFormat === 3
-                                  ? 100
-                                  : formState?.displayFormat === 4
-                                  ? 1000
-                                  : 1),
-                            ) +
-                            (formState?.displayFormat === 3 ? '%' : formState?.displayFormat === 4 ? '‰' : '') +
-                            ' ' +
-                            (formState?.suffix ?? '')}
-                        </div>
-                      )}
+                  {formState.dataSwitch && (
+                    <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
+                      <div>
+                        {formState?.displayFormat === 5 ? (
+                          <div>{dayjs(item[1]).format('YYYY/MM/DD')}</div>
+                        ) : (
+                          <div>
+                            {(formState?.prefix ?? '') +
+                              ' ' +
+                              formatDecimal(
+                                +item[1] *
+                                  (isPercent || formState?.displayFormat === 3
+                                    ? 100
+                                    : formState?.displayFormat === 4
+                                    ? 1000
+                                    : 1),
+                              ) +
+                              (formState?.displayFormat === 3 ? '%' : formState?.displayFormat === 4 ? '‰' : '') +
+                              ' ' +
+                              (formState?.suffix ?? '')}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
