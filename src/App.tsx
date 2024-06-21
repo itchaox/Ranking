@@ -327,7 +327,7 @@ export default function App() {
             unitPosition,
             amountSwitch,
             iconSwitch,
-            dataSwitch,
+            dataSwitch: dataSwitch === false ? false : true,
             amountNumber,
             statistics,
             decimalNumber,
