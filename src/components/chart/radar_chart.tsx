@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-20 12:26
+ * @LastTime   : 2024-06-21 12:52
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -194,7 +194,7 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
                   <div className='name'>{item[0]}</div>
 
                   {/* 数值 */}
-                  {formState.dataSwitch && (
+                  {formState.dataSwitch !== false && (
                     <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
                       <div>
                         {formState?.displayFormat === 5 ? (
