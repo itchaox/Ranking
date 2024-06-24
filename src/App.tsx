@@ -199,8 +199,8 @@ export default function App() {
           formInitValue = {
             table: tableId,
             dataRange: JSON.stringify(tableRanges[0]),
-            category: filterCategories(categories, 'user')[0]?.fieldId,
-            selectFiled: filterCategories(categories, 'number')[0]?.fieldId,
+            category: _fieldMetaList[0]?.id,
+            selectFiled: _fieldMetaList[0]?.id,
             statistics: 'COUNTA',
             unit: '',
             unitPosition: 'LEFT',
@@ -224,7 +224,7 @@ export default function App() {
             series: 'COUNTA',
             groups: [
               {
-                fieldId: filterCategories(categories, 'user')[0]?.fieldId,
+                fieldId: _fieldMetaList[0]?.id,
                 mode: GroupMode.ENUMERATED,
                 sort: {
                   order: ORDER.DESCENDING,
@@ -478,7 +478,6 @@ export default function App() {
   const [isPercent, setIsPercent] = useState(false);
 
   const handleConfigChange = async (changedVal, allValues: IFormValues, form) => {
-    console.log('🚀  changedVal:', changedVal);
     let { category, dataRange, table, statistics, indicators, selectFiled, amountSwitch } = allValues;
 
     // 监听表单变化
