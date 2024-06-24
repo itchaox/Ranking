@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-24 17:30
+ * @LastTime   : 2024-06-24 17:56
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -83,8 +83,9 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
   const formatDecimal = (number, onlyDot = false) => {
     let decimalPlaces = formState.decimalNumber;
     let formatOption = formState.displayFormat;
-    // 将数字转换为字符串
-    let numberString = number.toString();
+
+    // 将数字转换为字符串，使用 toFixed 保证小数部分的精度并四舍五入
+    let numberString = number.toFixed(decimalPlaces);
 
     // 查找小数点的位置
     const dotIndex = numberString.indexOf('.');
@@ -101,26 +102,57 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
       integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
-    // 如果指定的小数位数为0,直接返回格式化后的整数部分
+    // 如果指定的小数位数为0，直接返回格式化后的整数部分
     if (decimalPlaces === 0 || !decimalPlaces) {
       return integerPart;
     }
 
-    // 如果小数部分的位数已经等于要保留的位数,直接返回格式化后的数字
-    if (decimalPart.length === decimalPlaces) {
-      return integerPart + '.' + decimalPart;
-    }
-
-    // 如果小数部分的位数多于要保留的位数,截取指定位数的小数
-    if (decimalPart.length > decimalPlaces) {
-      decimalPart = decimalPart.slice(0, decimalPlaces);
-      return integerPart + '.' + decimalPart;
-    }
-
-    // 如果小数部分的位数少于要保留的位数,在小数后面补足0
+    // 如果小数部分的位数少于要保留的位数，在小数后面补足0
     decimalPart = decimalPart.padEnd(decimalPlaces, '0');
 
     return integerPart + '.' + decimalPart;
+
+    // FIXME 以前的注释
+    // let decimalPlaces = formState.decimalNumber;
+    // let formatOption = formState.displayFormat;
+    // // 将数字转换为字符串
+    // let numberString = number.toString();
+
+    // // 查找小数点的位置
+    // const dotIndex = numberString.indexOf('.');
+
+    // // 获取整数部分
+    // let integerPart = dotIndex === -1 ? numberString : numberString.slice(0, dotIndex);
+
+    // // 获取小数部分
+    // let decimalPart = dotIndex === -1 ? '' : numberString.slice(dotIndex + 1);
+
+    // // 判断是否需要添加千分位分隔符
+    // if (formatOption === 2 && !onlyDot) {
+    //   // 将整数部分按千分位分隔
+    //   integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // }
+
+    // // 如果指定的小数位数为0,直接返回格式化后的整数部分
+    // if (decimalPlaces === 0 || !decimalPlaces) {
+    //   return integerPart;
+    // }
+
+    // // 如果小数部分的位数已经等于要保留的位数,直接返回格式化后的数字
+    // if (decimalPart.length === decimalPlaces) {
+    //   return integerPart + '.' + decimalPart;
+    // }
+
+    // // 如果小数部分的位数多于要保留的位数,截取指定位数的小数
+    // if (decimalPart.length > decimalPlaces) {
+    //   decimalPart = decimalPart.slice(0, decimalPlaces);
+    //   return integerPart + '.' + decimalPart;
+    // }
+
+    // // 如果小数部分的位数少于要保留的位数,在小数后面补足0
+    // decimalPart = decimalPart.padEnd(decimalPlaces, '0');
+
+    // return integerPart + '.' + decimalPart;
   };
 
   const getNewData = (data) => {
