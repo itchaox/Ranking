@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-06 18:47
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-21 12:52
+ * @LastTime   : 2024-06-24 17:30
  * @desc       :
  */
 import { AppWrapper } from './style';
@@ -195,7 +195,7 @@ export function RadarChart({ dataSet, formState, isPercent, backgroundColor, tex
 
                   {/* 数值 */}
                   {formState.dataSwitch !== false && (
-                    <div className={`number ${item[item.length - 1] <= 2 ? 'special' : ''}`}>
+                    <div className={`number ${item[item.length - 1] <= 3 ? 'special' : ''}`}>
                       <div>
                         {formState?.displayFormat === 5 ? (
                           <div>{dayjs(item[1]).format('YYYY/MM/DD')}</div>
