@@ -490,11 +490,28 @@ export default function App() {
       const categories = await getCategories(changedVal.table);
       setCategories(categories);
 
-      form.setValue('category', filterCategories(categories, 'user')[0]?.fieldId);
-      category = filterCategories(categories, 'user')[0]?.fieldId;
+      const _table = await bitable.base.getTable(changedVal.table);
 
-      form.setValue('selectFiled', filterCategories(categories, 'number')[0]?.fieldId);
-      selectFiled = filterCategories(categories, 'number')[0]?.fieldId;
+      let _view;
+
+      const viewList = await _table.getViewList();
+      _view = viewList[0];
+
+      const _fieldMetaList = await _view.getFieldMetaList();
+
+      form.setValue('category', _fieldMetaList[0]?.id);
+      category = _fieldMetaList[0]?.id;
+
+      form.setValue('selectFiled', _fieldMetaList[0]?.id);
+      selectFiled = _fieldMetaList[0]?.id;
+
+      setCategories(_fieldMetaList.map((item) => ({ fieldId: item.id, fieldName: item.name, fieldType: item.type })));
+
+      // form.setValue('category', filterCategories(categories, 'user')[0]?.fieldId);
+      // category = filterCategories(categories, 'user')[0]?.fieldId;
+
+      // form.setValue('selectFiled', filterCategories(categories, 'number')[0]?.fieldId);
+      // selectFiled = filterCategories(categories, 'number')[0]?.fieldId;
 
       let _all = JSON.stringify({
         type: SourceType.ALL,
@@ -524,7 +541,6 @@ export default function App() {
       }
 
       const _fieldMetaList = await _view.getFieldMetaList();
-      console.log('🚀  _fieldMetaList:', _fieldMetaList);
       setCategories(_fieldMetaList.map((item) => ({ fieldId: item.id, fieldName: item.name, fieldType: item.type })));
 
       // 视图修改后，字段为第一个字段
@@ -575,7 +591,9 @@ export default function App() {
 
     let _isPercent = false;
     if (changedVal.selectFiled) {
-      let _data = filterCategories(categories, 'number').find((item) => item.fieldId === selectFiled);
+      let _data = filterCategories(categories, 'number').find(
+        (item) => item.fieldId === selectFiled || item?.id === selectFiled,
+      );
       let isCurrency = _data?.fieldType === 99003;
 
       if (isCurrency) {
