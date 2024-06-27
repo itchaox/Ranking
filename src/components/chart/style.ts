@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-27 23:06
+ * @LastTime   : 2024-06-27 23:19
  * @desc       :
  */
 
@@ -51,7 +51,7 @@ export const AppWrapper = styled.div`
 
   /* 鼠标悬停时显示滚动条 */
   .scroll:hover::-webkit-scrollbar-thumb {
-    background-color: #dee0de; /* 滚动条的颜色 */
+    background-color: #81828060; /* 滚动条的颜色 */
   }
 
   .content {
