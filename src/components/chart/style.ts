@@ -59,7 +59,7 @@ export const AppWrapper = styled.div`
     position: relative;
 
     padding: 12px 24px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   .index-img {
