@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2024-05-10 23:35
  * @LastAuthor : itchaox
- * @LastTime   : 2024-06-27 22:58
+ * @LastTime   : 2024-06-27 23:06
  * @desc       :
  */
 
@@ -34,9 +34,24 @@ export const AppWrapper = styled.div`
   }
 
   .scroll {
-    height: 100%;
+    height: 90%;
     position: relative;
     overflow-y: auto;
+  }
+
+  /* 默认隐藏滚动条但保留宽度 */
+  .scroll::-webkit-scrollbar {
+    width: 6px; /* 保持滚动条宽度 */
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: transparent; /* 默认透明 */
+    border-radius: 4px; /* 滚动条的圆角 */
+  }
+
+  /* 鼠标悬停时显示滚动条 */
+  .scroll:hover::-webkit-scrollbar-thumb {
+    background-color: #dee0de; /* 滚动条的颜色 */
   }
 
   .content {
