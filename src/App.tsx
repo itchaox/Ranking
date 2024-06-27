@@ -768,7 +768,13 @@ export default function App() {
   return (
     <div
       className='chart-app'
-      style={isDarkMode ? { borderTop: '.5px solid #cfcfcf15' } : { borderTop: '.5px solid #1f232915' }}
+      style={
+        dashboard.state === DashboardState.Config
+          ? isDarkMode
+            ? { borderTop: '.5px solid #cfcfcf15' }
+            : { borderTop: '.5px solid #1f232915' }
+          : {}
+      }
     >
       {/* 所有状态都显示图表界面 */}
       <RadarChart
